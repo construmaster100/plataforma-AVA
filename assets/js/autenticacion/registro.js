@@ -8,7 +8,7 @@
 const REGISTRO_FICHA1 = {
  "ficha": "3293836",
  "programa": "Análisis y Desarrollo de Software",
- "total": 27,
+ "total": 28,
  "usuarios": [
  { "documento": "1055315414", "i": 0 },
  { "documento": "1029520968", "i": 1 },
@@ -36,6 +36,7 @@ const REGISTRO_FICHA1 = {
  { "documento": "1053604293", "i": 23 },
  { "documento": "7185282", "i": 24 },
  { "documento": "1049620345", "i": 25 },
- { "documento": "1069644756", "i": 26 }
+ { "documento": "1069644756", "i": 26 },
+ { "documento": "12341234", "i": 27 }
  ]
 };

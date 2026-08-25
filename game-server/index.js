@@ -18,7 +18,8 @@ const estado = new EvaluationState();
 app.use("/assets", express.static(path.join(ROOT, "assets")));
 app.use("/pages", express.static(path.join(ROOT, "pages")));
 app.use("/docs", express.static(path.join(ROOT, "docs")));
-app.get(["/", "/index.html"], (req, res) => res.sendFile(path.join(ROOT, "index.html")));
+app.get("/", (req, res) => res.redirect("/pages/bienvenida.html"));
+app.get("/index.html", (req, res) => res.sendFile(path.join(ROOT, "index.html")));
 
 io.on("connection", (socket) => {
   socket.on("observar", (_payload, cb) => {

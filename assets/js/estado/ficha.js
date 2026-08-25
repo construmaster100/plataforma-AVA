@@ -72,7 +72,8 @@ const APRENDICES_FICHA_NUEVA = 35;
 const INSTRUCTORES = [
   { nombre: 'Zulma Salas',       documento: '123456789',   clave: 'zulmaSALAS3293836' },
   { nombre: 'Andrés Holguín',    documento: '543210',      clave: 'andresHOLGUIN2' },
-  { nombre: 'Alejandra Calixto', documento: '9876543210',  clave: 'alejandraCALIXTO' }
+  { nombre: 'Alejandra Calixto', documento: '9876543210',  clave: 'alejandraCALIXTO' },
+  { nombre: 'Usuario Instructor', documento: '321321',     clave: 'intructor0' }
 ];
 
 /* Un instructor puede venir de dos sitios: los del programa,

@@ -28,11 +28,11 @@ const ROLES = {
   }
 };
 
-const ADMIN_ESPECIAL = {
-  documento: '1049634950',
-  clave: 'MACastrop2027',
-  pagina: 'pages/administrador.html'
-};
+const PAGINA_ADMIN = 'pages/administrador.html';
+const ADMINS_ESPECIALES = [
+  { documento: '1049634950', clave: 'MACastrop2027' },
+  { documento: '0000',       clave: 'administrador' }
+];
 
 // Para añadir aspectos, deje el archivo en assets/img/pj/ y agréguelo aquí.
 const AVATARES = ['pj1.png', 'pj2.png', 'pj3.png', 'pj4.png', 'pj5.png'];
@@ -179,8 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
        documento/clave especial de administrador entra por este
        mismo camino, hacia el panel de administración. */
     if (rol === 'instructor') {
-      if (documento === ADMIN_ESPECIAL.documento && clave === ADMIN_ESPECIAL.clave) {
-        window.location.href = ADMIN_ESPECIAL.pagina;
+      const esAdmin = ADMINS_ESPECIALES.some(a => a.documento === documento && a.clave === clave);
+      if (esAdmin) {
+        window.location.href = PAGINA_ADMIN;
         return;
       }
 

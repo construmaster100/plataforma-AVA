@@ -164,5 +164,11 @@ const NOMINA = [
   "primer": "luisa",
   "nombre": "Luisa Fernanda",
   "completo": "Luisa Fernanda Sarmiento Serrano"
+ },
+ {
+  "i": 27,
+  "primer": "usuario1",
+  "nombre": "Usuario1",
+  "completo": "Usuario1"
  }
 ];
