@@ -98,7 +98,12 @@
             <li><a href="#" data-view="sec-guias-gaa">2.2 Consultar guías de aprendizaje</a></li>
             <li><a href="#" data-view="sec-guia-en-curso">2.3 Guía en curso</a></li>
             <li><a href="#" id="apr-link-material-aprendizaje" data-view="sec-ver-eval">2.4 Material de aprendizaje</a></li>
-            <li><a href="#" data-view="sec-quiz-senaenglish">2.5 Quiz 30 preguntas (Inglés)</a></li>
+            <li class="menu-grupo">2.5 Actividad de aprendizaje</li>
+            <li><a href="#" class="sub-item" data-view="sec-aa-1">AA1</a></li>
+            <li><a href="#" class="sub-item" data-view="sec-aa-2">AA2</a></li>
+            <li><a href="#" class="sub-item" data-view="sec-aa-3">AA3</a></li>
+            <li><a href="#" class="sub-item" data-view="sec-aa-4">AA4</a></li>
+            <li><a href="#" class="sub-item" data-view="sec-aa-5">AA5</a></li>
             <li><a href="#" data-view="sec-quiz-irregular-verbs">2.6 Quiz Irregular Verbs (Inglés)</a></li>
           </ul>
         </li>
@@ -3274,34 +3279,76 @@
         </table>
       </section>
 
-      <!-- ══ QUIZ 30 PREGUNTAS (SENAEnglish) ══
-           Cuestionario real de SENAEnglish embebido: corre su propio
-           protocolo por Socket.IO contra game-server, así que se
-           incrusta por iframe en vez de fusionarse con este SPA. La
-           sesión (senaenglish_sesion en sessionStorage) ya quedó
-           registrada en el ingreso, y se comparte con el iframe por
-           ser el mismo origen. -->
-      <section class="view-section" id="sec-quiz-senaenglish">
+      <!-- ══ 2.5 ACTIVIDAD DE APRENDIZAJE (AA1..AA5 de RA-01) ══
+           Cada AA de la guía en curso trae sus cuatro M (M1..M4) como
+           pestañas sobre un único iframe. El catálogo real sale de
+           server/routes/actividades.js (mismo que usa Mi progreso — 72
+           RA) y se pinta con assets/js/evaluacion/actividad-aprendizaje.js.
+           Un AA sin carpeta creada todavía (p.ej. AA5) simplemente
+           muestra sus cuatro M deshabilitados como "sin contenido aún". -->
+      <section class="view-section" id="sec-aa-1">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Quiz"> Quiz 30 preguntas (Inglés)</h1>
-          <p>Cuestionario de 30 preguntas — IF · THEN · USED TO · INFINITIVE. Tu puntaje se
-             reporta al instructor cada vez que lo presentas.</p>
+          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA1 — Actividad de aprendizaje 1</h1>
+          <p>RA-01 · AA1. Los cuatro módulos de evaluación de esta actividad. Elige uno para presentarlo;
+             tu puntaje se reporta al instructor.</p>
         </div>
-        <iframe id="frame-quiz-senaenglish" title="Quiz SENAEnglish"
-                style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
-        <script>
-          (function () {
-            var p = new URLSearchParams(window.location.search);
-            var frame = document.getElementById('frame-quiz-senaenglish');
-            if (!frame || frame.src) return;
-            fetch('http://localhost:3000/api/actividades').then(function (r) { return r.json(); }).then(function (catalogo) {
-              var actividad = catalogo.find(function (a) { return a.cuestionarioId === 'adso-ra-01-aa-1-m-4'; });
-              if (!actividad) return;
-              frame.src = actividad.embebidoUrl + '?doc=' + encodeURIComponent(p.get('doc') || '')
-                + '&u=' + encodeURIComponent(p.get('u') || '') + '&ra=1&aa=1&m=4&ficha=adso';
-            });
-          })();
-        </script>
+        <div class="aa-tabs" data-aa="1">
+          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
+          <iframe class="aa-tabs-frame" title="AA1" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
+        </div>
+      </section>
+
+      <section class="view-section" id="sec-aa-2">
+        <div class="sec-header">
+          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA2 — Actividad de aprendizaje 2</h1>
+          <p>RA-01 · AA2. Los cuatro módulos de evaluación de esta actividad. Elige uno para presentarlo;
+             tu puntaje se reporta al instructor.</p>
+        </div>
+        <div class="aa-tabs" data-aa="2">
+          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
+          <iframe class="aa-tabs-frame" title="AA2" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
+        </div>
+      </section>
+
+      <section class="view-section" id="sec-aa-3">
+        <div class="sec-header">
+          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA3 — Actividad de aprendizaje 3</h1>
+          <p>RA-01 · AA3. Los cuatro módulos de evaluación de esta actividad. Elige uno para presentarlo;
+             tu puntaje se reporta al instructor.</p>
+        </div>
+        <div class="aa-tabs" data-aa="3">
+          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
+          <iframe class="aa-tabs-frame" title="AA3" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
+        </div>
+      </section>
+
+      <section class="view-section" id="sec-aa-4">
+        <div class="sec-header">
+          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA4 — Actividad de aprendizaje 4</h1>
+          <p>RA-01 · AA4. Los cuatro módulos de evaluación de esta actividad. Elige uno para presentarlo;
+             tu puntaje se reporta al instructor.</p>
+        </div>
+        <div class="aa-tabs" data-aa="4">
+          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
+          <iframe class="aa-tabs-frame" title="AA4" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
+        </div>
+      </section>
+
+      <section class="view-section" id="sec-aa-5">
+        <div class="sec-header">
+          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA5 — Actividad de aprendizaje 5</h1>
+          <p>RA-01 · AA5. Los cuatro módulos de evaluación de esta actividad. Elige uno para presentarlo;
+             tu puntaje se reporta al instructor.</p>
+        </div>
+        <div class="aa-tabs" data-aa="5">
+          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
+          <iframe class="aa-tabs-frame" title="AA5" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
+        </div>
       </section>
 
       <!-- ══ QUIZ IRREGULAR VERBS ══
@@ -4905,6 +4952,7 @@
   <script src="../assets/js/infraestructura/sofia_plus.js"></script>
   <script src="../assets/js/evaluacion/reporte-quiz-aprendiz.js"></script>
   <script src="../assets/js/evaluacion/progreso-ra.js"></script>
+  <script src="../assets/js/evaluacion/actividad-aprendizaje.js"></script>
   <script src="../assets/js/evaluacion/footer-progreso.js"></script>
 
   <script>

@@ -19,10 +19,20 @@ const TOTAL_RA_POR_FICHA = { adso: 72, english: 5 };
 const NOMBRE_FICHA_RA = { adso: 'Análisis y Desarrollo de Software', english: 'English Coding' };
 
 /* Las únicas actividades con secciones propias hoy, dentro de la ficha
-   ADSO: RA-01/AA1/M4 (SENAEnglish) y RA-02/AA1/M4 (Irregular Verbs). Lo
-   mismo en otra ficha/RA/AA/M abre en pestaña aparte. */
+   ADSO: RA-01/AA1..AA5 (2.5 Actividad de aprendizaje, con M1..M4 en
+   pestañas — ver actividad-aprendizaje.js) y RA-02/AA1/M4 (Irregular
+   Verbs). Lo mismo en otra ficha/RA/AA/M abre en pestaña aparte. */
 const NAVEGACION_QUIZ = {
-  'adso-ra-01-aa-1-m-4': 'sec-quiz-senaenglish',
+  'adso-ra-01-aa-1-m-1': 'sec-aa-1', 'adso-ra-01-aa-1-m-2': 'sec-aa-1',
+  'adso-ra-01-aa-1-m-3': 'sec-aa-1', 'adso-ra-01-aa-1-m-4': 'sec-aa-1',
+  'adso-ra-01-aa-2-m-1': 'sec-aa-2', 'adso-ra-01-aa-2-m-2': 'sec-aa-2',
+  'adso-ra-01-aa-2-m-3': 'sec-aa-2', 'adso-ra-01-aa-2-m-4': 'sec-aa-2',
+  'adso-ra-01-aa-3-m-1': 'sec-aa-3', 'adso-ra-01-aa-3-m-2': 'sec-aa-3',
+  'adso-ra-01-aa-3-m-3': 'sec-aa-3', 'adso-ra-01-aa-3-m-4': 'sec-aa-3',
+  'adso-ra-01-aa-4-m-1': 'sec-aa-4', 'adso-ra-01-aa-4-m-2': 'sec-aa-4',
+  'adso-ra-01-aa-4-m-3': 'sec-aa-4', 'adso-ra-01-aa-4-m-4': 'sec-aa-4',
+  'adso-ra-01-aa-5-m-1': 'sec-aa-5', 'adso-ra-01-aa-5-m-2': 'sec-aa-5',
+  'adso-ra-01-aa-5-m-3': 'sec-aa-5', 'adso-ra-01-aa-5-m-4': 'sec-aa-5',
   'adso-ra-02-aa-1-m-4': 'sec-quiz-irregular-verbs',
 };
 

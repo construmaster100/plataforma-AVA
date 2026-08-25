@@ -55,7 +55,7 @@ function escanearCatalogo() {
                   if (!archivo) return;
 
                   const raTexto = String(raId).padStart(2, "0");
-                  const rutaRelativa = ["pages", fichaDir.name, raDir.name, aaDir.name, mDir.name, archivo].join("/");
+                  const rutaRelativa = ["pages", "Fichas Tecnicos y tecnologos", fichaDir.name, raDir.name, aaDir.name, mDir.name, archivo].join("/");
                   filas.push({
                     ficha: fichaId,
                     fichaNombre: fichaDir.name,
