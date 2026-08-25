@@ -125,7 +125,7 @@
       rejoin.config.paleta.forEach((c) => { paletaPorId[c.id] = c.hex; });
 
       if (!rejoin.participante.finalizado) {
-        window.location.href = "quiz.html";
+        irAlQuiz();
         return;
       }
 
@@ -140,8 +140,23 @@
 
     document.getElementById("btn-retomar").addEventListener("click", async () => {
       const res = await SENAEnglish.reiniciarPropio();
-      if (res.ok) window.location.href = "quiz.html";
+      if (res.ok) irAlQuiz();
     });
+
+    // El quiz vive donde el instructor lo haya enlazado (catálogo real en
+    // pages/Fichas Tecnicos y tecnologos/.../RA1/AA1/M4/); se busca en vivo
+    // en vez de asumir una ruta fija.
+    async function irAlQuiz() {
+      try {
+        const catalogo = await (await fetch("http://localhost:3000/api/actividades")).json();
+        const actividad = catalogo.find((a) => a.cuestionarioId === "adso-ra-01-act-1");
+        if (actividad) {
+          window.location.href = actividad.embebidoUrl + "?ra=1&aa=1&ficha=adso";
+          return;
+        }
+      } catch (e) { /* sigue al fallback */ }
+      window.location.href = "../index.html";
+    }
 
     iniciar();
   </script>

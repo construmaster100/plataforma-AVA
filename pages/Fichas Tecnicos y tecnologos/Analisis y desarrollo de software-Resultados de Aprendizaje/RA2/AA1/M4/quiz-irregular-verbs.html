@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cuestionario · SENAEnglish</title>
+<title>Cuestionario · Irregular Verbs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/quiz-sofia.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/quiz-sofia.css">
 </head>
 <body>
 
@@ -16,8 +16,8 @@
 
     <header class="topbar">
       <div class="topbar-title">
-        <span class="topbar-eyebrow">SENAEnglish · Evaluación de inglés</span>
-        <h1>Cuestionario — IF · THEN · USED TO · INFINITIVE</h1>
+        <span class="topbar-eyebrow">SENAEnglish · Irregular Verbs</span>
+        <h1>Cuestionario — IRREGULAR VERBS</h1>
       </div>
       <div class="topbar-status" id="status-panel">
         <div class="status-zone">
@@ -26,7 +26,6 @@
         </div>
         <div class="status-coords">
           <span id="progreso-texto">— / 30</span>
-          <span id="progreso-categoria">—</span>
         </div>
       </div>
     </header>
@@ -37,7 +36,7 @@
         <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progress-fill"></div></div>
 
         <div class="question-card" id="question-card">
-          <span class="question-category" id="question-category">—</span>
+          <span class="question-category">IRREGULAR VERBS</span>
           <p class="question-text" id="question-text">Cargando pregunta…</p>
         </div>
 
@@ -45,32 +44,20 @@
       </section>
 
       <aside class="side-panel">
-
         <div class="player-panel">
-          <span class="color-dot" id="player-color-dot"></span>
           <div class="player-panel-info">
             <span id="player-name">—</span>
             <span class="player-score">Score: <strong id="player-score">0</strong> / 30</span>
           </div>
-          <button type="button" class="logout-btn" id="btn-salir" title="Salir de la evaluación">Salir</button>
         </div>
-
-        <div class="sidebar-panel">
-          <div class="minimap-heading"><span>Ranking · hasta 20</span><span id="ranking-count">0</span></div>
-          <table class="ranking-table" id="ranking-table">
-            <thead><tr><th>Pos.</th><th>Usuario</th><th></th><th>Aciertos</th><th>Score</th></tr></thead>
-            <tbody id="ranking-body"></tbody>
-          </table>
-        </div>
-
       </aside>
 
     </main>
 
+    <div id="pantalla-final" hidden></div>
+
   </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="../assets/js/senaenglish-client.js"></script>
-  <script src="../assets/js/quiz.js"></script>
+  <script src="/assets/js/quiz-irregular-verbs.js"></script>
 </body>
 </html>

@@ -5,9 +5,10 @@
    Tres caminos:
    · Aprendiz    — solo los nombres de la nómina de la ficha
                    3293836. La clave son sus dos primeros
-                   nombres en minúscula. Tras validar, elige su
-                   color y queda registrado como participante de
-                   SENAEnglish (pages/quiz.html) antes de entrar.
+                   nombres en minúscula. Tras validar, queda
+                   registrado como participante de SENAEnglish
+                   (pages/quiz.html) con un color asignado
+                   automáticamente, antes de entrar.
    · Instructor  — documento y clave.
    · Administrador — no es una opción del selector: se obtiene
                    entrando como instructor con el documento/clave
@@ -44,14 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectorRol   = document.getElementById('rol');
   const campoDocNum   = document.getElementById('doc_num');
   const campoClave    = document.getElementById('password');
-
-  const colorStep     = document.getElementById('color-step');
-  const colorGrid     = document.getElementById('color-grid');
-  const colorError    = document.getElementById('color-error');
-  const btnColorContinuar = document.getElementById('btn-color-continuar');
-
-  let paleta = [];
-  let colorElegido = null;
+  const botonIngresar = form.querySelector('button[type="submit"]');
 
   /* Sin tildes y en minúscula: así se compara la clave del aprendiz
      sin obligarlo a escribir los acentos. */
@@ -75,66 +69,28 @@ document.addEventListener('DOMContentLoaded', () => {
       .forEach(el => el.classList.remove('campo-invalido'));
   };
 
-  /* ── Paso de color: se registra al aprendiz como participante de
-     SENAEnglish antes de entrar a pages/aprendiz.html, para que el
-     quiz de 30 preguntas ya tenga con qué asignarle puntaje. ── */
+  /* ── Se registra al aprendiz como participante de SENAEnglish antes
+     de entrar a pages/aprendiz.html, para que el quiz de 30 preguntas
+     ya tenga con qué asignarle puntaje. El color se asigna solo (el
+     primero libre de la paleta): no se le pide elegirlo. ── */
 
-  function coloresTomados(participantes) {
-    return new Set(participantes.filter(p => p.conectado).map(p => p.color));
-  }
-
-  function pintarPaleta(participantes) {
-    const tomados = coloresTomados(participantes);
-    colorGrid.innerHTML = '';
-    paleta.forEach(c => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'color-swatch';
-      btn.style.background = c.hex;
-      btn.title = c.nombre;
-      btn.setAttribute('role', 'radio');
-      btn.setAttribute('aria-label', c.nombre);
-      const ocupado = tomados.has(c.id);
-      btn.disabled = ocupado;
-      btn.classList.toggle('is-taken', ocupado);
-      btn.classList.toggle('is-selected', colorElegido === c.id);
-      btn.addEventListener('click', () => {
-        colorElegido = c.id;
-        [...colorGrid.children].forEach(el => el.classList.remove('is-selected'));
-        btn.classList.add('is-selected');
-      });
-      colorGrid.appendChild(btn);
-    });
-  }
-
-  async function mostrarPasoColor(aprendiz, documento, avatar) {
-    form.hidden = true;
-    colorStep.hidden = false;
+  async function ingresarComoAprendiz(aprendiz, documento, avatar) {
+    botonIngresar.disabled = true;
     const estado = await SENAEnglish.observar();
-    paleta = estado.config.paleta;
-    pintarPaleta(estado.participantes);
+    const tomados = new Set(estado.participantes.filter(p => p.conectado).map(p => p.color));
+    const color = estado.config.paleta.find(c => !tomados.has(c.id)) || estado.config.paleta[aprendiz.i % estado.config.paleta.length];
 
-    btnColorContinuar.onclick = async () => {
-      colorError.hidden = true;
-      if (!colorElegido) {
-        colorError.textContent = 'Elige un color disponible.';
-        colorError.hidden = false;
-        return;
-      }
-      btnColorContinuar.disabled = true;
-      const res = await SENAEnglish.unirse(aprendiz.completo, colorElegido);
-      btnColorContinuar.disabled = false;
-      if (!res.ok) {
-        colorError.textContent = res.motivo || 'No se pudo ingresar al cuestionario de inglés.';
-        colorError.hidden = false;
-        return;
-      }
-      window.location.href = ROLES.aprendiz.pagina
-        + '?u=' + encodeURIComponent(aprendiz.completo)
-        + '&i=' + aprendiz.i
-        + '&doc=' + encodeURIComponent(documento)
-        + '&pj=' + encodeURIComponent(avatar);
-    };
+    const res = await SENAEnglish.unirse(aprendiz.completo, color.id);
+    botonIngresar.disabled = false;
+    if (!res.ok) {
+      mostrarError(msgLogin, res.motivo || 'No se pudo ingresar al cuestionario de inglés.');
+      return;
+    }
+    window.location.href = ROLES.aprendiz.pagina
+      + '?u=' + encodeURIComponent(aprendiz.completo)
+      + '&i=' + aprendiz.i
+      + '&doc=' + encodeURIComponent(documento)
+      + '&pj=' + encodeURIComponent(avatar);
   }
 
   /* ── Envío del formulario ── */
@@ -170,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const avatar = AVATARES[aprendiz.i % AVATARES.length];
-      mostrarPasoColor(aprendiz, documento, avatar);
+      ingresarComoAprendiz(aprendiz, documento, avatar);
       return;
     }
 

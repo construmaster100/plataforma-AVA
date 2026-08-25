@@ -76,6 +76,31 @@ const INSTRUCTORES = [
   { nombre: 'Usuario Instructor', documento: '321321',     clave: 'intructor0' }
 ];
 
+/* ── Qué ficha puede ver cada instructor/aprendiz ──
+   "Ficha" aquí = pages/Fichas Tecnicos y tecnologos/{carpeta}, escaneada
+   en vivo por server/routes/actividades.js ("adso" / "english"). Zulma
+   solo ve ADSO, Alejandra solo English Coding, el administrador ve las
+   dos. Todo aprendiz ve ADSO por defecto; Miguel Arturo Castro Pacheco y
+   el aprendiz de prueba ("aprendiz 1") ven además English Coding. */
+const FICHAS_POR_INSTRUCTOR = {
+  '123456789': ['adso'],       // Zulma Salas
+  '9876543210': ['english'],   // Alejandra Calixto
+};
+const FICHAS_ADMIN = ['adso', 'english'];
+
+const FICHAS_EXTRA_APRENDIZ = {
+  '1049634950': ['english'], // Miguel Arturo Castro Pacheco
+  '12341234': ['english'],   // Usuario1 ("aprendiz 1")
+};
+
+function fichasDeInstructor(documento) {
+  return FICHAS_POR_INSTRUCTOR[String(documento || '')] || ['adso'];
+}
+
+function fichasDeAprendiz(cedula) {
+  return ['adso', ...(FICHAS_EXTRA_APRENDIZ[String(cedula || '')] || [])];
+}
+
 /* Un instructor puede venir de dos sitios: los del programa,
    que están aquí arriba, y los que el administrador da de
    alta al asignarlos a una ficha. Los segundos solo sirven

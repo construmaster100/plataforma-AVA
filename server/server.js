@@ -17,6 +17,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/aprendices", require("./routes/aprendices"));
 app.use("/api/resultados", require("./routes/resultados"));
+app.use("/api/actividades", require("./routes/actividades"));
+app.use("/api/acceso", require("./routes/acceso"));
 
 connectDB().then(() => {
     app.listen(PORT, () => {

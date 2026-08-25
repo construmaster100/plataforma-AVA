@@ -9,18 +9,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="assets/css/login.css">
 <link rel="stylesheet" href="assets/css/sala.css">
-<style>
-  /* Paso de color para el aprendiz (ingreso a SENAEnglish). Solo estas
-     reglas de assets/css/style.css: el resto de ese archivo choca con
-     login.css (ambos definen .login-card/.login-msg). */
-  .color-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:4px}
-  .color-swatch{width:100%;aspect-ratio:1;border-radius:50%;border:2px solid #fff;
-    box-shadow:0 0 0 1.5px rgba(23,34,43,.25);cursor:pointer;position:relative}
-  .color-swatch.is-selected{box-shadow:0 0 0 3px #e23c2f}
-  .color-swatch.is-taken{cursor:not-allowed;opacity:.28}
-  .color-swatch.is-taken::after{content:"×";position:absolute;inset:0;display:flex;
-    align-items:center;justify-content:center;color:#17222b;font-weight:700}
-</style>
 </head>
 
 <body>
@@ -97,13 +85,6 @@
                         <button type="submit" class="btn btn-sena w-100">INGRESAR</button>
 
                     </form>
-
-                    <div id="color-step" hidden>
-                        <p class="login-msg">Elige tu color para el cuestionario de inglés (SENAEnglish):</p>
-                        <div id="color-grid" class="color-grid" role="radiogroup" aria-label="Selección de color"></div>
-                        <p id="color-error" class="login-msg error" hidden></p>
-                        <button type="button" class="btn btn-sena w-100 mt-3" id="btn-color-continuar">Continuar</button>
-                    </div>
 
                 </div>
             </div>

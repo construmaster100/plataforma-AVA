@@ -73,7 +73,7 @@
 
         <li>
           <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/SENA/manual.JPG" alt="">1. Investiga</span>
+            <span><img class="icon-left icon-img" src="../assets/img/SENA/manual.JPG" alt="">1. Modulo 1</span>
             <span class="arrow">❯</span>
           </button>
           <ul class="submenu">
@@ -90,7 +90,7 @@
 
         <li>
           <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/SENA/panel.JPG" alt="">2. Formación (5 hrs)</span>
+            <span><img class="icon-left icon-img" src="../assets/img/SENA/panel.JPG" alt="">2. Modulo 2</span>
             <span class="arrow">❯</span>
           </button>
           <ul class="submenu">
@@ -98,12 +98,14 @@
             <li><a href="#" data-view="sec-guias-gaa">2.2 Consultar guías de aprendizaje</a></li>
             <li><a href="#" data-view="sec-guia-en-curso">2.3 Guía en curso</a></li>
             <li><a href="#" id="apr-link-material-aprendizaje" data-view="sec-ver-eval">2.4 Material de aprendizaje</a></li>
+            <li><a href="#" data-view="sec-quiz-senaenglish">2.5 Quiz 30 preguntas (Inglés)</a></li>
+            <li><a href="#" data-view="sec-quiz-irregular-verbs">2.6 Quiz Irregular Verbs (Inglés)</a></li>
           </ul>
         </li>
 
         <li>
           <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/SENA/escritorio.JPG" alt="">3. Resultados</span>
+            <span><img class="icon-left icon-img" src="../assets/img/SENA/escritorio.JPG" alt="">3. Modulo 3</span>
             <span class="arrow">❯</span>
           </button>
           <ul class="submenu">
@@ -111,8 +113,8 @@
             <li><a href="#" data-view="sec-plan-mejoramiento">3.2 Plan de mejoramiento</a></li>
             <li><a href="#" data-view="sec-modulo-mejora">3.3 Práctica</a></li>
             <li><a href="#" data-view="sec-ranking">3.4 Ranking de puntos</a></li>
+            <li><a href="#" data-view="sec-progreso-ra">3.5 Mi progreso (72 RA)</a></li>
             <li><a href="#" data-view="sec-puntajes">Evaluación de aprendizaje</a></li>
-            <li><a href="#" data-view="sec-quiz-senaenglish">3.5 Quiz 30 preguntas (Inglés)</a></li>
           </ul>
         </li>
 
@@ -3210,6 +3212,18 @@
             <ul class="avance-partes" id="avance-partes"></ul>
           </div>
         </div>
+
+        <!-- ── Mis cuestionarios: resultado de SENAEnglish y de cualquier
+             otra prueba reportada a la API, con estado APROBADO/SIN
+             APROBAR/SIN PRESENTAR según el porcentaje. ── -->
+        <div class="puntajes-bloque" id="reporte-quiz-aprendiz">
+          <h2 class="puntajes-titulo">Mis cuestionarios</h2>
+          <p class="puntajes-bajada" id="reporte-quiz-estado">Cargando…</p>
+          <table class="table table-hover align-middle data-table">
+            <thead><tr><th>Usuario</th><th>Cuestionario</th><th>Resultado</th><th>Estado</th></tr></thead>
+            <tbody id="reporte-quiz-tbody"></tbody>
+          </table>
+        </div>
       </section>
 
       <!-- ══ PLAN DE MEJORAMIENTO ══ -->
@@ -3279,12 +3293,72 @@
           (function () {
             var p = new URLSearchParams(window.location.search);
             var frame = document.getElementById('frame-quiz-senaenglish');
-            if (frame && !frame.src) {
-              frame.src = 'quiz.html?doc=' + encodeURIComponent(p.get('doc') || '')
-                + '&u=' + encodeURIComponent(p.get('u') || '');
-            }
+            if (!frame || frame.src) return;
+            fetch('http://localhost:3000/api/actividades').then(function (r) { return r.json(); }).then(function (catalogo) {
+              var actividad = catalogo.find(function (a) { return a.cuestionarioId === 'adso-ra-01-act-1'; });
+              if (!actividad) return;
+              frame.src = actividad.embebidoUrl + '?doc=' + encodeURIComponent(p.get('doc') || '')
+                + '&u=' + encodeURIComponent(p.get('u') || '') + '&ra=1&aa=1&ficha=adso';
+            });
           })();
         </script>
+      </section>
+
+      <!-- ══ QUIZ IRREGULAR VERBS ══
+           Versión "simple" del modelo de quiz: sin servidor en tiempo
+           real. Se corrige en el navegador y solo reporta a la API al
+           terminar (assets/js/quiz-irregular-verbs.js). También va por
+           iframe, por la misma razón que el quiz de SENAEnglish: queda
+           aislado de este SPA. -->
+      <section class="view-section" id="sec-quiz-irregular-verbs">
+        <div class="sec-header">
+          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Quiz"> Quiz Irregular Verbs (Inglés)</h1>
+          <p>30 verbos irregulares en inglés. Se corrige al instante en tu navegador; tu resultado
+             se reporta al instructor al terminar.</p>
+        </div>
+        <iframe id="frame-quiz-irregular-verbs" title="Quiz Irregular Verbs"
+                style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
+        <script>
+          (function () {
+            var p = new URLSearchParams(window.location.search);
+            var frame = document.getElementById('frame-quiz-irregular-verbs');
+            if (!frame || frame.src) return;
+            fetch('http://localhost:3000/api/actividades').then(function (r) { return r.json(); }).then(function (catalogo) {
+              var actividad = catalogo.find(function (a) { return a.cuestionarioId === 'adso-ra-02-act-1'; });
+              if (!actividad) return;
+              frame.src = actividad.embebidoUrl + '?doc=' + encodeURIComponent(p.get('doc') || '')
+                + '&u=' + encodeURIComponent(p.get('u') || '') + '&ra=2&aa=1&ficha=adso';
+            });
+          })();
+        </script>
+      </section>
+
+      <!-- ══ MI PROGRESO (72 RA) ══
+           Sistema global de clasificación: 72 Resultados de Aprendizaje,
+           4 actividades fijas cada uno (288 casillas totales). Se llena
+           consultando el catálogo (server/routes/actividades.js) y el
+           historial de resultados del aprendiz, y cruzando por
+           cuestionarioId. Ver assets/js/evaluacion/progreso-ra.js. -->
+      <section class="view-section" id="sec-progreso-ra">
+        <div class="sec-header">
+          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Progreso"> Mi Progreso — 72 Resultados de Aprendizaje</h1>
+          <p>Cada resultado de aprendizaje tiene 4 actividades. El progreso general se completa cuando
+             las 4 quedan en Aprobado.</p>
+        </div>
+
+        <div class="puntajes-bloque">
+          <p class="puntajes-bajada" id="progreso-ra-resumen">Cargando…</p>
+          <div class="progress-bar"><div class="progress-fill" id="progreso-ra-barra" style="width:0%"></div></div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle data-table">
+            <thead>
+              <tr><th>RA</th><th>Actividad 1</th><th>Actividad 2</th><th>Actividad 3</th><th>Actividad 4</th></tr>
+            </thead>
+            <tbody id="progreso-ra-tbody"></tbody>
+          </table>
+        </div>
       </section>
 
       <!-- ══ TABLERO DE PUNTAJES ══ -->
@@ -4816,6 +4890,8 @@
   <script src="../assets/js/vistas/resumen-seccion-vista.js"></script>
   <script src="../assets/js/estado/mensajeria.js"></script>
   <script src="../assets/js/infraestructura/sofia_plus.js"></script>
+  <script src="../assets/js/evaluacion/reporte-quiz-aprendiz.js"></script>
+  <script src="../assets/js/evaluacion/progreso-ra.js"></script>
 
   <script>
     function showSection(id) {

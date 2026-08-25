@@ -94,10 +94,21 @@ function renderPregunta(pregunta, preguntaActual) {
 
 let preguntaId = null;
 
-// Cédula del aprendiz: llega en la URL cuando quiz.html se abre embebido
-// desde pages/aprendiz.html (quiz.html?doc=...&u=...). Sin ella se omite el
-// reporte al backend del instructor, pero el quiz sigue funcionando igual.
+// Cédula del aprendiz, y a qué RA/actividad pertenece esta copia del quiz:
+// llegan en la URL cuando quiz.html se abre embebido (quiz.html?doc=...&u=...
+// &ra=1&aa=1), según en qué carpeta pages/Resultados de Aprendizaje/RA{n}/AA{m}
+// esté. Sin "ra"/"aa" (por ejemplo si se abre suelto) usa el id genérico de
+// siempre. Sin "doc" se omite el reporte, pero el quiz sigue funcionando igual.
 const API_BASE = "http://localhost:3000/api";
+
+function idCuestionarioActual() {
+  const params = new URLSearchParams(location.search);
+  const ra = params.get("ra");
+  const aa = params.get("aa");
+  const ficha = params.get("ficha") || "adso";
+  if (!ra || !aa) return "quiz30-ingles";
+  return `${ficha}-ra-${String(ra).padStart(2, "0")}-act-${aa}`;
+}
 
 async function reportarResultadoInstructor(resultado) {
   const cedula = new URLSearchParams(location.search).get("doc");
@@ -110,7 +121,7 @@ async function reportarResultadoInstructor(resultado) {
         cedula,
         nombre: resultado.nombre,
         modulo: "SENAEnglish",
-        cuestionario: "quiz30-ingles",
+        cuestionario: idCuestionarioActual(),
         puntaje: resultado.aciertos,
         totalPreguntas: resultado.totalPreguntas,
       }),
@@ -154,14 +165,14 @@ function mostrarResultadoRespuesta({ opcionId, correcta, opcionCorrectaId, score
 
 async function iniciar() {
   if (!SENAEnglish.obtenerSesion()) {
-    window.location.href = "../index.html";
+    window.location.href = "/index.html";
     return;
   }
 
   const respuesta = await SENAEnglish.reclamarSesion();
   if (!respuesta.ok) {
     SENAEnglish.borrarSesion();
-    window.location.href = "../index.html";
+    window.location.href = "/index.html";
     return;
   }
 
@@ -175,7 +186,7 @@ async function iniciar() {
   renderRanking(ranking);
 
   if (participante.finalizado) {
-    window.location.href = "resultado.html";
+    window.location.href = "/pages/resultado.html";
     return;
   }
 
@@ -203,7 +214,7 @@ function conectarEventos() {
 
   SENAEnglish.socket.on("evaluacion_finalizada", (resultado) => {
     reportarResultadoInstructor(resultado);
-    setTimeout(() => { window.location.href = "resultado.html"; }, FEEDBACK_MS);
+    setTimeout(() => { window.location.href = "/pages/resultado.html"; }, FEEDBACK_MS);
   });
 
   SENAEnglish.socket.on("ranking_actualizado", (ranking) => renderRanking(ranking));
@@ -217,7 +228,7 @@ function conectarEventos() {
 
 document.getElementById("btn-salir").addEventListener("click", () => {
   SENAEnglish.borrarSesion();
-  window.location.href = "../index.html";
+  window.location.href = "/index.html";
 });
 
 iniciar();
