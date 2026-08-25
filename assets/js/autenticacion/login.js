@@ -29,7 +29,10 @@ const ROLES = {
   }
 };
 
-const PAGINA_ADMIN = 'pages/administrador.html';
+/* El administrador ya no es una página aparte: es un rol especializado
+   de instructor con casillas extra (Módulo 4), visibles solo cuando
+   llega el parámetro admin=1 (ver instructor.html). */
+const PAGINA_ADMIN = ROLES.instructor.pagina;
 const ADMINS_ESPECIALES = [
   { documento: '1049634950', clave: 'MACastrop2027' },
   { documento: '0000',       clave: 'administrador' }
@@ -137,7 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rol === 'instructor') {
       const esAdmin = ADMINS_ESPECIALES.some(a => a.documento === documento && a.clave === clave);
       if (esAdmin) {
-        window.location.href = PAGINA_ADMIN;
+        window.location.href = PAGINA_ADMIN
+          + '?doc=' + encodeURIComponent(documento)
+          + '&u=' + encodeURIComponent('Administrador')
+          + '&admin=1';
         return;
       }
 

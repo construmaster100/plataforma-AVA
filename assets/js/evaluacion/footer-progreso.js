@@ -54,23 +54,36 @@ async function actualizarFooterProgreso() {
     porRA.get(a.raId).push(a);
   });
 
-  let raAprobadas = 0;
+  /* El avance se calcula sobre las RA desbloqueadas que YA tienen
+     contenido cargado, no sobre las 72 fijas (casi todas aún vacías):
+     de lo contrario la barra queda pegada cerca de 0% aunque el
+     aprendiz complete todo lo que existe hoy. Cada RA aporta de forma
+     proporcional a sus M aprobados (no todo o nada), así que puede
+     llegar a 100% completando el material disponible. */
+  let raCompletas = 0;
+  let sumaFraccion = 0;
+  let raConContenido = 0;
+
   desbloqueados.forEach(raId => {
     const actividades = porRA.get(raId) || [];
     if (!actividades.length) return;
-    const todasAprobadas = actividades.every(a => {
+    raConContenido += 1;
+
+    const aprobados = actividades.filter(a => {
       const r = ultimos.get(a.cuestionarioId);
       if (!r || !r.totalPreguntas) return false;
       return (r.puntaje / r.totalPreguntas) * 100 >= PORCENTAJE_APROBACION_FOOTER;
-    });
-    if (todasAprobadas) raAprobadas += 1;
+    }).length;
+
+    sumaFraccion += aprobados / actividades.length;
+    if (aprobados === actividades.length) raCompletas += 1;
   });
 
   const scoreTotal = historialFicha.reduce((suma, h) => suma + (h.puntaje || 0), 0);
-  const porcentaje = Math.round((raAprobadas / totalRA) * 100);
+  const porcentaje = raConContenido ? Math.round((sumaFraccion / raConContenido) * 100) : 0;
 
   fill.style.width = porcentaje + '%';
-  texto.textContent = `${raAprobadas}/${totalRA} RA · ${porcentaje}%`;
+  texto.textContent = `${raCompletas}/${raConContenido} RA con contenido · ${porcentaje}% · ${totalRA} RA en el programa`;
   estadoEl.textContent = porcentaje >= 100 ? 'APROBADO' : 'EN PROGRESO';
   estadoEl.className = 'badge ' + (porcentaje >= 100 ? 'bg-success' : 'bg-warning text-dark');
   scoreEl.innerHTML = `<strong>Score:</strong> ${scoreTotal} pts`;

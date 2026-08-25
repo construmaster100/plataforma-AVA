@@ -21,31 +21,32 @@
 
 const RESUMEN_SECCIONES = {
   investiga: {
-    titulo: '1. Investiga',
+    titulo: '1. Modulo 1',
     hojas: [
-      { titulo: '1.1 Plan curricular', desc: 'Programa de formación — diseño curricular', icono: '📘', dataView: 'sec-programa' },
-      { titulo: '1.2 Reporte de asistencias', desc: 'Asiste / No asiste / Tardanza / Excusa', icono: '🗓️', dataView: 'sec-asistencia' },
-      { titulo: '1.3 Guías de aprendizaje', desc: 'En curso / Desarrolladas / Pendientes', icono: '📋', dataView: 'sec-guias-gaa' },
-      { titulo: '1.4 Material de consulta', desc: 'Videos, lecturas, imágenes, PPTX', icono: '📚', dataView: 'sec-materiales' },
-      { titulo: '1.5 Requisitos para la formación', desc: 'Documentos y materiales requeridos', icono: '✅', dataView: 'sec-requisitos' }
+      { titulo: '1.1 Contenidos formativos', desc: 'Recursos multimedia, ejemplos de código, recursos interactivos', icono: '📚', dataView: 'sec-materiales' },
+      { titulo: '1.2 Actividades asociadas', desc: 'AA1 a AA5, cada una con 4 módulos (M1-M4)', icono: '📋', dataView: 'sec-aa-1' },
+      { titulo: '1.3 Contenidos', desc: 'Descargar contenidos y consultar orientaciones de aprendizaje', icono: '✅', dataView: 'sec-descargar' }
     ]
   },
   formacion: {
-    titulo: '2. Formación (5 hrs)',
+    titulo: '2. Modulo 2',
     hojas: [
-      { titulo: '2.1 Reportar ingreso', desc: 'Solicitar ingreso, demora o inasistencia', icono: '🔔', dataView: 'sec-reportar-ingreso' },
-      { titulo: '2.2 Consultar guías de aprendizaje', desc: 'Listado GA1, GA2, GA3…', icono: '📋', dataView: 'sec-guias-gaa' },
-      { titulo: '2.3 Guía en curso', desc: 'La guía que tienes abierta ahora', icono: '📄', dataView: 'sec-guia-en-curso' },
-      { titulo: '2.4 Material de aprendizaje', desc: 'Cuestionario, ejemplos y actividad del módulo', icono: '💻', elementId: 'apr-link-material-aprendizaje' }
+      { titulo: '2.1 Evaluaciones y retroalimentación', desc: 'Presentar evaluaciones y ver retroalimentación', icono: '📝', dataView: 'sec-presentar' },
+      { titulo: '2.2 Avance académico', desc: 'Tu ficha de aprendizaje y resultados', icono: '📊', dataView: 'sec-ficha-aprendizaje' },
+      { titulo: '2.3 Dashboard académico', desc: 'Tablero de puntajes de desempeño', icono: '⭐', dataView: 'sec-puntajes' },
+      { titulo: '2.4 Resultados de aprendizaje', desc: 'Mi progreso — 72 RA', icono: '📈', dataView: 'sec-progreso-ra' },
+      { titulo: '2.5 Historial académico', desc: 'Calificaciones y retroalimentaciones por módulo', icono: '🗂️', dataView: 'sec-historial-acad' }
     ]
   },
   resultados: {
-    titulo: '3. Resultados',
+    titulo: '3. Modulo 3',
     hojas: [
-      { titulo: '3.1 Reporte acumulado', desc: 'Asistencia y porcentaje de avance', icono: '📊', dataView: 'sec-reporte-acumulado' },
-      { titulo: '3.2 Plan de mejoramiento', desc: 'Estado de tus resultados de aprendizaje', icono: '🛠️', dataView: 'sec-plan-mejoramiento' },
-      { titulo: '3.3 Práctica', desc: 'Módulo de mejora y práctica', icono: '⌨️', dataView: 'sec-modulo-mejora' },
-      { titulo: 'Evaluación de aprendizaje', desc: 'Tablero de puntajes de desempeño', icono: '⭐', dataView: 'sec-puntajes' }
+      { titulo: '3.1 Ejercicios prácticos', desc: 'Programación, bases de datos, emprendimiento, ciencias básicas', icono: '⌨️', dataView: 'sec-ejercicios-ap' },
+      { titulo: '3.2 Entrega de evidencias', desc: 'Reportar evidencia de código', icono: '📤', dataView: 'sec-evidencias' },
+      { titulo: '3.3 Retroalimentación del instructor', desc: 'Reporte académico ante el instructor', icono: '💬', dataView: 'sec-reporte-inst' },
+      { titulo: '3.4 Repositorio de evidencias', desc: 'Documentos de la ficha organizados por fase', icono: '🗄️', dataView: 'sec-repositorio' },
+      { titulo: '3.5 Seguimiento de entregas', desc: 'Cronograma de la formación', icono: '🗓️', dataView: 'sec-cronograma' },
+      { titulo: '3.6 Historial de versiones', desc: 'Todas tus entregas anteriores', icono: '🕘', dataView: 'sec-historial-ver' }
     ]
   }
 };

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M2 · Unir palabras y significados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/quiz-sofia.css">
+</head>
+<body>
+
+  <div class="app sofia-theme">
+
+    <header class="topbar">
+      <div class="topbar-title">
+        <span class="topbar-eyebrow">ADSO · Módulo 2 (M2)</span>
+        <h1>Unir palabras y significados — 20 palabras</h1>
+      </div>
+      <div class="topbar-status" id="status-panel">
+        <div class="status-zone">
+          <span class="status-label">Palabra</span>
+          <span class="status-value" id="progreso-actual">—</span>
+        </div>
+        <div class="status-coords">
+          <span id="progreso-texto">— / 20</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="stage quiz-stage">
+
+      <section class="quiz-frame" id="quiz-frame">
+        <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progress-fill"></div></div>
+
+        <div class="question-card" id="question-card">
+          <span class="question-category">UNIR PALABRAS</span>
+          <p class="question-text" id="question-text">Cargando palabra…</p>
+        </div>
+
+        <div class="options-grid" id="options-grid"></div>
+      </section>
+
+      <aside class="side-panel">
+        <div class="player-panel">
+          <div class="player-panel-info">
+            <span id="player-name">—</span>
+            <span class="player-score">Score: <strong id="player-score">0</strong> / 20</span>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
+    <div id="pantalla-final" hidden></div>
+
+  </div>
+
+  <script src="/assets/js/m2-unir-palabras.js"></script>
+</body>
+</html>

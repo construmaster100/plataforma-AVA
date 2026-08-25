@@ -121,7 +121,13 @@ async function cargarProgresoRA() {
     porAA.get(a.actividadIndex).push(a);
   });
 
-  let raAprobadas = 0;
+  /* Igual que footer-progreso.js: el % general solo cuenta las RA
+     desbloqueadas que ya tienen contenido cargado, y cada una aporta
+     de forma proporcional a sus M aprobados (no todo o nada). Si se
+     contaran las 72 fijas —casi todas vacías— el % nunca se acercaría
+     al 100% aunque se complete todo lo que existe hoy. */
+  let raCompletas = 0;
+  let sumaFraccion = 0;
   let totalCasillasRA = 0;
   const resumenPorFicha = [];
   tbody.innerHTML = '';
@@ -136,12 +142,14 @@ async function cargarProgresoRA() {
     tbody.appendChild(encabezado);
 
     desbloqueadosDeEstaFicha.forEach(raId => {
-      totalCasillasRA += 1;
       const porAA = porFichaYRA.get(ficha + '-' + raId) || new Map();
       const todosLosMateriales = [...porAA.values()].flat();
       if (todosLosMateriales.length) {
+        totalCasillasRA += 1;
         const estados = todosLosMateriales.map(m => estadoActividad(ultimos.get(m.cuestionarioId)));
-        if (estados.every(e => e.texto === 'Aprobado')) { raAprobadas += 1; aprobadasEnFicha += 1; }
+        const aprobados = estados.filter(e => e.texto === 'Aprobado').length;
+        sumaFraccion += aprobados / estados.length;
+        if (aprobados === estados.length) { raCompletas += 1; aprobadasEnFicha += 1; }
       }
 
       const celdas = [1, 2, 3, 4].map(idx => {
@@ -159,9 +167,9 @@ async function cargarProgresoRA() {
       + (bloqueadosFicha > 0 ? ` (${bloqueadosFicha} sin habilitar)` : ''));
   });
 
-  const porcentaje = totalCasillasRA ? Math.round((raAprobadas / totalCasillasRA) * 100) : 0;
+  const porcentaje = totalCasillasRA ? Math.round((sumaFraccion / totalCasillasRA) * 100) : 0;
   barra.style.width = porcentaje + '%';
-  resumen.textContent = `${raAprobadas} de ${totalCasillasRA} resultados de aprendizaje completos (${porcentaje}%). ${resumenPorFicha.join(' · ')}`;
+  resumen.textContent = `${raCompletas} de ${totalCasillasRA} resultados de aprendizaje completos (${porcentaje}%). ${resumenPorFicha.join(' · ')}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
