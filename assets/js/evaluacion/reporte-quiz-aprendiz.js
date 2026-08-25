@@ -4,15 +4,17 @@
    API REST de server/ (server/routes/resultados.js) para este aprendiz
    (identificado por la cédula que llega en ?doc= desde el login), con
    un estado APROBADO/SIN APROBAR/SIN PRESENTAR según el porcentaje.
-══════════════════════════════════════════ */
 
+   Los títulos legibles salen del catálogo real (server/routes/
+   actividades.js, el mismo que usa Mi progreso — 72 RA), así que
+   cualquier M1..M4 de cualquier AA/RA se ve con su nombre real
+   ("RA-01 · AA1 · M2") y no con el id crudo. Los dos cuestionarios de
+   antes del sistema de 3 niveles (quiz30-ingles, irregular-verbs) ya
+   no los reporta nadie, pero se conservan como respaldo por si queda
+   historial viejo en la base de datos. */
 const API_BASE_APR = 'http://localhost:3000/api';
 const PORCENTAJE_APROBACION = 70;
 
-/* Cuestionarios que el aprendiz puede presentar hoy: si no aparecen en
-   su historial, igual se listan como "Sin presentar". Cualquier otro
-   cuestionario que llegue a la API (aunque no esté aquí) también se
-   muestra, para no depender de mantener esta lista al día. */
 const CUESTIONARIOS_CONOCIDOS = {
   'quiz30-ingles': 'Quiz 30 preguntas (Inglés)',
   'irregular-verbs': 'Quiz Irregular Verbs (Inglés)',
@@ -53,10 +55,15 @@ async function cargarReporteQuizAprendiz() {
 
   estado.textContent = 'Cargando…';
   let ultimos = new Map();
+  let titulos = {};
   let apiDisponible = true;
   try {
-    const datos = await (await fetch(API_BASE_APR + '/resultados/' + encodeURIComponent(cedula))).json();
+    const [datos, catalogo] = await Promise.all([
+      fetch(API_BASE_APR + '/resultados/' + encodeURIComponent(cedula)).then(r => r.json()),
+      fetch(API_BASE_APR + '/actividades').then(r => r.json()).catch(() => []),
+    ]);
     ultimos = ultimoIntentoPorCuestionario(datos.historial || []);
+    catalogo.forEach(a => { titulos[a.cuestionarioId] = a.titulo; });
   } catch (e) {
     apiDisponible = false;
   }
@@ -73,7 +80,7 @@ async function cargarReporteQuizAprendiz() {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${nombre}</td>
-      <td>${CUESTIONARIOS_CONOCIDOS[clave] || clave}</td>
+      <td>${titulos[clave] || CUESTIONARIOS_CONOCIDOS[clave] || clave}</td>
       <td>${intento ? intento.puntaje + '/' + intento.totalPreguntas : '—'}</td>
       <td><span class="badge ${clase}">${texto}</span></td>`;
     tbody.appendChild(tr);
