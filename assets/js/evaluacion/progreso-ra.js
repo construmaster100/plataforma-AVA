@@ -13,15 +13,17 @@
 
 const API_BASE_RA = 'http://localhost:3000/api';
 const PORCENTAJE_APROBACION_RA = 70;
-const TOTAL_RA = 72;
+// ADSO tiene 72 RA; English Coding solo tiene 5 (pages/Fichas Tecnicos y
+// tecnologos/English coding/RA1..RA5) — el tope se ajusta por ficha.
+const TOTAL_RA_POR_FICHA = { adso: 72, english: 5 };
 const NOMBRE_FICHA_RA = { adso: 'Análisis y Desarrollo de Software', english: 'English Coding' };
 
 /* Las únicas actividades con secciones propias hoy, dentro de la ficha
-   ADSO: RA-01/AA-1 (SENAEnglish) y RA-02/AA-1 (Irregular Verbs). Lo
-   mismo en otra ficha (o cualquier otra RA) abre en pestaña aparte. */
+   ADSO: RA-01/AA1/M4 (SENAEnglish) y RA-02/AA1/M4 (Irregular Verbs). Lo
+   mismo en otra ficha/RA/AA/M abre en pestaña aparte. */
 const NAVEGACION_QUIZ = {
-  'adso-ra-01-act-1': 'sec-quiz-senaenglish',
-  'adso-ra-02-act-1': 'sec-quiz-irregular-verbs',
+  'adso-ra-01-aa-1-m-4': 'sec-quiz-senaenglish',
+  'adso-ra-02-aa-1-m-4': 'sec-quiz-irregular-verbs',
 };
 
 function estadoActividad(resultado) {
@@ -41,18 +43,28 @@ function ultimoIntentoPorCuestionarioRA(historial) {
   return ultimos;
 }
 
-function celdaActividad(actividad, ultimos) {
-  const { texto, clase } = estadoActividad(ultimos.get(actividad.cuestionarioId));
-  const badge = `<span class="badge ${clase}">${texto}</span>`;
-  const destino = NAVEGACION_QUIZ[actividad.cuestionarioId];
+function miniBadgeM(material, ultimos) {
+  const { texto, clase } = estadoActividad(ultimos.get(material.cuestionarioId));
+  const etiqueta = `M${material.materialIndex}`;
+  const badge = `<span class="badge ${clase}" title="${material.titulo}: ${texto}">${etiqueta}</span>`;
+  const destino = NAVEGACION_QUIZ[material.cuestionarioId];
   if (destino) {
-    return `<button type="button" class="btn btn-link p-0" onclick="showSection('${destino}')" title="${actividad.titulo}">${badge}</button>`;
+    return `<button type="button" class="btn btn-link p-0 me-1" onclick="showSection('${destino}')">${badge}</button>`;
   }
   const params = new URLSearchParams(window.location.search);
-  const url = actividad.embebidoUrl + '?doc=' + encodeURIComponent(params.get('doc') || '')
+  const url = material.embebidoUrl + '?doc=' + encodeURIComponent(params.get('doc') || '')
     + '&u=' + encodeURIComponent(params.get('u') || '')
-    + '&ra=' + actividad.raId + '&aa=' + actividad.actividadIndex + '&ficha=' + actividad.ficha;
-  return `<a href="${url}" target="_blank" rel="noopener" title="${actividad.titulo}">${badge}</a>`;
+    + '&ra=' + material.raId + '&aa=' + material.actividadIndex + '&m=' + material.materialIndex + '&ficha=' + material.ficha;
+  return `<a href="${url}" target="_blank" rel="noopener" class="me-1">${badge}</a>`;
+}
+
+function celdaActividad(materiales, ultimos) {
+  return [1, 2, 3, 4].map(m => {
+    const material = materiales.find(x => x.materialIndex === m);
+    return material
+      ? miniBadgeM(material, ultimos)
+      : `<span class="badge bg-secondary me-1" title="M${m}: sin contenido aún">M${m}</span>`;
+  }).join('');
 }
 
 function celdaSinContenido() {
@@ -88,48 +100,58 @@ async function cargarProgresoRA() {
   const ultimos = ultimoIntentoPorCuestionarioRA(datos.historial || []);
   const desbloqueados = (acceso.unlocked || []).slice().sort((a, b) => a - b);
 
+  // Agrupado por ficha+RA+AA: cada AA trae la lista de sus M (hasta 4).
   const porFichaYRA = new Map();
   catalogo.forEach(a => {
     if (!fichas.includes(a.ficha)) return;
     const clave = a.ficha + '-' + a.raId;
-    if (!porFichaYRA.has(clave)) porFichaYRA.set(clave, []);
-    porFichaYRA.get(clave).push(a);
+    if (!porFichaYRA.has(clave)) porFichaYRA.set(clave, new Map());
+    const porAA = porFichaYRA.get(clave);
+    if (!porAA.has(a.actividadIndex)) porAA.set(a.actividadIndex, []);
+    porAA.get(a.actividadIndex).push(a);
   });
 
   let raAprobadas = 0;
   let totalCasillasRA = 0;
+  const resumenPorFicha = [];
   tbody.innerHTML = '';
 
   fichas.forEach(ficha => {
+    const totalRA = TOTAL_RA_POR_FICHA[ficha] || 72;
+    const desbloqueadosDeEstaFicha = desbloqueados.filter(ra => ra <= totalRA);
+    let aprobadasEnFicha = 0;
+
     const encabezado = document.createElement('tr');
-    encabezado.innerHTML = `<td colspan="5"><strong>${NOMBRE_FICHA_RA[ficha] || ficha}</strong></td>`;
+    encabezado.innerHTML = `<td colspan="5"><strong>${NOMBRE_FICHA_RA[ficha] || ficha}</strong> (${totalRA} RA)</td>`;
     tbody.appendChild(encabezado);
 
-    desbloqueados.forEach(raId => {
+    desbloqueadosDeEstaFicha.forEach(raId => {
       totalCasillasRA += 1;
-      const actividades = (porFichaYRA.get(ficha + '-' + raId) || []).sort((x, y) => x.actividadIndex - y.actividadIndex);
-      if (actividades.length) {
-        const estados = actividades.map(a => estadoActividad(ultimos.get(a.cuestionarioId)));
-        if (estados.every(e => e.texto === 'Aprobado')) raAprobadas += 1;
+      const porAA = porFichaYRA.get(ficha + '-' + raId) || new Map();
+      const todosLosMateriales = [...porAA.values()].flat();
+      if (todosLosMateriales.length) {
+        const estados = todosLosMateriales.map(m => estadoActividad(ultimos.get(m.cuestionarioId)));
+        if (estados.every(e => e.texto === 'Aprobado')) { raAprobadas += 1; aprobadasEnFicha += 1; }
       }
 
       const celdas = [1, 2, 3, 4].map(idx => {
-        const actividad = actividades.find(a => a.actividadIndex === idx);
-        return `<td>${actividad ? celdaActividad(actividad, ultimos) : celdaSinContenido()}</td>`;
+        const materiales = porAA.get(idx);
+        return `<td>${materiales ? celdaActividad(materiales, ultimos) : celdaSinContenido()}</td>`;
       }).join('');
 
       const tr = document.createElement('tr');
       tr.innerHTML = `<td>RA-${String(raId).padStart(2, '0')}</td>${celdas}`;
       tbody.appendChild(tr);
     });
+
+    const bloqueadosFicha = totalRA - desbloqueadosDeEstaFicha.length;
+    resumenPorFicha.push(`${NOMBRE_FICHA_RA[ficha] || ficha}: ${aprobadasEnFicha}/${totalRA}`
+      + (bloqueadosFicha > 0 ? ` (${bloqueadosFicha} sin habilitar)` : ''));
   });
 
-  const bloqueados = TOTAL_RA - desbloqueados.length;
   const porcentaje = totalCasillasRA ? Math.round((raAprobadas / totalCasillasRA) * 100) : 0;
   barra.style.width = porcentaje + '%';
-  resumen.textContent = `${raAprobadas} de ${totalCasillasRA} resultados de aprendizaje completos (${porcentaje}%) en ${fichas.length} ficha(s). `
-    + `${desbloqueados.length} de ${TOTAL_RA} RA desbloqueados por ficha`
-    + (bloqueados > 0 ? `, ${bloqueados} pendientes de que tu instructor los habilite.` : '.');
+  resumen.textContent = `${raAprobadas} de ${totalCasillasRA} resultados de aprendizaje completos (${porcentaje}%). ${resumenPorFicha.join(' · ')}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

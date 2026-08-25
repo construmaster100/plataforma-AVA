@@ -20,9 +20,10 @@ function idCuestionarioActual() {
   const params = new URLSearchParams(window.location.search);
   const ra = params.get("ra");
   const aa = params.get("aa");
+  const m = params.get("m") || "4";
   const ficha = params.get("ficha") || "adso";
   if (!ra || !aa) return "irregular-verbs";
-  return `${ficha}-ra-${String(ra).padStart(2, "0")}-act-${aa}`;
+  return `${ficha}-ra-${String(ra).padStart(2, "0")}-aa-${aa}-m-${m}`;
 }
 
 /* 30 verbos irregulares — una pregunta por verbo (base → pasado simple). */

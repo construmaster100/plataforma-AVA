@@ -42,7 +42,7 @@
         <div class="perfil-foto">
           <img id="perfil-avatar" src="../assets/img/SENA/usuario.JPG" alt="Logosímbolo de perfil">
           <label class="perfil-camara" title="Cambiar foto de perfil">
-            <span aria-hidden="true">📷</span> Adjuntar foto
+            <span aria-hidden="true">📷</span>
             <input type="file" id="perfil-archivo" accept="image/*" hidden>
           </label>
         </div>
@@ -3295,10 +3295,10 @@
             var frame = document.getElementById('frame-quiz-senaenglish');
             if (!frame || frame.src) return;
             fetch('http://localhost:3000/api/actividades').then(function (r) { return r.json(); }).then(function (catalogo) {
-              var actividad = catalogo.find(function (a) { return a.cuestionarioId === 'adso-ra-01-act-1'; });
+              var actividad = catalogo.find(function (a) { return a.cuestionarioId === 'adso-ra-01-aa-1-m-4'; });
               if (!actividad) return;
               frame.src = actividad.embebidoUrl + '?doc=' + encodeURIComponent(p.get('doc') || '')
-                + '&u=' + encodeURIComponent(p.get('u') || '') + '&ra=1&aa=1&ficha=adso';
+                + '&u=' + encodeURIComponent(p.get('u') || '') + '&ra=1&aa=1&m=4&ficha=adso';
             });
           })();
         </script>
@@ -3324,10 +3324,10 @@
             var frame = document.getElementById('frame-quiz-irregular-verbs');
             if (!frame || frame.src) return;
             fetch('http://localhost:3000/api/actividades').then(function (r) { return r.json(); }).then(function (catalogo) {
-              var actividad = catalogo.find(function (a) { return a.cuestionarioId === 'adso-ra-02-act-1'; });
+              var actividad = catalogo.find(function (a) { return a.cuestionarioId === 'adso-ra-02-aa-1-m-4'; });
               if (!actividad) return;
               frame.src = actividad.embebidoUrl + '?doc=' + encodeURIComponent(p.get('doc') || '')
-                + '&u=' + encodeURIComponent(p.get('u') || '') + '&ra=2&aa=1&ficha=adso';
+                + '&u=' + encodeURIComponent(p.get('u') || '') + '&ra=2&aa=1&m=4&ficha=adso';
             });
           })();
         </script>
@@ -4764,6 +4764,19 @@
         <p id="repo-vacio" class="sugerencia" hidden>Ningún documento coincide con la búsqueda.</p>
       </section>
 
+      <!-- ══ FOOTER DE PROGRESO (solo en Inicio) ══
+           Barra de avance de la ficha activa (ADSO=72 RA, English
+           Coding=5 RA, ver assets/js/evaluacion/footer-progreso.js) más
+           el score acumulado de esa ficha. Se actualiza sola al cambiar
+           el selector "Ficha / curso activo" del sidebar. -->
+      <footer class="footer-progreso-ficha" id="footer-progreso-general" style="display:flex;align-items:center;gap:14px;margin-top:16px;padding:14px 18px;background:#fff;border:1px solid #ddd;border-radius:8px;">
+        <div class="progress-bar" style="flex:1;min-width:120px;">
+          <div class="progress-fill" id="footer-progreso-fill" style="width:0%"></div>
+        </div>
+        <span id="footer-progreso-texto">0/100%</span>
+        <span class="badge bg-secondary" id="footer-progreso-estado">Sin datos</span>
+        <span id="footer-progreso-score"><strong>Score:</strong> 0 pts</span>
+      </footer>
 
     </main>
 
@@ -4892,6 +4905,7 @@
   <script src="../assets/js/infraestructura/sofia_plus.js"></script>
   <script src="../assets/js/evaluacion/reporte-quiz-aprendiz.js"></script>
   <script src="../assets/js/evaluacion/progreso-ra.js"></script>
+  <script src="../assets/js/evaluacion/footer-progreso.js"></script>
 
   <script>
     function showSection(id) {

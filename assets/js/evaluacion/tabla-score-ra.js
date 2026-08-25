@@ -7,28 +7,25 @@
 ══════════════════════════════════════════ */
 
 const API_BASE_SCORE = 'http://localhost:3000/api';
-const TOTAL_RA_SCORE = 72;
+// ADSO tiene 72 RA; English Coding solo tiene 5 (pages/Fichas Tecnicos y
+// tecnologos/English coding/RA1..RA5) — el selector de RA se ajusta según
+// la ficha activa (ver poblarSelectorRA()).
+const TOTAL_RA_POR_FICHA_SCORE = { adso: 72, english: 5 };
 
 let catalogoCompleto = null;
 
-function estadoActualTexto(resultado, tipo) {
+function estadoActualTexto(resultado) {
   if (!resultado) return 'Sin presentar';
-  if (tipo === 'quiz') return `${resultado.puntaje}/${resultado.totalPreguntas}`;
-  return resultado.puntaje >= resultado.totalPreguntas ? 'Aprobado' : 'No aprobado';
+  return `${resultado.puntaje}/${resultado.totalPreguntas}`;
 }
 
 function celdaEditor(actividad, aprendiz, resultado) {
-  const actual = estadoActualTexto(resultado, actividad.tipo);
-  const controles = actividad.tipo === 'quiz'
-    ? `<input type="number" min="0" max="30" class="form-control form-control-sm score-input" placeholder="n/30">`
-    : `<select class="form-select form-select-sm score-select">
-         <option value="">Elegir…</option>
-         <option value="aprobado">Aprobado</option>
-         <option value="no-aprobado">No aprobado</option>
-       </select>`;
+  const max = actividad.maxPuntaje || 30;
+  const actual = estadoActualTexto(resultado);
+  const controles = `<input type="number" min="0" max="${max}" class="form-control form-control-sm score-input" placeholder="n/${max}">`;
   return `
     <td class="score-celda" data-cedula="${aprendiz.cedula}" data-nombre="${aprendiz.nombre}"
-        data-cuestionario="${actividad.cuestionarioId}" data-tipo="${actividad.tipo}">
+        data-cuestionario="${actividad.cuestionarioId}" data-tipo="${actividad.tipo}" data-max="${max}">
       <div class="score-actual small text-muted">${actual}</div>
       <div class="input-group input-group-sm">
         ${controles}
@@ -43,15 +40,18 @@ async function cargarCatalogoUnaVez() {
   return catalogoCompleto;
 }
 
-function poblarSelectorRA() {
+function poblarSelectorRA(ficha) {
   const selector = document.getElementById('score-ra-selector');
-  if (selector.options.length) return;
-  for (let ra = 1; ra <= TOTAL_RA_SCORE; ra++) {
+  const total = TOTAL_RA_POR_FICHA_SCORE[ficha] || 72;
+  if (Number(selector.dataset.total) === total) return;
+  selector.innerHTML = '';
+  for (let ra = 1; ra <= total; ra++) {
     const opt = document.createElement('option');
     opt.value = ra;
     opt.textContent = 'RA-' + String(ra).padStart(2, '0');
     selector.appendChild(opt);
   }
+  selector.dataset.total = total;
 }
 
 const NOMBRE_FICHA = { adso: 'Análisis y Desarrollo de Software', english: 'English Coding' };
@@ -99,7 +99,7 @@ async function renderTablaRA(raId) {
   const ficha = fichaActual();
   const actividades = catalogo
     .filter(a => a.raId === Number(raId) && a.ficha === ficha)
-    .sort((a, b) => a.actividadIndex - b.actividadIndex);
+    .sort((a, b) => a.actividadIndex - b.actividadIndex || a.materialIndex - b.materialIndex);
 
   const historiales = await Promise.all(roster.map(a =>
     fetch(API_BASE_SCORE + '/resultados/' + encodeURIComponent(a.cedula)).then(r => r.json()).catch(() => null)
@@ -123,7 +123,7 @@ async function renderTablaRA(raId) {
   if (!actividades.length) {
     tbody.innerHTML = `<tr><td colspan="${roster.length + 1}" class="text-muted">
       RA-${String(raId).padStart(2, '0')} de ${NOMBRE_FICHA[ficha] || ficha} todavía no tiene actividades
-      con contenido enlazado (pages/Fichas Tecnicos y tecnologos/.../RA${raId}/AA.../M4/). Puedes igual
+      con contenido enlazado (pages/Fichas Tecnicos y tecnologos/.../RA${raId}/AA.../M1..M4/). Puedes igual
       habilitar el acceso arriba mientras se agrega el contenido.</td></tr>`;
   } else {
     tbody.innerHTML = actividades.map(actividad => {
@@ -149,21 +149,11 @@ async function guardarCelda(celda) {
   const cedula = celda.dataset.cedula;
   const nombre = celda.dataset.nombre;
   const cuestionario = celda.dataset.cuestionario;
-  const tipo = celda.dataset.tipo;
+  const totalPreguntas = Number(celda.dataset.max) || 30;
 
-  let puntaje, totalPreguntas;
-  if (tipo === 'quiz') {
-    const input = celda.querySelector('.score-input');
-    const valor = Number(input.value);
-    if (!input.value || Number.isNaN(valor) || valor < 0 || valor > 30) return;
-    puntaje = valor;
-    totalPreguntas = 30;
-  } else {
-    const select = celda.querySelector('.score-select');
-    if (!select.value) return;
-    puntaje = select.value === 'aprobado' ? 1 : 0;
-    totalPreguntas = 1;
-  }
+  const input = celda.querySelector('.score-input');
+  const puntaje = Number(input.value);
+  if (!input.value || Number.isNaN(puntaje) || puntaje < 0 || puntaje > totalPreguntas) return;
 
   await fetch(API_BASE_SCORE + '/resultados', {
     method: 'POST',
@@ -171,21 +161,20 @@ async function guardarCelda(celda) {
     body: JSON.stringify({ cedula, nombre, modulo: 'SENAEnglish', cuestionario, puntaje, totalPreguntas }),
   });
 
-  celda.querySelector('.score-actual').textContent = tipo === 'quiz'
-    ? `${puntaje}/${totalPreguntas}`
-    : (puntaje ? 'Aprobado' : 'No aprobado');
+  celda.querySelector('.score-actual').textContent = `${puntaje}/${totalPreguntas}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-view="sec-tabla-score-ra"]').forEach(a => a.addEventListener('click', () => {
     poblarSelectorFicha();
-    poblarSelectorRA();
+    poblarSelectorRA(fichaActual());
     const selector = document.getElementById('score-ra-selector');
     renderTablaRA(selector.value || 1);
   }));
 
   document.getElementById('score-ra-selector').addEventListener('change', e => renderTablaRA(e.target.value));
   document.getElementById('score-ficha-selector').addEventListener('change', () => {
+    poblarSelectorRA(fichaActual());
     renderTablaRA(document.getElementById('score-ra-selector').value || 1);
   });
 
