@@ -1,0 +1,68 @@
+/* ══════════════════════════════════════════
+   Piel visual "SofiaPlus" para quiz.html
+   Solo aspecto gráfico (color/tipografía/bordes):
+   no toca layout, posiciones ni lógica.
+   Todo va scoped bajo .sofia-theme para no
+   afectar administrador.html ni resultado.html,
+   que comparten las mismas clases base.
+══════════════════════════════════════════ */
+
+.sofia-theme{
+  --sofia-verde: #2e7d32;
+  --sofia-verde-osc: #1b5e20;
+  --sofia-verde-claro: #e8f5e9;
+  --sofia-verde-suave: #f0f8f0;
+  --sofia-borde: #ddd;
+}
+
+/* ---------- Navbar (topbar) ---------- */
+.sofia-theme .topbar{
+  background: var(--sofia-verde);
+  border-radius: 10px;
+  padding: 12px 18px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.3);
+}
+.sofia-theme .topbar-eyebrow{ color: #c8e6c9; }
+.sofia-theme .topbar-title h1{ color: #fff; }
+
+.sofia-theme .topbar-status{
+  background: #fff;
+  border-color: rgba(0,0,0,.08);
+  box-shadow: none;
+}
+.sofia-theme .status-zone{ border-right-color: rgba(46,125,50,.25); }
+.sofia-theme .status-label{ color: var(--sofia-verde); }
+.sofia-theme #progreso-categoria{ color: var(--sofia-verde); }
+
+/* ---------- Sidebar (side-panel) ---------- */
+.sofia-theme .side-panel > *{
+  background: #fff;
+  border: 1px solid var(--sofia-borde);
+  box-shadow: none;
+  border-radius: 6px;
+}
+
+.sofia-theme .minimap-heading{
+  color: var(--sofia-verde);
+  border-bottom: 1px solid var(--sofia-verde-claro);
+  padding-bottom: 6px;
+}
+
+.sofia-theme .player-panel-info #player-name{ color: var(--sofia-verde-osc); }
+.sofia-theme .player-panel-info .player-score{ color: var(--sofia-verde); }
+
+.sofia-theme .logout-btn{
+  border-color: var(--sofia-verde);
+  color: var(--sofia-verde);
+  background: #fff;
+}
+.sofia-theme .logout-btn:hover{ background: var(--sofia-verde-claro); }
+
+.sofia-theme .ranking-table th{
+  color: var(--sofia-verde);
+  background: var(--sofia-verde-suave);
+  border-bottom: 1px solid var(--sofia-verde-claro);
+}
+.sofia-theme .ranking-table td{ border-bottom: 1px solid #edf7ed; }
+.sofia-theme .ranking-table tbody tr:hover{ background: var(--sofia-verde-claro); }
+.sofia-theme .ranking-table tbody tr:first-child td{ color: var(--sofia-verde-osc); }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario C++ · ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 860px; margin: 0 auto; padding: 22px 18px 40px; }
+  .titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .titulo .icono { font-size: 26px; }
+  h1 { margin: 0; font-size: 21px; }
+  .bajada { margin: 0 0 14px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.es { font-weight: 500; }
+  td.en { font-weight: 700; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="titulo"><span class="icono">➕</span><h1>Diccionario C++ · ES–EN</h1></div>
+  <p class="bajada">Vocabulario del módulo de C++ en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar en español o en inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+    <tbody>
+      <tr data-busca="referencia reference"><td class="es">referencia</td><td class="en">reference</td><td class="uso">A reference is an alias.</td></tr>
+      <tr data-busca="plantilla template"><td class="es">plantilla</td><td class="en">template</td><td class="uso">The template works with any type.</td></tr>
+      <tr data-busca="herencia múltiple multiple inheritance"><td class="es">herencia múltiple</td><td class="en">multiple inheritance</td><td class="uso">C++ allows multiple inheritance.</td></tr>
+      <tr data-busca="sobrecarga de operadores operator overloading"><td class="es">sobrecarga de operadores</td><td class="en">operator overloading</td><td class="uso">Operator overloading redefines the plus sign.</td></tr>
+      <tr data-busca="espacio de nombres namespace"><td class="es">espacio de nombres</td><td class="en">namespace</td><td class="uso">The std namespace holds cout.</td></tr>
+      <tr data-busca="destructor destructor"><td class="es">destructor</td><td class="en">destructor</td><td class="uso">The destructor releases the resources.</td></tr>
+      <tr data-busca="iterador iterator"><td class="es">iterador</td><td class="en">iterator</td><td class="uso">The iterator walks the container.</td></tr>
+      <tr data-busca="constante constant"><td class="es">constante</td><td class="en">constant</td><td class="uso">Mark the method as constant.</td></tr>
+      <tr data-busca="fuga de memoria memory leak"><td class="es">fuga de memoria</td><td class="en">memory leak</td><td class="uso">A memory leak grows over time.</td></tr>
+      <tr data-busca="contenedor container"><td class="es">contenedor</td><td class="en">container</td><td class="uso">Vector is a sequence container.</td></tr>
+      <tr data-busca="clase base base class"><td class="es">clase base</td><td class="en">base class</td><td class="uso">The base class defines the interface.</td></tr>
+      <tr data-busca="clase derivada derived class"><td class="es">clase derivada</td><td class="en">derived class</td><td class="uso">The derived class extends it.</td></tr>
+      <tr data-busca="polimorfismo polymorphism"><td class="es">polimorfismo</td><td class="en">polymorphism</td><td class="uso">Polymorphism picks the right method.</td></tr>
+      <tr data-busca="función virtual virtual function"><td class="es">función virtual</td><td class="en">virtual function</td><td class="uso">A virtual function can be overridden.</td></tr>
+      <tr data-busca="encapsulamiento encapsulation"><td class="es">encapsulamiento</td><td class="en">encapsulation</td><td class="uso">Encapsulation hides the internal state.</td></tr>
+      <tr data-busca="sobrecarga de funciones function overloading"><td class="es">sobrecarga de funciones</td><td class="en">function overloading</td><td class="uso">Function overloading changes the parameters.</td></tr>
+      <tr data-busca="puntero inteligente smart pointer"><td class="es">puntero inteligente</td><td class="en">smart pointer</td><td class="uso">A smart pointer frees itself.</td></tr>
+      <tr data-busca="biblioteca estándar standard library"><td class="es">biblioteca estándar</td><td class="en">standard library</td><td class="uso">The standard library brings the containers.</td></tr>
+      <tr data-busca="flujo de entrada input stream"><td class="es">flujo de entrada</td><td class="en">input stream</td><td class="uso">Cin is the standard input stream.</td></tr>
+      <tr data-busca="excepción exception"><td class="es">excepción</td><td class="en">exception</td><td class="uso">Throw an exception on invalid input.</td></tr>
+    </tbody>
+  </table>
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo  = document.getElementById('buscar');
+  const filas  = Array.from(document.querySelectorAll('tbody tr'));
+  const salida = document.getElementById('resultado');
+  const vacio  = document.getElementById('vacio');
+  const TOTAL  = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en el módulo';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

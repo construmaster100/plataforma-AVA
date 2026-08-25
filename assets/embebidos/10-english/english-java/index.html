@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java · English practice</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+    background: #f2f5f3;
+    color: #1a1a1a;
+  }
+  .marco { max-width: 720px; margin: 0 auto; padding: 22px 18px 40px; }
+  .cabecera { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  h1 { margin: 0; font-size: 20px; }
+  .marcador {
+    margin-left: auto; padding: 3px 10px; border-radius: 20px;
+    background: #0f766e; color: #fff; font-size: 13px; font-weight: 600;
+  }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .barra { height: 6px; border-radius: 3px; background: #e3e9e5; overflow: hidden; margin-bottom: 20px; }
+  .barra span { display: block; height: 100%; width: 0; background: #0f766e; transition: width .3s ease; }
+  .tarjeta {
+    padding: 18px 20px; border: 1px solid #dfe6e1; border-radius: 12px;
+    background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .enunciado { margin: 0 0 14px; font-size: 16px; font-weight: 600; line-height: 1.35; }
+  .opcion {
+    display: block; padding: 10px 12px; margin-bottom: 8px;
+    border: 1px solid #dfe6e1; border-radius: 8px; background: #fff;
+    font-size: 14px; text-align: left; width: 100%; cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .opcion:hover:not(:disabled) { background: #f0faf8; border-color: #8ecfc6; }
+  .opcion:disabled { cursor: default; }
+  .opcion.buena { background: #dff2ef; border-color: #0f766e; font-weight: 600; }
+  .opcion.mala { background: #fdeceb; border-color: #c62828; }
+  .respuesta { margin: 12px 0 0; font-size: 13.5px; line-height: 1.4; color: #0b4f49; min-height: 20px; }
+  .pie { display: flex; gap: 10px; margin-top: 16px; }
+  .btn {
+    padding: 9px 18px; border: 1px solid #0f766e; border-radius: 7px;
+    background: #0f766e; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .btn-claro { background: #fff; color: #0f766e; }
+  .cierre { text-align: center; padding: 10px 0; }
+  .cierre .nota { font-size: 46px; font-weight: 700; color: #0f766e; line-height: 1; }
+  .cierre .detalle { margin: 6px 0 16px; font-size: 14px; color: #6b7b72; }
+  .medalla { font-size: 40px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+
+  <div class="cabecera">
+    <h1>Java · English practice</h1>
+    <span class="marcador" id="marcador">0 / 10</span>
+  </div>
+  <p class="bajada">Ten questions · Diez preguntas. Elige la traducción correcta al inglés; cada acierto vale 10 puntos.</p>
+
+  <div class="barra"><span id="barra"></span></div>
+
+  <div class="tarjeta" id="tarjeta"></div>
+
+</div>
+
+<script>
+const PREGUNTAS = [
+  ['¿Cómo se dice «clase» en inglés?',
+   ['class', 'classroom', 'category', 'kind'], 0,
+   'clase → class. Every program needs a class.'],
+  ['¿Cómo se dice «herencia» en inglés?',
+   ['inheritance', 'heritage', 'legacy', 'inherit'], 0,
+   'herencia → inheritance. Inheritance shares behaviour.'],
+  ['¿Cómo se dice «método» en inglés?',
+   ['method', 'methodology', 'way', 'mode'], 0,
+   'método → method. The method returns a value.'],
+  ['¿Cómo se dice «interfaz» en inglés?',
+   ['interface', 'interphase', 'front end', 'facade'], 0,
+   'interfaz → interface. A class can implement an interface.'],
+  ['¿Cómo se dice «compilar» en inglés?',
+   ['compile', 'complete', 'compress', 'compute'], 0,
+   'compilar → compile. Compile the code before running it.'],
+  ['¿Cómo se dice «hilo» en inglés?',
+   ['thread', 'wire', 'string', 'line'], 0,
+   'hilo → thread. Each thread runs in parallel.'],
+  ['¿Cómo se dice «paquete» en inglés?',
+   ['package', 'packet', 'parcel', 'box'], 0,
+   'paquete → package. The package groups related classes.'],
+  ['¿Cómo se dice «sobrecarga» en inglés?',
+   ['overloading', 'overcharge', 'overweight', 'overrun'], 0,
+   'sobrecarga → overloading. Overloading repeats a method name.'],
+  ['¿Cómo se dice «constructor» en inglés?',
+   ['constructor', 'builder', 'maker', 'creator'], 0,
+   'constructor → constructor. The constructor sets the initial state.'],
+  ['¿Cómo se dice «recolector de basura» en inglés?',
+   ['garbage collector', 'trash picker', 'waste manager', 'cleaner'], 0,
+   'recolector de basura → garbage collector. The garbage collector frees memory.']
+];
+
+const ACTIVIDAD = 'english-java';
+const tarjeta   = document.getElementById('tarjeta');
+const marcador  = document.getElementById('marcador');
+const barra     = document.getElementById('barra');
+
+let actual = 0;
+let aciertos = 0;
+
+function mezclar(lista) {
+  const copia = lista.slice();
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}
+
+function avanzarBarra() {
+  barra.style.width = Math.round(actual / PREGUNTAS.length * 100) + '%';
+}
+
+function pintarPregunta() {
+  const [enunciado, opciones, correcta, explicacion] = PREGUNTAS[actual];
+  const buena = opciones[correcta];
+  const orden = mezclar(opciones);
+  tarjeta.replaceChildren();
+
+  const titulo = document.createElement('p');
+  titulo.className = 'enunciado';
+  titulo.textContent = (actual + 1) + '. ' + enunciado;
+  tarjeta.appendChild(titulo);
+
+  const respuesta = document.createElement('p');
+  respuesta.className = 'respuesta';
+
+  const siguiente = document.createElement('button');
+  siguiente.type = 'button';
+  siguiente.className = 'btn';
+  siguiente.textContent = actual === PREGUNTAS.length - 1 ? 'Ver resultado' : 'Siguiente';
+  siguiente.disabled = true;
+  siguiente.addEventListener('click', () => {
+    actual += 1;
+    avanzarBarra();
+    if (actual < PREGUNTAS.length) pintarPregunta();
+    else cerrar();
+  });
+
+  const botones = orden.map(texto => {
+    const boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'opcion';
+    boton.textContent = texto;
+    boton.addEventListener('click', () => {
+      botones.forEach(otro => { otro.disabled = true; });
+      botones[orden.indexOf(buena)].classList.add('buena');
+      if (texto === buena) {
+        aciertos += 1;
+        respuesta.textContent = '✔ Correcto. ' + explicacion;
+      } else {
+        boton.classList.add('mala');
+        respuesta.textContent = '✘ La respuesta era «' + buena + '». ' + explicacion;
+      }
+      marcador.textContent = aciertos + ' / ' + PREGUNTAS.length;
+      siguiente.disabled = false;
+    });
+    tarjeta.appendChild(boton);
+    return boton;
+  });
+
+  tarjeta.appendChild(respuesta);
+
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  pie.appendChild(siguiente);
+  tarjeta.appendChild(pie);
+}
+
+function cerrar() {
+  const puntaje = aciertos * 10;
+  tarjeta.replaceChildren();
+
+  const cierre = document.createElement('div');
+  cierre.className = 'cierre';
+  cierre.innerHTML =
+    '<div class="medalla">' + (puntaje >= 80 ? '🏅' : puntaje >= 60 ? '👍' : '📚') + '</div>' +
+    '<div class="nota">' + puntaje + '</div>' +
+    '<p class="detalle">' + aciertos + ' de ' + PREGUNTAS.length + ' correctas · escala 0 a 100</p>';
+
+  const repetir = document.createElement('button');
+  repetir.type = 'button';
+  repetir.className = 'btn btn-claro';
+  repetir.textContent = 'Repetir el cuestionario';
+  repetir.addEventListener('click', () => {
+    actual = 0; aciertos = 0;
+    marcador.textContent = '0 / ' + PREGUNTAS.length;
+    avanzarBarra();
+    pintarPregunta();
+  });
+
+  cierre.appendChild(repetir);
+  tarjeta.appendChild(cierre);
+
+  // Se reporta a la plataforma que aloja este material
+  try {
+    parent.postMessage({
+      tipo: 'sgma-puntaje',
+      actividad: ACTIVIDAD,
+      puntaje: puntaje,
+      maximo: 100,
+      detalle: aciertos + ' de ' + PREGUNTAS.length + ' correctas'
+    }, '*');
+  } catch (e) {}
+}
+
+marcador.textContent = '0 / ' + PREGUNTAS.length;
+avanzarBarra();
+pintarPregunta();
+</script>
+
+</body>
+</html>

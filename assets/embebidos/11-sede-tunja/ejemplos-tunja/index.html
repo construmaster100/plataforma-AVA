@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Información — Sede Tunja</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary {
+    padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; list-style: none;
+  }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #007832; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+              letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  .foto { width: 100%; max-height: 220px; object-fit: cover; border-radius: 9px; margin: 0 0 10px; display: block; }
+  .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 0 0 10px; }
+  .galeria figure { margin: 0; }
+  .galeria img { width: 100%; height: 160px; object-fit: contain; background: #fff; border: 1px solid #dfe6e1; border-radius: 9px; display: block; }
+  .galeria figcaption { margin-top: 5px; font-size: 12px; color: #6b7b72; text-align: center; }
+  .dato {
+    padding: 9px 12px; border-left: 3px solid #007832; border-radius: 6px;
+    background: #f4faf6; font-size: 13px; color: #24503a;
+  }
+  .dato + .dato { margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Información — Sede Tunja</h1>
+  <p class="bajada">Seis fichas de contexto sobre el centro de formación y el programa. Ábrelas para orientarte antes de empezar.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Ubicación <span class="etiqueta">Contexto</span></summary>
+    <div class="cuerpo">
+      <img class="foto" src="../../../img/SENA/sedestunja.jpeg" alt="Sede del SENA en Tunja">
+      <p>El programa se dicta en el Centro de Gestión Administrativa y Fortalecimiento Empresarial (CEGAFE), en la ciudad de Tunja.</p>
+      <div class="galeria">
+        <figure>
+          <img src="../../../img/SENA/mapas/Localizacionboyaca.jpeg" alt="Mapa de localización del departamento de Boyacá">
+          <figcaption>Localización de Boyacá</figcaption>
+        </figure>
+        <figure>
+          <img src="../../../img/SENA/mapas/sedesboyaca.jpeg" alt="Mapa de las sedes del SENA en Boyacá">
+          <figcaption>Sedes del SENA en Boyacá</figcaption>
+        </figure>
+      </div>
+      <div class="dato">Ciudad: Tunja · Regional: Boyacá</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>2. Qué es CEGAFE <span class="etiqueta">Institucional</span></summary>
+    <div class="cuerpo">
+      <p>CEGAFE es la sigla del Centro de Gestión Administrativa y Fortalecimiento Empresarial, el centro de formación del SENA que aloja este programa dentro de la Regional Boyacá.</p>
+      <div class="dato">CEGAFE = Centro de Gestión Administrativa y Fortalecimiento Empresarial</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>3. El programa en esta ficha <span class="etiqueta">Programa</span></summary>
+    <div class="cuerpo">
+      <p>La ficha 3293836 forma tecnólogos en Análisis y Desarrollo de Software (ADSO), en jornada de la mañana, con una duración de 24 meses.</p>
+      <div class="dato">Ficha 3293836 · Tecnólogo ADSO · Jornada mañana · 24 meses</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>4. La plataforma SGMA-ADSO <span class="etiqueta">Plataforma</span></summary>
+    <div class="cuerpo">
+      <p>Esta plataforma es un Ambiente Virtual de Aprendizaje (AVA) llamado SGMA-ADSO, el Sistema de Gestión y Monitoreo Académico del programa: centraliza contenidos, actividades, evidencias y seguimiento.</p>
+      <div class="dato">AVA = Ambiente Virtual de Aprendizaje · SGMA = Sistema de Gestión y Monitoreo Académico</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>5. Los tres roles <span class="etiqueta">Roles</span></summary>
+    <div class="cuerpo">
+      <p>La plataforma atiende tres roles: el Aprendiz recorre contenidos y presenta actividades, el Instructor arma el plan formativo y valida resultados de aprendizaje, y el Administrador gestiona usuarios, fichas e instructores.</p>
+      <div class="dato">Aprendiz · Instructor · Administrador</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>6. Cómo se organiza el contenido <span class="etiqueta">Navegación</span></summary>
+    <div class="cuerpo">
+      <p>El panel del aprendiz agrupa sus hojas en tres secciones: Investiga (contenidos y guías), Formación (ejecución de la sesión) y Resultados (avance, plan de mejoramiento y puntajes).</p>
+      <div class="dato">1. Investiga · 2. Formación · 3. Resultados</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

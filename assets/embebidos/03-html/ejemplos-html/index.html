@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos básicos de HTML</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary { padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+                      display: flex; align-items: center; gap: 10px; list-style: none; }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #e34c26; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+               letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  pre { margin: 0 0 10px; padding: 14px 16px; border-radius: 9px;
+         background: #2a1410; color: #ffab91;
+         font-family: Consolas, "Courier New", monospace; font-size: 13.5px; line-height: 1.55; overflow-x: auto; }
+  .salida { padding: 9px 12px; border-left: 3px solid #e34c26; border-radius: 6px;
+             background: #fdf5f2; font-family: Consolas, "Courier New", monospace;
+             font-size: 13px; color: #8a3315; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Ejemplos básicos de HTML</h1>
+  <p class="bajada">Seis piezas de código comentadas, con la salida que producen. Ábrelas, léelas y repítelas antes de pasar a la actividad.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Esqueleto de una página <span class="etiqueta">Estructura</span></summary>
+    <div class="cuerpo">
+      <p>Todo documento declara su tipo, su idioma y su codificación.</p>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Ficha 3293836&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Bienvenido&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <div class="salida">La pestaña muestra «Ficha 3293836» y la página, el título Bienvenido.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>2. Texto y enlaces <span class="etiqueta">Contenido</span></summary>
+    <div class="cuerpo">
+      <p>Los párrafos agrupan el texto; el enlace necesita su destino en href.</p>
+      <pre>&lt;p&gt;Programa &lt;strong&gt;ADSO&lt;/strong&gt; del SENA.&lt;/p&gt;
+&lt;a href="https://www.sena.edu.co"&gt;Portal SENA&lt;/a&gt;</pre>
+      <div class="salida">Programa ADSO del SENA. · Portal SENA (enlace)</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>3. Listas <span class="etiqueta">Contenido</span></summary>
+    <div class="cuerpo">
+      <p>La lista no ordenada da viñetas; la ordenada, números.</p>
+      <pre>&lt;ul&gt;
+  &lt;li&gt;Análisis&lt;/li&gt;
+  &lt;li&gt;Planeación&lt;/li&gt;
+&lt;/ul&gt;</pre>
+      <div class="salida">• Análisis  • Planeación</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>4. Imágenes accesibles <span class="etiqueta">Accesibilidad</span></summary>
+    <div class="cuerpo">
+      <p>El atributo alt describe la imagen para quien no puede verla.</p>
+      <pre>&lt;img src="logosena.jpeg"
+     alt="Logotipo del SENA"
+     width="120"&gt;</pre>
+      <div class="salida">La imagen se muestra a 120px; si falla, se lee «Logotipo del SENA».</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>5. Tablas <span class="etiqueta">Datos</span></summary>
+    <div class="cuerpo">
+      <p>th es celda de encabezado; td, celda de dato.</p>
+      <pre>&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;Ficha&lt;/th&gt;&lt;th&gt;Aprendices&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;3293836&lt;/td&gt;&lt;td&gt;27&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</pre>
+      <div class="salida">Ficha | Aprendices → 3293836 | 27</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>6. Formularios <span class="etiqueta">Interacción</span></summary>
+    <div class="cuerpo">
+      <p>label asocia el rótulo con su campo mediante for e id.</p>
+      <pre>&lt;label for="correo"&gt;Correo&lt;/label&gt;
+&lt;input id="correo" type="email" required&gt;
+&lt;button&gt;Enviar&lt;/button&gt;</pre>
+      <div class="salida">Campo de correo obligatorio con su rótulo y un botón Enviar.</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario CSS · ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 860px; margin: 0 auto; padding: 22px 18px 40px; }
+  .titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .titulo .icono { font-size: 26px; }
+  h1 { margin: 0; font-size: 21px; }
+  .bajada { margin: 0 0 14px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.es { font-weight: 500; }
+  td.en { font-weight: 700; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="titulo"><span class="icono">🎨</span><h1>Diccionario CSS · ES–EN</h1></div>
+  <p class="bajada">Vocabulario del módulo de CSS en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar en español o en inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+    <tbody>
+      <tr data-busca="hoja de estilos stylesheet"><td class="es">hoja de estilos</td><td class="en">stylesheet</td><td class="uso">Link the stylesheet in the head.</td></tr>
+      <tr data-busca="selector selector"><td class="es">selector</td><td class="en">selector</td><td class="uso">The selector targets the element.</td></tr>
+      <tr data-busca="relleno padding"><td class="es">relleno</td><td class="en">padding</td><td class="uso">Padding is the space inside the box.</td></tr>
+      <tr data-busca="margen margin"><td class="es">margen</td><td class="en">margin</td><td class="uso">Margin is the space outside the box.</td></tr>
+      <tr data-busca="borde border"><td class="es">borde</td><td class="en">border</td><td class="uso">The border draws the box limit.</td></tr>
+      <tr data-busca="sombra shadow"><td class="es">sombra</td><td class="en">shadow</td><td class="uso">A soft shadow lifts the card.</td></tr>
+      <tr data-busca="tipografía font"><td class="es">tipografía</td><td class="en">font</td><td class="uso">Choose a readable font.</td></tr>
+      <tr data-busca="cuadrícula grid"><td class="es">cuadrícula</td><td class="en">grid</td><td class="uso">The grid has four columns.</td></tr>
+      <tr data-busca="desplazamiento scroll"><td class="es">desplazamiento</td><td class="en">scroll</td><td class="uso">Scroll down to see the rest.</td></tr>
+      <tr data-busca="punto de corte breakpoint"><td class="es">punto de corte</td><td class="en">breakpoint</td><td class="uso">The layout changes at that breakpoint.</td></tr>
+      <tr data-busca="clase class"><td class="es">clase</td><td class="en">class</td><td class="uso">Add the class to the element.</td></tr>
+      <tr data-busca="identificador id"><td class="es">identificador</td><td class="en">id</td><td class="uso">The id must be unique in the page.</td></tr>
+      <tr data-busca="ancho width"><td class="es">ancho</td><td class="en">width</td><td class="uso">Set the width to one hundred percent.</td></tr>
+      <tr data-busca="alto height"><td class="es">alto</td><td class="en">height</td><td class="uso">The height grows with the content.</td></tr>
+      <tr data-busca="color de fondo background colour"><td class="es">color de fondo</td><td class="en">background colour</td><td class="uso">Pick a light background colour.</td></tr>
+      <tr data-busca="alineación alignment"><td class="es">alineación</td><td class="en">alignment</td><td class="uso">Check the vertical alignment.</td></tr>
+      <tr data-busca="espaciado spacing"><td class="es">espaciado</td><td class="en">spacing</td><td class="uso">Increase the spacing between cards.</td></tr>
+      <tr data-busca="transición transition"><td class="es">transición</td><td class="en">transition</td><td class="uso">A short transition feels smoother.</td></tr>
+      <tr data-busca="animación animation"><td class="es">animación</td><td class="en">animation</td><td class="uso">Keep the animation subtle.</td></tr>
+      <tr data-busca="diseño adaptable responsive design"><td class="es">diseño adaptable</td><td class="en">responsive design</td><td class="uso">Responsive design fits any screen.</td></tr>
+    </tbody>
+  </table>
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo  = document.getElementById('buscar');
+  const filas  = Array.from(document.querySelectorAll('tbody tr'));
+  const salida = document.getElementById('resultado');
+  const vacio  = document.getElementById('vacio');
+  const TOTAL  = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en el módulo';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

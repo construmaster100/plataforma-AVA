@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minijuego Web — ¿Qué imprime la consola?</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+    background: #160f2b;
+    color: #f6f7f9;
+  }
+  .marco { max-width: 760px; margin: 0 auto; padding: 20px 18px 36px; }
+  .cabecera { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 4px; }
+  h1 { margin: 0; font-size: 19px; }
+  .datos { margin-left: auto; display: flex; gap: 8px; }
+  .dato {
+    padding: 3px 10px; border-radius: 20px; background: rgba(255,255,255,.12);
+    font-size: 13px; font-weight: 600;
+  }
+  .dato strong { color: #c4b5fd; }
+  .bajada { margin: 0 0 16px; font-size: 13px; color: rgba(234,243,238,.66); }
+  .consola {
+    padding: 16px 18px; border-radius: 12px; background: #160f2b;
+    border: 1px solid rgba(184,233,134,.25); font-family: Consolas, "Courier New", monospace;
+    margin-bottom: 16px; min-height: 92px;
+  }
+  .consola .prompt { color: #6b8f7a; font-size: 13px; }
+  .consola .codigo { margin: 6px 0 0; font-size: 20px; color: #c4b5fd; word-break: break-word; }
+  .opciones { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .opcion {
+    padding: 14px 12px; border: 1px solid rgba(255,255,255,.18); border-radius: 10px;
+    background: rgba(255,255,255,.06); color: #f6f7f9;
+    font-family: Consolas, "Courier New", monospace; font-size: 16px; cursor: pointer;
+    transition: transform .1s ease, background .15s ease;
+  }
+  .opcion:hover:not(:disabled) { background: rgba(184,233,134,.18); transform: translateY(-2px); }
+  .opcion.buena { background: #6d28d9; border-color: #c4b5fd; }
+  .opcion.mala { background: #7a2320; border-color: #ef9a9a; }
+  .aviso { margin: 14px 0 0; font-size: 13.5px; min-height: 20px; color: rgba(234,243,238,.8); }
+  .tiempo { height: 6px; border-radius: 3px; background: rgba(255,255,255,.14); overflow: hidden; margin-bottom: 16px; }
+  .tiempo span { display: block; height: 100%; width: 100%; background: #c4b5fd; transition: width .2s linear; }
+  .btn {
+    padding: 10px 20px; border: 1px solid #c4b5fd; border-radius: 8px;
+    background: #c4b5fd; color: #160f2b; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .btn-claro { background: transparent; color: #c4b5fd; }
+  .cierre { text-align: center; padding: 14px 0; }
+  .cierre .nota { font-size: 46px; font-weight: 700; color: #c4b5fd; line-height: 1; }
+  .cierre .detalle { margin: 6px 0 18px; font-size: 14px; color: rgba(234,243,238,.7); }
+</style>
+</head>
+<body>
+
+<div class="marco">
+
+  <div class="cabecera">
+    <h1>Minijuego Web — ¿Qué imprime la consola?</h1>
+    <div class="datos">
+      <span class="dato">Puntos <strong id="puntos">0</strong></span>
+      <span class="dato">Racha <strong id="racha">0</strong></span>
+      <span class="dato">Tiempo <strong id="reloj">45</strong>s</span>
+    </div>
+  </div>
+  <p class="bajada">Se muestra una instrucción de JavaScript: elige su resultado antes de que se acabe el tiempo. Acertar suma 10 puntos y la racha multiplica; fallar descuenta 5.</p>
+
+  <div class="tiempo"><span id="tiempo-barra"></span></div>
+
+  <div class="consola">
+    <div class="prompt">&gt; console</div>
+    <p class="codigo" id="codigo">Preparando…</p>
+  </div>
+
+  <div class="opciones" id="opciones"></div>
+  <p class="aviso" id="aviso"></p>
+
+</div>
+
+<script>
+const RETOS = [
+  ['console.log(typeof 4)', ['number', 'int', 'Number', 'entero'], 0],
+  ['console.log("2" + 2)', ['22', '4', 'NaN', 'Error'], 0],
+  ['console.log([1, 2].length)', ['2', '1', '3', 'undefined'], 0],
+  ['console.log(1 === "1")', ['false', 'true', '1', 'Error'], 0],
+  ['console.log(Math.round(2.5))', ['3', '2', '2.5', '4'], 0],
+  ['console.log("SENA".slice(0, 2))', ['SE', 'SEN', 'NA', 'S'], 0],
+  ['console.log(Boolean(""))', ['false', 'true', '0', 'undefined'], 0],
+  ['console.log([1, 2, 3].map(n => n * 2))', ['[2, 4, 6]', '[1, 2, 3]', '[2, 4]', '6'], 0],
+  ['console.log(null ?? "x")', ['x', 'null', 'undefined', 'Error'], 0],
+  ['console.log(parseInt("08"))', ['8', '0', 'NaN', '08'], 0],
+  ['console.log(`${1 + 1}`)', ['2', '11', '${2}', 'Error'], 0],
+  ['console.log([3, 1, 2].sort())', ['[1, 2, 3]', '[3, 2, 1]', '[3, 1, 2]', 'Error'], 0]
+];
+
+const ACTIVIDAD = 'minijuego-web';
+const DURACION = 45;
+
+const elCodigo   = document.getElementById('codigo');
+const elOpciones = document.getElementById('opciones');
+const elAviso    = document.getElementById('aviso');
+const elPuntos   = document.getElementById('puntos');
+const elRacha    = document.getElementById('racha');
+const elReloj    = document.getElementById('reloj');
+const elBarra    = document.getElementById('tiempo-barra');
+
+let puntos = 0, racha = 0, aciertos = 0, jugadas = 0;
+let restante = DURACION, cronometro = null, bloqueado = false;
+
+const mezclar = lista => lista.slice().sort(() => Math.random() - 0.5);
+
+function nuevoReto() {
+  bloqueado = false;
+  const reto = RETOS[Math.floor(Math.random() * RETOS.length)];
+  const [codigo, opciones, correcta] = reto;
+  const buena = opciones[correcta];
+
+  elCodigo.textContent = codigo;
+  elOpciones.replaceChildren();
+
+  mezclar(opciones).forEach(texto => {
+    const boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'opcion';
+    boton.textContent = texto;
+    boton.addEventListener('click', () => responder(boton, texto === buena, buena));
+    elOpciones.appendChild(boton);
+  });
+}
+
+function responder(boton, acerto, buena) {
+  if (bloqueado) return;
+  bloqueado = true;
+  jugadas += 1;
+
+  Array.from(elOpciones.children).forEach(otro => {
+    otro.disabled = true;
+    if (otro.textContent === buena) otro.classList.add('buena');
+  });
+
+  if (acerto) {
+    aciertos += 1;
+    racha += 1;
+    const ganado = 10 + (racha > 1 ? (racha - 1) * 2 : 0);
+    puntos += ganado;
+    elAviso.textContent = '✔ +' + ganado + ' puntos' + (racha > 1 ? ' · racha de ' + racha : '');
+  } else {
+    boton.classList.add('mala');
+    racha = 0;
+    puntos = Math.max(0, puntos - 5);
+    elAviso.textContent = '✘ La salida era ' + buena + ' · −5 puntos';
+  }
+
+  elPuntos.textContent = puntos;
+  elRacha.textContent = racha;
+
+  setTimeout(() => { if (restante > 0) nuevoReto(); }, 850);
+}
+
+function tic() {
+  restante -= 1;
+  elReloj.textContent = restante;
+  elBarra.style.width = Math.max(0, restante / DURACION * 100) + '%';
+  if (restante <= 0) terminar();
+}
+
+function terminar() {
+  clearInterval(cronometro);
+  elOpciones.replaceChildren();
+  elAviso.textContent = '';
+  elCodigo.textContent = '# fin de la partida';
+
+  // Puntaje normalizado a 100 para el registro de la plataforma
+  const nota = Math.min(100, puntos);
+
+  const cierre = document.createElement('div');
+  cierre.className = 'cierre';
+  cierre.innerHTML =
+    '<div class="nota">' + nota + '</div>' +
+    '<p class="detalle">' + aciertos + ' aciertos de ' + jugadas + ' jugadas · ' + puntos + ' puntos</p>';
+
+  const otra = document.createElement('button');
+  otra.type = 'button';
+  otra.className = 'btn';
+  otra.textContent = 'Jugar otra vez';
+  otra.addEventListener('click', empezar);
+  cierre.appendChild(otra);
+
+  elOpciones.appendChild(cierre);
+
+  try {
+    parent.postMessage({
+      tipo: 'sgma-puntaje',
+      actividad: ACTIVIDAD,
+      puntaje: nota,
+      maximo: 100,
+      detalle: aciertos + ' aciertos de ' + jugadas + ' jugadas'
+    }, '*');
+  } catch (e) {}
+}
+
+function empezar() {
+  clearInterval(cronometro);
+  puntos = 0; racha = 0; aciertos = 0; jugadas = 0; restante = DURACION;
+  elPuntos.textContent = '0';
+  elRacha.textContent = '0';
+  elReloj.textContent = DURACION;
+  elBarra.style.width = '100%';
+  elAviso.textContent = '';
+  nuevoReto();
+  cronometro = setInterval(tic, 1000);
+}
+
+empezar();
+</script>
+
+</body>
+</html>

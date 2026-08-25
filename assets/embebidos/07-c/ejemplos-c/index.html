@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos básicos de C</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary { padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+                      display: flex; align-items: center; gap: 10px; list-style: none; }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #5b6f8c; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+               letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  pre { margin: 0 0 10px; padding: 14px 16px; border-radius: 9px;
+         background: #101720; color: #9fc2e0;
+         font-family: Consolas, "Courier New", monospace; font-size: 13.5px; line-height: 1.55; overflow-x: auto; }
+  .salida { padding: 9px 12px; border-left: 3px solid #5b6f8c; border-radius: 6px;
+             background: #f3f6f9; font-family: Consolas, "Courier New", monospace;
+             font-size: 13px; color: #33475e; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Ejemplos básicos de C</h1>
+  <p class="bajada">Seis piezas de código comentadas, con la salida que producen. Ábrelas, léelas y repítelas antes de pasar a la actividad.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Programa mínimo <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>Se incluye la cabecera, se declara main y se devuelve 0.</p>
+      <pre>#include &lt;stdio.h&gt;
+
+int main(void) {
+    printf("Ficha 3293836\n");
+    return 0;
+}</pre>
+      <div class="salida">Ficha 3293836</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>2. Variables y formato <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>Cada tipo tiene su especificador al imprimir.</p>
+      <pre>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int aprendices = 27;
+    double promedio = 4.5;
+    char inicial = 'A';
+
+    printf("%d %.1f %c\n", aprendices, promedio, inicial);
+    return 0;
+}</pre>
+      <div class="salida">27 4.5 A</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>3. Condicionales y ciclos <span class="etiqueta">Control</span></summary>
+    <div class="cuerpo">
+      <p>La sintaxis de llaves que heredaron Java, C++ y C#.</p>
+      <pre>for (int i = 1; i &lt;= 3; i++) {
+    if (i % 2 == 0) {
+        printf("%d es par\n", i);
+    } else {
+        printf("%d es impar\n", i);
+    }
+}</pre>
+      <div class="salida">1 es impar<br>2 es par<br>3 es impar</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>4. Arreglos <span class="etiqueta">Estructuras</span></summary>
+    <div class="cuerpo">
+      <p>El arreglo no conoce su tamaño: hay que llevarlo aparte.</p>
+      <pre>double notas[3] = {4.5, 3.8, 4.9};
+double suma = 0;
+
+for (int i = 0; i &lt; 3; i++) {
+    suma += notas[i];
+}
+
+printf("%.2f\n", suma / 3);</pre>
+      <div class="salida">4.40</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>5. Punteros <span class="etiqueta">Memoria</span></summary>
+    <div class="cuerpo">
+      <p>El puntero guarda una dirección; el asterisco lee su contenido.</p>
+      <pre>int x = 10;
+int *p = &amp;x;
+
+printf("%d\n", *p);
+*p = 20;
+printf("%d\n", x);</pre>
+      <div class="salida">10<br>20</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>6. Funciones <span class="etiqueta">Modularidad</span></summary>
+    <div class="cuerpo">
+      <p>Se declara el tipo devuelto y el de cada parámetro.</p>
+      <pre>#include &lt;stdio.h&gt;
+
+double promedio(double v[], int n) {
+    if (n == 0) return 0;
+    double s = 0;
+    for (int i = 0; i &lt; n; i++) s += v[i];
+    return s / n;
+}
+
+int main(void) {
+    double notas[] = {4.5, 3.8, 4.9};
+    printf("%.2f\n", promedio(notas, 3));
+    return 0;
+}</pre>
+      <div class="salida">4.40</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario C · ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 860px; margin: 0 auto; padding: 22px 18px 40px; }
+  .titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .titulo .icono { font-size: 26px; }
+  h1 { margin: 0; font-size: 21px; }
+  .bajada { margin: 0 0 14px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.es { font-weight: 500; }
+  td.en { font-weight: 700; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="titulo"><span class="icono">⚙️</span><h1>Diccionario C · ES–EN</h1></div>
+  <p class="bajada">Vocabulario del módulo de C en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar en español o en inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+    <tbody>
+      <tr data-busca="puntero pointer"><td class="es">puntero</td><td class="en">pointer</td><td class="uso">The pointer holds an address.</td></tr>
+      <tr data-busca="memoria memory"><td class="es">memoria</td><td class="en">memory</td><td class="uso">Free the memory you reserve.</td></tr>
+      <tr data-busca="dirección address"><td class="es">dirección</td><td class="en">address</td><td class="uso">The ampersand gives the address.</td></tr>
+      <tr data-busca="pila stack"><td class="es">pila</td><td class="en">stack</td><td class="uso">Local variables live on the stack.</td></tr>
+      <tr data-busca="montón heap"><td class="es">montón</td><td class="en">heap</td><td class="uso">Malloc reserves memory on the heap.</td></tr>
+      <tr data-busca="desbordamiento overflow"><td class="es">desbordamiento</td><td class="en">overflow</td><td class="uso">A buffer overflow is a security hole.</td></tr>
+      <tr data-busca="cabecera header"><td class="es">cabecera</td><td class="en">header</td><td class="uso">Include the header before using it.</td></tr>
+      <tr data-busca="compilador compiler"><td class="es">compilador</td><td class="en">compiler</td><td class="uso">The compiler reports the error.</td></tr>
+      <tr data-busca="bandera flag"><td class="es">bandera</td><td class="en">flag</td><td class="uso">The flag turns the option on.</td></tr>
+      <tr data-busca="liberar memoria free memory"><td class="es">liberar memoria</td><td class="en">free memory</td><td class="uso">Always free memory after malloc.</td></tr>
+      <tr data-busca="tipo de dato data type"><td class="es">tipo de dato</td><td class="en">data type</td><td class="uso">Choose the right data type.</td></tr>
+      <tr data-busca="estructura struct"><td class="es">estructura</td><td class="en">struct</td><td class="uso">A struct groups related fields.</td></tr>
+      <tr data-busca="asignación assignment"><td class="es">asignación</td><td class="en">assignment</td><td class="uso">The assignment copies the value.</td></tr>
+      <tr data-busca="aritmética de punteros pointer arithmetic"><td class="es">aritmética de punteros</td><td class="en">pointer arithmetic</td><td class="uso">Pointer arithmetic moves by element size.</td></tr>
+      <tr data-busca="cadena terminada en nulo null terminated string"><td class="es">cadena terminada en nulo</td><td class="en">null terminated string</td><td class="uso">A C string is null terminated.</td></tr>
+      <tr data-busca="macro macro"><td class="es">macro</td><td class="en">macro</td><td class="uso">The macro is replaced before compiling.</td></tr>
+      <tr data-busca="declaración declaration"><td class="es">declaración</td><td class="en">declaration</td><td class="uso">The declaration announces the function.</td></tr>
+      <tr data-busca="definición definition"><td class="es">definición</td><td class="en">definition</td><td class="uso">The definition holds the body.</td></tr>
+      <tr data-busca="ámbito global global scope"><td class="es">ámbito global</td><td class="en">global scope</td><td class="uso">Avoid variables in global scope.</td></tr>
+      <tr data-busca="recursión recursion"><td class="es">recursión</td><td class="en">recursion</td><td class="uso">Recursion needs a base case.</td></tr>
+    </tbody>
+  </table>
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo  = document.getElementById('buscar');
+  const filas  = Array.from(document.querySelectorAll('tbody tr'));
+  const salida = document.getElementById('resultado');
+  const vacio  = document.getElementById('vacio');
+  const TOTAL  = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en el módulo';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

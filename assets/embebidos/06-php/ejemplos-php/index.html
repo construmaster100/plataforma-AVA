@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos básicos de PHP</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary { padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+                      display: flex; align-items: center; gap: 10px; list-style: none; }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #4f5b93; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+               letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  pre { margin: 0 0 10px; padding: 14px 16px; border-radius: 9px;
+         background: #161a2c; color: #a8b3e0;
+         font-family: Consolas, "Courier New", monospace; font-size: 13.5px; line-height: 1.55; overflow-x: auto; }
+  .salida { padding: 9px 12px; border-left: 3px solid #4f5b93; border-radius: 6px;
+             background: #f4f5fa; font-family: Consolas, "Courier New", monospace;
+             font-size: 13px; color: #333c68; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Ejemplos básicos de PHP</h1>
+  <p class="bajada">Seis piezas de código comentadas, con la salida que producen. Ábrelas, léelas y repítelas antes de pasar a la actividad.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Variables y salida <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>Las variables llevan dólar y las cadenas interpolan dentro de comillas dobles.</p>
+      <pre>&lt;?php
+$ficha = "3293836";
+$aprendices = 27;
+
+echo "Ficha $ficha con $aprendices aprendices";</pre>
+      <div class="salida">Ficha 3293836 con 27 aprendices</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>2. Condicionales <span class="etiqueta">Control</span></summary>
+    <div class="cuerpo">
+      <p>La sintaxis de llaves es la misma de C y Java.</p>
+      <pre>&lt;?php
+$nota = 3.8;
+
+if ($nota &gt;= 4.0) {
+    echo "Excelente";
+} elseif ($nota &gt;= 3.0) {
+    echo "Aprobado";
+} else {
+    echo "Debe reforzar";
+}</pre>
+      <div class="salida">Aprobado</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>3. Arreglos <span class="etiqueta">Estructuras</span></summary>
+    <div class="cuerpo">
+      <p>El arreglo puede ser indexado o asociativo.</p>
+      <pre>&lt;?php
+$notas = [4.5, 3.8, 4.9];
+$aprendiz = ["nombre" =&gt; "Sara", "ficha" =&gt; 3293836];
+
+echo count($notas) . " · " . $aprendiz["nombre"];</pre>
+      <div class="salida">3 · Sara</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>4. Ciclos <span class="etiqueta">Control</span></summary>
+    <div class="cuerpo">
+      <p>foreach recorre pares clave–valor sin llevar índice a mano.</p>
+      <pre>&lt;?php
+$fases = ["Análisis", "Planeación"];
+
+foreach ($fases as $i =&gt; $fase) {
+    echo ($i + 1) . ". $fase\n";
+}</pre>
+      <div class="salida">1. Análisis<br>2. Planeación</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>5. Funciones <span class="etiqueta">Modularidad</span></summary>
+    <div class="cuerpo">
+      <p>Se pueden declarar los tipos de los parámetros y del retorno.</p>
+      <pre>&lt;?php
+function promedio(array $valores): float {
+    if (!$valores) return 0;
+    return array_sum($valores) / count($valores);
+}
+
+echo promedio([4.5, 3.8, 4.9]);</pre>
+      <div class="salida">4.4</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>6. Formulario y servidor <span class="etiqueta">Web</span></summary>
+    <div class="cuerpo">
+      <p>Nunca se confía en lo que llega: se valida y se escapa.</p>
+      <pre>&lt;?php
+$nombre = trim($_POST["nombre"] ?? "");
+
+if ($nombre === "") {
+    http_response_code(400);
+    exit("Falta el nombre");
+}
+
+echo "Hola " . htmlspecialchars($nombre);</pre>
+      <div class="salida">Con nombre vacío responde 400; si llega, saluda con el texto escapado.</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

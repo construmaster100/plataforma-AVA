@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuestionario — Introducción a C#</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+    background: #f2f5f3;
+    color: #1a1a1a;
+  }
+  .marco { max-width: 720px; margin: 0 auto; padding: 22px 18px 40px; }
+  .cabecera { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  h1 { margin: 0; font-size: 20px; }
+  .marcador {
+    margin-left: auto; padding: 3px 10px; border-radius: 20px;
+    background: #68217a; color: #fff; font-size: 13px; font-weight: 600;
+  }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .barra { height: 6px; border-radius: 3px; background: #e3e9e5; overflow: hidden; margin-bottom: 20px; }
+  .barra span { display: block; height: 100%; width: 0; background: #68217a; transition: width .3s ease; }
+  .tarjeta {
+    padding: 18px 20px; border: 1px solid #dfe6e1; border-radius: 12px;
+    background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .enunciado { margin: 0 0 14px; font-size: 16px; font-weight: 600; line-height: 1.35; }
+  .opcion {
+    display: block; padding: 10px 12px; margin-bottom: 8px;
+    border: 1px solid #dfe6e1; border-radius: 8px; background: #fff;
+    font-size: 14px; text-align: left; width: 100%; cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .opcion:hover:not(:disabled) { background: #f9f2fa; border-color: #c99ad4; }
+  .opcion:disabled { cursor: default; }
+  .opcion.buena { background: #f1e4f4; border-color: #68217a; font-weight: 600; }
+  .opcion.mala { background: #fdeceb; border-color: #c62828; }
+  .respuesta { margin: 12px 0 0; font-size: 13.5px; line-height: 1.4; color: #4b1758; min-height: 20px; }
+  .pie { display: flex; gap: 10px; margin-top: 16px; }
+  .btn {
+    padding: 9px 18px; border: 1px solid #68217a; border-radius: 7px;
+    background: #68217a; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .btn-claro { background: #fff; color: #68217a; }
+  .cierre { text-align: center; padding: 10px 0; }
+  .cierre .nota { font-size: 46px; font-weight: 700; color: #68217a; line-height: 1; }
+  .cierre .detalle { margin: 6px 0 16px; font-size: 14px; color: #6b7b72; }
+  .medalla { font-size: 40px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+
+  <div class="cabecera">
+    <h1>Cuestionario — Introducción a C#</h1>
+    <span class="marcador" id="marcador">0 / 10</span>
+  </div>
+  <p class="bajada">Diez preguntas de selección única. Cada acierto vale 10 puntos; el puntaje se reporta a la plataforma al terminar.</p>
+
+  <div class="barra"><span id="barra"></span></div>
+
+  <div class="tarjeta" id="tarjeta"></div>
+
+</div>
+
+<script>
+const PREGUNTAS = [
+  ['¿Qué método escribe en la consola?',
+   ['Console.WriteLine', 'System.out.println', 'printf', 'echo'], 0,
+   'Console.WriteLine escribe y salta de línea; Write no salta.'],
+  ['¿Sobre qué plataforma se ejecuta?',
+   ['.NET', 'JVM', 'CPython', 'Node'], 0,
+   'El compilador genera código intermedio que ejecuta el CLR.'],
+  ['¿Cómo se declara una variable de tipo inferido?',
+   ['var x = 5;', 'let x = 5;', 'auto x = 5;', 'dim x = 5'], 0,
+   'var infiere el tipo al compilar: sigue siendo estático.'],
+  ['¿Qué colección genérica crece?',
+   ['List<T>', 'int[]', 'Array', 'Tuple'], 0,
+   'List<T> agrega y quita elementos; el arreglo tiene tamaño fijo.'],
+  ['¿Qué es una propiedad?',
+   ['Un miembro con get y set', 'Un método estático', 'Una clase interna', 'Un espacio de nombres'], 0,
+   'public string Nombre { get; set; } encapsula el acceso.'],
+  ['¿Cómo se interpola una cadena?',
+   ['$"{x}"', '"{x}"', '`${x}`', '"%s"'], 0,
+   'El dólar antes de las comillas habilita la interpolación.'],
+  ['¿Con qué se manejan las excepciones?',
+   ['try / catch', 'rescue', 'except', 'handle'], 0,
+   'finally se ejecuta siempre, haya error o no.'],
+  ['¿Qué tipo es un entero de 32 bits?',
+   ['int', 'long', 'short', 'byte'], 0,
+   'int es Int32; long es de 64 bits.'],
+  ['¿Qué es LINQ?',
+   ['Consulta integrada en el lenguaje', 'Un servidor web', 'Un editor', 'Un protocolo'], 0,
+   'Permite filtrar y proyectar colecciones con Where y Select.'],
+  ['¿Qué palabra define una clase?',
+   ['class', 'object', 'type', 'struct únicamente'], 0,
+   'class define referencia; struct define valor.']
+];
+
+const ACTIVIDAD = 'cuestionario-csharp';
+const tarjeta   = document.getElementById('tarjeta');
+const marcador  = document.getElementById('marcador');
+const barra     = document.getElementById('barra');
+
+let actual = 0;
+let aciertos = 0;
+
+function avanzarBarra() {
+  barra.style.width = Math.round(actual / PREGUNTAS.length * 100) + '%';
+}
+
+function pintarPregunta() {
+  const [enunciado, opciones, correcta, explicacion] = PREGUNTAS[actual];
+  tarjeta.replaceChildren();
+
+  const titulo = document.createElement('p');
+  titulo.className = 'enunciado';
+  titulo.textContent = (actual + 1) + '. ' + enunciado;
+  tarjeta.appendChild(titulo);
+
+  const respuesta = document.createElement('p');
+  respuesta.className = 'respuesta';
+
+  const botones = opciones.map((texto, indice) => {
+    const boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'opcion';
+    boton.textContent = texto;
+    boton.addEventListener('click', () => {
+      botones.forEach(otro => { otro.disabled = true; });
+      botones[correcta].classList.add('buena');
+      if (indice === correcta) {
+        aciertos += 1;
+        respuesta.textContent = '✔ Correcto. ' + explicacion;
+      } else {
+        boton.classList.add('mala');
+        respuesta.textContent = '✘ La respuesta era «' + opciones[correcta] + '». ' + explicacion;
+      }
+      marcador.textContent = aciertos + ' / ' + PREGUNTAS.length;
+      siguiente.disabled = false;
+    });
+    tarjeta.appendChild(boton);
+    return boton;
+  });
+
+  tarjeta.appendChild(respuesta);
+
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  var siguiente = document.createElement('button');
+  siguiente.type = 'button';
+  siguiente.className = 'btn';
+  siguiente.textContent = actual === PREGUNTAS.length - 1 ? 'Ver resultado' : 'Siguiente';
+  siguiente.disabled = true;
+  siguiente.addEventListener('click', () => {
+    actual += 1;
+    avanzarBarra();
+    if (actual < PREGUNTAS.length) pintarPregunta();
+    else cerrar();
+  });
+  pie.appendChild(siguiente);
+  tarjeta.appendChild(pie);
+}
+
+function cerrar() {
+  const puntaje = aciertos * 10;
+  tarjeta.replaceChildren();
+
+  const cierre = document.createElement('div');
+  cierre.className = 'cierre';
+  cierre.innerHTML =
+    '<div class="medalla">' + (puntaje >= 80 ? '🏅' : puntaje >= 60 ? '👍' : '📚') + '</div>' +
+    '<div class="nota">' + puntaje + '</div>' +
+    '<p class="detalle">' + aciertos + ' de ' + PREGUNTAS.length + ' correctas · escala 0 a 100</p>';
+
+  const repetir = document.createElement('button');
+  repetir.type = 'button';
+  repetir.className = 'btn btn-claro';
+  repetir.textContent = 'Repetir el cuestionario';
+  repetir.addEventListener('click', () => {
+    actual = 0; aciertos = 0;
+    marcador.textContent = '0 / ' + PREGUNTAS.length;
+    avanzarBarra();
+    pintarPregunta();
+  });
+
+  cierre.appendChild(repetir);
+  tarjeta.appendChild(cierre);
+
+  // Se reporta a la plataforma que aloja este material
+  try {
+    parent.postMessage({
+      tipo: 'sgma-puntaje',
+      actividad: ACTIVIDAD,
+      puntaje: puntaje,
+      maximo: 100,
+      detalle: aciertos + ' de ' + PREGUNTAS.length + ' correctas'
+    }, '*');
+  } catch (e) {}
+}
+
+marcador.textContent = '0 / ' + PREGUNTAS.length;
+avanzarBarra();
+pintarPregunta();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos básicos de Desarrollo web</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary { padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+                      display: flex; align-items: center; gap: 10px; list-style: none; }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #6d28d9; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+               letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  pre { margin: 0 0 10px; padding: 14px 16px; border-radius: 9px;
+         background: #160f2b; color: #c4b5fd;
+         font-family: Consolas, "Courier New", monospace; font-size: 13.5px; line-height: 1.55; overflow-x: auto; }
+  .salida { padding: 9px 12px; border-left: 3px solid #6d28d9; border-radius: 6px;
+             background: #f7f3fe; font-family: Consolas, "Courier New", monospace;
+             font-size: 13px; color: #4c1d95; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Ejemplos básicos de Desarrollo web</h1>
+  <p class="bajada">Seis piezas de código comentadas, con la salida que producen. Ábrelas, léelas y repítelas antes de pasar a la actividad.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Las tres capas <span class="etiqueta">Arquitectura</span></summary>
+    <div class="cuerpo">
+      <p>Estructura, presentación y comportamiento se separan a propósito.</p>
+      <pre>&lt;!-- estructura --&gt;
+&lt;button id="saludo"&gt;Saludar&lt;/button&gt;
+
+/* presentación */
+#saludo { background: #007832; color: #fff; }
+
+// comportamiento
+document.getElementById("saludo")
+  .addEventListener("click", () =&gt; alert("Hola"));</pre>
+      <div class="salida">Al pulsar el botón verde aparece el aviso «Hola».</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>2. Manipular el DOM <span class="etiqueta">Cliente</span></summary>
+    <div class="cuerpo">
+      <p>querySelector busca en el árbol; textContent cambia el texto.</p>
+      <pre>const titulo = document.querySelector("h1");
+titulo.textContent = "Ficha 3293836";
+titulo.classList.add("activo");</pre>
+      <div class="salida">El primer h1 pasa a decir «Ficha 3293836» y gana la clase activo.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>3. Petición a una API <span class="etiqueta">Cliente–servidor</span></summary>
+    <div class="cuerpo">
+      <p>fetch devuelve una promesa; await espera la respuesta.</p>
+      <pre>async function cargarFicha() {
+  const r = await fetch("/api/fichas/3293836");
+  if (!r.ok) throw new Error("Error " + r.status);
+  const datos = await r.json();
+  console.log(datos.aprendices);
+}</pre>
+      <div class="salida">Imprime el número de aprendices, o lanza «Error 404» si no existe.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>4. Formulario y validación <span class="etiqueta">Interacción</span></summary>
+    <div class="cuerpo">
+      <p>preventDefault evita que el navegador recargue la página.</p>
+      <pre>formulario.addEventListener("submit", e =&gt; {
+  e.preventDefault();
+  if (!correo.value.includes("@")) {
+    aviso.textContent = "Correo inválido";
+    return;
+  }
+  enviar();
+});</pre>
+      <div class="salida">Sin arroba muestra «Correo inválido» y no envía.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>5. Almacenamiento local <span class="etiqueta">Cliente</span></summary>
+    <div class="cuerpo">
+      <p>localStorage guarda texto en el navegador entre visitas.</p>
+      <pre>localStorage.setItem("tema", "oscuro");
+const tema = localStorage.getItem("tema");
+console.log(tema);</pre>
+      <div class="salida">oscuro</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>6. Respuesta del servidor <span class="etiqueta">Servidor</span></summary>
+    <div class="cuerpo">
+      <p>El estado y el tipo de contenido le dicen al cliente qué recibió.</p>
+      <pre>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{ "ficha": "3293836", "aprendices": 27 }</pre>
+      <div class="salida">El cliente convierte ese JSON en un objeto con r.json().</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

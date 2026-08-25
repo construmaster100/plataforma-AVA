@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario Java · ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 860px; margin: 0 auto; padding: 22px 18px 40px; }
+  .titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .titulo .icono { font-size: 26px; }
+  h1 { margin: 0; font-size: 21px; }
+  .bajada { margin: 0 0 14px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.es { font-weight: 500; }
+  td.en { font-weight: 700; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="titulo"><span class="icono">☕</span><h1>Diccionario Java · ES–EN</h1></div>
+  <p class="bajada">Vocabulario del módulo de Java en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar en español o en inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+    <tbody>
+      <tr data-busca="clase class"><td class="es">clase</td><td class="en">class</td><td class="uso">Every program needs a class.</td></tr>
+      <tr data-busca="herencia inheritance"><td class="es">herencia</td><td class="en">inheritance</td><td class="uso">Inheritance shares behaviour.</td></tr>
+      <tr data-busca="método method"><td class="es">método</td><td class="en">method</td><td class="uso">The method returns a value.</td></tr>
+      <tr data-busca="interfaz interface"><td class="es">interfaz</td><td class="en">interface</td><td class="uso">A class can implement an interface.</td></tr>
+      <tr data-busca="compilar compile"><td class="es">compilar</td><td class="en">compile</td><td class="uso">Compile the code before running it.</td></tr>
+      <tr data-busca="hilo thread"><td class="es">hilo</td><td class="en">thread</td><td class="uso">Each thread runs in parallel.</td></tr>
+      <tr data-busca="paquete package"><td class="es">paquete</td><td class="en">package</td><td class="uso">The package groups related classes.</td></tr>
+      <tr data-busca="sobrecarga overloading"><td class="es">sobrecarga</td><td class="en">overloading</td><td class="uso">Overloading repeats a method name.</td></tr>
+      <tr data-busca="constructor constructor"><td class="es">constructor</td><td class="en">constructor</td><td class="uso">The constructor sets the initial state.</td></tr>
+      <tr data-busca="recolector de basura garbage collector"><td class="es">recolector de basura</td><td class="en">garbage collector</td><td class="uso">The garbage collector frees memory.</td></tr>
+      <tr data-busca="objeto object"><td class="es">objeto</td><td class="en">object</td><td class="uso">Create the object with new.</td></tr>
+      <tr data-busca="atributo de clase field"><td class="es">atributo de clase</td><td class="en">field</td><td class="uso">The field is private.</td></tr>
+      <tr data-busca="estático static"><td class="es">estático</td><td class="en">static</td><td class="uso">A static method belongs to the class.</td></tr>
+      <tr data-busca="abstracto abstract"><td class="es">abstracto</td><td class="en">abstract</td><td class="uso">An abstract class cannot be instantiated.</td></tr>
+      <tr data-busca="excepción comprobada checked exception"><td class="es">excepción comprobada</td><td class="en">checked exception</td><td class="uso">A checked exception must be declared.</td></tr>
+      <tr data-busca="colección collection"><td class="es">colección</td><td class="en">collection</td><td class="uso">The collection grows on demand.</td></tr>
+      <tr data-busca="genérico generic"><td class="es">genérico</td><td class="en">generic</td><td class="uso">A generic type works with any class.</td></tr>
+      <tr data-busca="anotación annotation"><td class="es">anotación</td><td class="en">annotation</td><td class="uso">The override annotation prevents mistakes.</td></tr>
+      <tr data-busca="máquina virtual virtual machine"><td class="es">máquina virtual</td><td class="en">virtual machine</td><td class="uso">The virtual machine runs the bytecode.</td></tr>
+      <tr data-busca="punto de entrada entry point"><td class="es">punto de entrada</td><td class="en">entry point</td><td class="uso">Main is the entry point.</td></tr>
+    </tbody>
+  </table>
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo  = document.getElementById('buscar');
+  const filas  = Array.from(document.querySelectorAll('tbody tr'));
+  const salida = document.getElementById('resultado');
+  const vacio  = document.getElementById('vacio');
+  const TOTAL  = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en el módulo';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

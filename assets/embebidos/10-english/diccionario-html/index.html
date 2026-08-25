@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario HTML · ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 860px; margin: 0 auto; padding: 22px 18px 40px; }
+  .titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .titulo .icono { font-size: 26px; }
+  h1 { margin: 0; font-size: 21px; }
+  .bajada { margin: 0 0 14px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.es { font-weight: 500; }
+  td.en { font-weight: 700; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="titulo"><span class="icono">🧱</span><h1>Diccionario HTML · ES–EN</h1></div>
+  <p class="bajada">Vocabulario del módulo de HTML en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar en español o en inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+    <tbody>
+      <tr data-busca="etiqueta tag"><td class="es">etiqueta</td><td class="en">tag</td><td class="uso">Close every tag you open.</td></tr>
+      <tr data-busca="encabezado h1–h6 heading"><td class="es">encabezado h1–h6</td><td class="en">heading</td><td class="uso">Use one main heading per page.</td></tr>
+      <tr data-busca="enlace link"><td class="es">enlace</td><td class="en">link</td><td class="uso">The link points to another page.</td></tr>
+      <tr data-busca="formulario form"><td class="es">formulario</td><td class="en">form</td><td class="uso">The form sends data to the server.</td></tr>
+      <tr data-busca="campo field"><td class="es">campo</td><td class="en">field</td><td class="uso">Fill every required field.</td></tr>
+      <tr data-busca="casilla de verificación checkbox"><td class="es">casilla de verificación</td><td class="en">checkbox</td><td class="uso">Tick the checkbox to accept.</td></tr>
+      <tr data-busca="lista desplegable dropdown"><td class="es">lista desplegable</td><td class="en">dropdown</td><td class="uso">Pick a value from the dropdown.</td></tr>
+      <tr data-busca="tabla table"><td class="es">tabla</td><td class="en">table</td><td class="uso">The table has two rows.</td></tr>
+      <tr data-busca="pie de página footer"><td class="es">pie de página</td><td class="en">footer</td><td class="uso">The footer shows the contact data.</td></tr>
+      <tr data-busca="texto alternativo alt text"><td class="es">texto alternativo</td><td class="en">alt text</td><td class="uso">Alt text describes the image.</td></tr>
+      <tr data-busca="atributo attribute"><td class="es">atributo</td><td class="en">attribute</td><td class="uso">The href attribute holds the address.</td></tr>
+      <tr data-busca="párrafo paragraph"><td class="es">párrafo</td><td class="en">paragraph</td><td class="uso">Wrap the text in a paragraph.</td></tr>
+      <tr data-busca="imagen image"><td class="es">imagen</td><td class="en">image</td><td class="uso">The image loads from the assets folder.</td></tr>
+      <tr data-busca="botón button"><td class="es">botón</td><td class="en">button</td><td class="uso">The button submits the form.</td></tr>
+      <tr data-busca="lista ordenada ordered list"><td class="es">lista ordenada</td><td class="en">ordered list</td><td class="uso">An ordered list numbers its items.</td></tr>
+      <tr data-busca="celda cell"><td class="es">celda</td><td class="en">cell</td><td class="uso">Each cell holds one value.</td></tr>
+      <tr data-busca="fila row"><td class="es">fila</td><td class="en">row</td><td class="uso">The first row is the header.</td></tr>
+      <tr data-busca="columna column"><td class="es">columna</td><td class="en">column</td><td class="uso">The table has four columns.</td></tr>
+      <tr data-busca="marcado markup"><td class="es">marcado</td><td class="en">markup</td><td class="uso">HTML is a markup language.</td></tr>
+      <tr data-busca="accesibilidad accessibility"><td class="es">accesibilidad</td><td class="en">accessibility</td><td class="uso">Accessibility is not optional.</td></tr>
+    </tbody>
+  </table>
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo  = document.getElementById('buscar');
+  const filas  = Array.from(document.querySelectorAll('tbody tr'));
+  const salida = document.getElementById('resultado');
+  const vacio  = document.getElementById('vacio');
+  const TOTAL  = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en el módulo';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

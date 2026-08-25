@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuestionario — Sede Tunja</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+    background: #f2f5f3;
+    color: #1a1a1a;
+  }
+  .marco { max-width: 720px; margin: 0 auto; padding: 22px 18px 40px; }
+  .cabecera { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  h1 { margin: 0; font-size: 20px; }
+  .marcador {
+    margin-left: auto; padding: 3px 10px; border-radius: 20px;
+    background: #007832; color: #fff; font-size: 13px; font-weight: 600;
+  }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .barra { height: 6px; border-radius: 3px; background: #e3e9e5; overflow: hidden; margin-bottom: 20px; }
+  .barra span { display: block; height: 100%; width: 0; background: #007832; transition: width .3s ease; }
+  .tarjeta {
+    padding: 18px 20px; border: 1px solid #dfe6e1; border-radius: 12px;
+    background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .enunciado { margin: 0 0 14px; font-size: 16px; font-weight: 600; line-height: 1.35; }
+  .opcion {
+    display: block; padding: 10px 12px; margin-bottom: 8px;
+    border: 1px solid #dfe6e1; border-radius: 8px; background: #fff;
+    font-size: 14px; text-align: left; width: 100%; cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .opcion:hover:not(:disabled) { background: #f4faf6; border-color: #9dc7ae; }
+  .opcion:disabled { cursor: default; }
+  .opcion.buena { background: #e9f6e0; border-color: #007832; font-weight: 600; }
+  .opcion.mala { background: #fdeceb; border-color: #c62828; }
+  .respuesta { margin: 12px 0 0; font-size: 13.5px; line-height: 1.4; color: #33544a; min-height: 20px; }
+  .pie { display: flex; gap: 10px; margin-top: 16px; }
+  .btn {
+    padding: 9px 18px; border: 1px solid #007832; border-radius: 7px;
+    background: #007832; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .btn-claro { background: #fff; color: #007832; }
+  .cierre { text-align: center; padding: 10px 0; }
+  .cierre .nota { font-size: 46px; font-weight: 700; color: #007832; line-height: 1; }
+  .cierre .detalle { margin: 6px 0 16px; font-size: 14px; color: #6b7b72; }
+  .medalla { font-size: 40px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+
+  <div class="cabecera">
+    <h1>Cuestionario — Sede Tunja</h1>
+    <span class="marcador" id="marcador">0 / 10</span>
+  </div>
+  <p class="bajada">Diez preguntas de selección única sobre el centro de formación y el programa. Cada acierto vale 10 puntos; el puntaje se reporta a la plataforma al terminar.</p>
+
+  <div class="barra"><span id="barra"></span></div>
+
+  <div class="tarjeta" id="tarjeta"></div>
+
+</div>
+
+<script>
+const PREGUNTAS = [
+  ['¿En qué ciudad está ubicado el Centro CEGAFE del SENA donde funciona esta ficha?',
+   ['Tunja', 'Bogotá', 'Duitama', 'Sogamoso'], 0,
+   'El Centro de Gestión Administrativa y Fortalecimiento Empresarial está en Tunja.'],
+  ['¿A qué regional del SENA pertenece el Centro CEGAFE?',
+   ['Cundinamarca', 'Santander', 'Boyacá', 'Antioquia'], 2,
+   'CEGAFE hace parte de la Regional Boyacá.'],
+  ['¿Qué significa la sigla CEGAFE?',
+   ['Centro de Gestión Administrativa y Fortalecimiento Empresarial', 'Centro General de Formación Empresarial', 'Central de Gestión y Formación Educativa', 'Centro de Gestión Agroindustrial y Fortalecimiento Empresarial'], 0,
+   'CEGAFE es el Centro de Gestión Administrativa y Fortalecimiento Empresarial.'],
+  ['¿Qué programa de formación cursa la ficha 3293836?',
+   ['Contabilidad y Finanzas', 'Análisis y Desarrollo de Software', 'Cocina', 'Talento Humano'], 1,
+   'La ficha 3293836 forma tecnólogos en Análisis y Desarrollo de Software (ADSO).'],
+  ['¿En qué nivel de formación está matriculada la ficha 3293836?',
+   ['Auxiliar', 'Técnico', 'Tecnólogo', 'Especialización'], 2,
+   'Es un programa de nivel Tecnólogo.'],
+  ['¿En qué jornada funciona la ficha 3293836?',
+   ['Mañana', 'Tarde', 'Noche', 'Fin de semana'], 0,
+   'La ficha 3293836 funciona en jornada de la mañana.'],
+  ['¿Qué significa la sigla AVA, el tipo de plataforma en la que estás?',
+   ['Aula Virtual de Aprendices', 'Ambiente Virtual de Aprendizaje', 'Área de Vinculación Académica', 'Aplicativo Virtual de Asistencia'], 1,
+   'AVA es el Ambiente Virtual de Aprendizaje sobre el que corre esta plataforma.'],
+  ['¿Qué significa la sigla SGMA, el sistema que agrupa esta plataforma (SGMA-ADSO)?',
+   ['Sistema de Gestión y Monitoreo Académico', 'Sistema General de Matrículas ADSO', 'Servicio de Gestión de Materiales Académicos', 'Sistema de Gráficas y Métricas Académicas'], 0,
+   'SGMA-ADSO es el Sistema de Gestión y Monitoreo Académico del programa ADSO.'],
+  ['¿Cuántos meses dura el programa Tecnólogo en Análisis y Desarrollo de Software?',
+   ['6 meses', '12 meses', '18 meses', '24 meses'], 3,
+   'El programa dura 24 meses.'],
+  ['¿Cuál es el número de la ficha real de este programa?',
+   ['3293836', '2847561', '3180814', '1234567'], 0,
+   'La ficha real y estática de este programa es la 3293836.']
+];
+
+const ACTIVIDAD = 'cuestionario-tunja';
+const tarjeta   = document.getElementById('tarjeta');
+const marcador  = document.getElementById('marcador');
+const barra     = document.getElementById('barra');
+
+let actual = 0;
+let aciertos = 0;
+
+function avanzarBarra() {
+  barra.style.width = Math.round(actual / PREGUNTAS.length * 100) + '%';
+}
+
+function pintarPregunta() {
+  const [enunciado, opciones, correcta, explicacion] = PREGUNTAS[actual];
+  tarjeta.replaceChildren();
+
+  const titulo = document.createElement('p');
+  titulo.className = 'enunciado';
+  titulo.textContent = (actual + 1) + '. ' + enunciado;
+  tarjeta.appendChild(titulo);
+
+  const respuesta = document.createElement('p');
+  respuesta.className = 'respuesta';
+
+  const botones = opciones.map((texto, indice) => {
+    const boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'opcion';
+    boton.textContent = texto;
+    boton.addEventListener('click', () => {
+      botones.forEach(otro => { otro.disabled = true; });
+      botones[correcta].classList.add('buena');
+      if (indice === correcta) {
+        aciertos += 1;
+        respuesta.textContent = '✔ Correcto. ' + explicacion;
+      } else {
+        boton.classList.add('mala');
+        respuesta.textContent = '✘ La respuesta era «' + opciones[correcta] + '». ' + explicacion;
+      }
+      marcador.textContent = aciertos + ' / ' + PREGUNTAS.length;
+      siguiente.disabled = false;
+    });
+    tarjeta.appendChild(boton);
+    return boton;
+  });
+
+  tarjeta.appendChild(respuesta);
+
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  var siguiente = document.createElement('button');
+  siguiente.type = 'button';
+  siguiente.className = 'btn';
+  siguiente.textContent = actual === PREGUNTAS.length - 1 ? 'Ver resultado' : 'Siguiente';
+  siguiente.disabled = true;
+  siguiente.addEventListener('click', () => {
+    actual += 1;
+    avanzarBarra();
+    if (actual < PREGUNTAS.length) pintarPregunta();
+    else cerrar();
+  });
+  pie.appendChild(siguiente);
+  tarjeta.appendChild(pie);
+}
+
+function cerrar() {
+  const puntaje = aciertos * 10;
+  tarjeta.replaceChildren();
+
+  const cierre = document.createElement('div');
+  cierre.className = 'cierre';
+  cierre.innerHTML =
+    '<div class="medalla">' + (puntaje >= 80 ? '🏅' : puntaje >= 60 ? '👍' : '📚') + '</div>' +
+    '<div class="nota">' + puntaje + '</div>' +
+    '<p class="detalle">' + aciertos + ' de ' + PREGUNTAS.length + ' correctas · escala 0 a 100</p>';
+
+  const repetir = document.createElement('button');
+  repetir.type = 'button';
+  repetir.className = 'btn btn-claro';
+  repetir.textContent = 'Repetir el cuestionario';
+  repetir.addEventListener('click', () => {
+    actual = 0; aciertos = 0;
+    marcador.textContent = '0 / ' + PREGUNTAS.length;
+    avanzarBarra();
+    pintarPregunta();
+  });
+
+  cierre.appendChild(repetir);
+  tarjeta.appendChild(cierre);
+
+  // Se reporta a la plataforma que aloja este material
+  try {
+    parent.postMessage({
+      tipo: 'sgma-puntaje',
+      actividad: ACTIVIDAD,
+      puntaje: puntaje,
+      maximo: 100,
+      detalle: aciertos + ' de ' + PREGUNTAS.length + ' correctas'
+    }, '*');
+  } catch (e) {}
+}
+
+marcador.textContent = '0 / ' + PREGUNTAS.length;
+avanzarBarra();
+pintarPregunta();
+</script>
+
+</body>
+</html>

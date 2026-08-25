@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario PHP · ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 860px; margin: 0 auto; padding: 22px 18px 40px; }
+  .titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .titulo .icono { font-size: 26px; }
+  h1 { margin: 0; font-size: 21px; }
+  .bajada { margin: 0 0 14px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.es { font-weight: 500; }
+  td.en { font-weight: 700; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="titulo"><span class="icono">🐘</span><h1>Diccionario PHP · ES–EN</h1></div>
+  <p class="bajada">Vocabulario del módulo de PHP en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar en español o en inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+    <tbody>
+      <tr data-busca="sesión session"><td class="es">sesión</td><td class="en">session</td><td class="uso">The session keeps the user logged in.</td></tr>
+      <tr data-busca="arreglo asociativo associative array"><td class="es">arreglo asociativo</td><td class="en">associative array</td><td class="uso">An associative array uses named keys.</td></tr>
+      <tr data-busca="subir archivo file upload"><td class="es">subir archivo</td><td class="en">file upload</td><td class="uso">Validate every file upload.</td></tr>
+      <tr data-busca="plantilla template"><td class="es">plantilla</td><td class="en">template</td><td class="uso">The template renders the HTML.</td></tr>
+      <tr data-busca="encabezados http headers"><td class="es">encabezados HTTP</td><td class="en">headers</td><td class="uso">Set the headers before any output.</td></tr>
+      <tr data-busca="validación validation"><td class="es">validación</td><td class="en">validation</td><td class="uso">Server side validation is mandatory.</td></tr>
+      <tr data-busca="escapado de salida escaping"><td class="es">escapado de salida</td><td class="en">escaping</td><td class="uso">Escaping prevents injection.</td></tr>
+      <tr data-busca="enrutamiento routing"><td class="es">enrutamiento</td><td class="en">routing</td><td class="uso">Routing maps a URL to a script.</td></tr>
+      <tr data-busca="consulta preparada prepared statement"><td class="es">consulta preparada</td><td class="en">prepared statement</td><td class="uso">Use prepared statements always.</td></tr>
+      <tr data-busca="sobrescribir override"><td class="es">sobrescribir</td><td class="en">override</td><td class="uso">The child class can override it.</td></tr>
+      <tr data-busca="superglobal superglobal"><td class="es">superglobal</td><td class="en">superglobal</td><td class="uso">POST is a superglobal array.</td></tr>
+      <tr data-busca="inclusión include"><td class="es">inclusión</td><td class="en">include</td><td class="uso">Include the header file once.</td></tr>
+      <tr data-busca="espacio de nombres namespace"><td class="es">espacio de nombres</td><td class="en">namespace</td><td class="uso">The namespace avoids name clashes.</td></tr>
+      <tr data-busca="función anónima closure"><td class="es">función anónima</td><td class="en">closure</td><td class="uso">A closure captures the outer variable.</td></tr>
+      <tr data-busca="concatenación concatenation"><td class="es">concatenación</td><td class="en">concatenation</td><td class="uso">The dot performs concatenation.</td></tr>
+      <tr data-busca="constante constant"><td class="es">constante</td><td class="en">constant</td><td class="uso">Define the constant with const.</td></tr>
+      <tr data-busca="arreglo indexado indexed array"><td class="es">arreglo indexado</td><td class="en">indexed array</td><td class="uso">An indexed array starts at zero.</td></tr>
+      <tr data-busca="redirección redirect"><td class="es">redirección</td><td class="en">redirect</td><td class="uso">Redirect after a successful POST.</td></tr>
+      <tr data-busca="registro log"><td class="es">registro</td><td class="en">log</td><td class="uso">Write the error to the log.</td></tr>
+      <tr data-busca="conexión connection"><td class="es">conexión</td><td class="en">connection</td><td class="uso">Close the connection when you finish.</td></tr>
+    </tbody>
+  </table>
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo  = document.getElementById('buscar');
+  const filas  = Array.from(document.querySelectorAll('tbody tr'));
+  const salida = document.getElementById('resultado');
+  const vacio  = document.getElementById('vacio');
+  const TOTAL  = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en el módulo';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

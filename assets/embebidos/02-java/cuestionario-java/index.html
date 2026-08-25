@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuestionario — Introducción a Java</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+    background: #f2f5f3;
+    color: #1a1a1a;
+  }
+  .marco { max-width: 720px; margin: 0 auto; padding: 22px 18px 40px; }
+  .cabecera { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  h1 { margin: 0; font-size: 20px; }
+  .marcador {
+    margin-left: auto; padding: 3px 10px; border-radius: 20px;
+    background: #b45309; color: #fff; font-size: 13px; font-weight: 600;
+  }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .barra { height: 6px; border-radius: 3px; background: #e3e9e5; overflow: hidden; margin-bottom: 20px; }
+  .barra span { display: block; height: 100%; width: 0; background: #b45309; transition: width .3s ease; }
+  .tarjeta {
+    padding: 18px 20px; border: 1px solid #dfe6e1; border-radius: 12px;
+    background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .enunciado { margin: 0 0 14px; font-size: 16px; font-weight: 600; line-height: 1.35; }
+  .opcion {
+    display: block; padding: 10px 12px; margin-bottom: 8px;
+    border: 1px solid #dfe6e1; border-radius: 8px; background: #fff;
+    font-size: 14px; text-align: left; width: 100%; cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .opcion:hover:not(:disabled) { background: #fdf6ec; border-color: #e0b47c; }
+  .opcion:disabled { cursor: default; }
+  .opcion.buena { background: #fdf0dc; border-color: #b45309; font-weight: 600; }
+  .opcion.mala { background: #fdeceb; border-color: #c62828; }
+  .respuesta { margin: 12px 0 0; font-size: 13.5px; line-height: 1.4; color: #7a4a0c; min-height: 20px; }
+  .pie { display: flex; gap: 10px; margin-top: 16px; }
+  .btn {
+    padding: 9px 18px; border: 1px solid #b45309; border-radius: 7px;
+    background: #b45309; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .btn-claro { background: #fff; color: #b45309; }
+  .cierre { text-align: center; padding: 10px 0; }
+  .cierre .nota { font-size: 46px; font-weight: 700; color: #b45309; line-height: 1; }
+  .cierre .detalle { margin: 6px 0 16px; font-size: 14px; color: #6b7b72; }
+  .medalla { font-size: 40px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+
+  <div class="cabecera">
+    <h1>Cuestionario — Introducción a Java</h1>
+    <span class="marcador" id="marcador">0 / 10</span>
+  </div>
+  <p class="bajada">Diez preguntas de selección única. Cada acierto vale 10 puntos; el puntaje se reporta a la plataforma al terminar.</p>
+
+  <div class="barra"><span id="barra"></span></div>
+
+  <div class="tarjeta" id="tarjeta"></div>
+
+</div>
+
+<script>
+const PREGUNTAS = [
+  ['¿Qué palabra declara una clase pública en Java?',
+   ['class public', 'public class', 'Class', 'def class'], 1,
+   'El modificador va primero: public class Nombre { }'],
+  ['¿Cuál es el método donde arranca un programa?',
+   ['start()', 'run()', 'main()', 'init()'], 2,
+   'public static void main(String[] args) es el punto de entrada.'],
+  ['¿Qué tipo guarda un número entero de 32 bits?',
+   ['long', 'int', 'double', 'short'], 1,
+   'int ocupa 32 bits; long ocupa 64.'],
+  ['¿Cómo se imprime en consola?',
+   ['print()', 'echo', 'System.out.println()', 'console.log()'], 2,
+   'System.out.println() escribe y salta de línea.'],
+  ['¿Qué imprime System.out.println(7 / 2);?',
+   ['3.5', '3', '4', 'Error'], 1,
+   'Al dividir dos enteros el resultado es entero: se trunca.'],
+  ['¿Con qué se delimita un bloque de código?',
+   ['La indentación', 'Llaves { }', 'Paréntesis ( )', 'begin y end'], 1,
+   'Java usa llaves; la sangría es solo para leer mejor.'],
+  ['¿Qué método devuelve el largo de un String?',
+   ['size()', 'len()', 'length()', 'count()'], 2,
+   'En String es length(); en los arreglos es el campo length.'],
+  ['¿Cómo se comparan dos cadenas por contenido?',
+   ['==', 'equals()', 'compare()', 'is'], 1,
+   '== compara referencias; equals() compara el contenido.'],
+  ['¿Qué colección crece dinámicamente?',
+   ['int[]', 'ArrayList', 'String[]', 'char[]'], 1,
+   'Los arreglos tienen tamaño fijo; ArrayList se redimensiona.'],
+  ['¿Qué significa que Java sea de tipado estático?',
+   ['El tipo se declara y se verifica al compilar',
+    'Los tipos cambian en ejecución',
+    'No existen los tipos',
+    'Todo es texto'], 0,
+   'El compilador verifica los tipos antes de ejecutar.']
+];
+
+const ACTIVIDAD = 'cuestionario-java';
+const tarjeta   = document.getElementById('tarjeta');
+const marcador  = document.getElementById('marcador');
+const barra     = document.getElementById('barra');
+
+let actual = 0;
+let aciertos = 0;
+
+function avanzarBarra() {
+  barra.style.width = Math.round(actual / PREGUNTAS.length * 100) + '%';
+}
+
+function pintarPregunta() {
+  const [enunciado, opciones, correcta, explicacion] = PREGUNTAS[actual];
+  tarjeta.replaceChildren();
+
+  const titulo = document.createElement('p');
+  titulo.className = 'enunciado';
+  titulo.textContent = (actual + 1) + '. ' + enunciado;
+  tarjeta.appendChild(titulo);
+
+  const respuesta = document.createElement('p');
+  respuesta.className = 'respuesta';
+
+  const botones = opciones.map((texto, indice) => {
+    const boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'opcion';
+    boton.textContent = texto;
+    boton.addEventListener('click', () => {
+      botones.forEach(otro => { otro.disabled = true; });
+      botones[correcta].classList.add('buena');
+      if (indice === correcta) {
+        aciertos += 1;
+        respuesta.textContent = '✔ Correcto. ' + explicacion;
+      } else {
+        boton.classList.add('mala');
+        respuesta.textContent = '✘ La respuesta era «' + opciones[correcta] + '». ' + explicacion;
+      }
+      marcador.textContent = aciertos + ' / ' + PREGUNTAS.length;
+      siguiente.disabled = false;
+    });
+    tarjeta.appendChild(boton);
+    return boton;
+  });
+
+  tarjeta.appendChild(respuesta);
+
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  var siguiente = document.createElement('button');
+  siguiente.type = 'button';
+  siguiente.className = 'btn';
+  siguiente.textContent = actual === PREGUNTAS.length - 1 ? 'Ver resultado' : 'Siguiente';
+  siguiente.disabled = true;
+  siguiente.addEventListener('click', () => {
+    actual += 1;
+    avanzarBarra();
+    if (actual < PREGUNTAS.length) pintarPregunta();
+    else cerrar();
+  });
+  pie.appendChild(siguiente);
+  tarjeta.appendChild(pie);
+}
+
+function cerrar() {
+  const puntaje = aciertos * 10;
+  tarjeta.replaceChildren();
+
+  const cierre = document.createElement('div');
+  cierre.className = 'cierre';
+  cierre.innerHTML =
+    '<div class="medalla">' + (puntaje >= 80 ? '🏅' : puntaje >= 60 ? '👍' : '📚') + '</div>' +
+    '<div class="nota">' + puntaje + '</div>' +
+    '<p class="detalle">' + aciertos + ' de ' + PREGUNTAS.length + ' correctas · escala 0 a 100</p>';
+
+  const repetir = document.createElement('button');
+  repetir.type = 'button';
+  repetir.className = 'btn btn-claro';
+  repetir.textContent = 'Repetir el cuestionario';
+  repetir.addEventListener('click', () => {
+    actual = 0; aciertos = 0;
+    marcador.textContent = '0 / ' + PREGUNTAS.length;
+    avanzarBarra();
+    pintarPregunta();
+  });
+
+  cierre.appendChild(repetir);
+  tarjeta.appendChild(cierre);
+
+  // Se reporta a la plataforma que aloja este material
+  try {
+    parent.postMessage({
+      tipo: 'sgma-puntaje',
+      actividad: ACTIVIDAD,
+      puntaje: puntaje,
+      maximo: 100,
+      detalle: aciertos + ' de ' + PREGUNTAS.length + ' correctas'
+    }, '*');
+  } catch (e) {}
+}
+
+marcador.textContent = '0 / ' + PREGUNTAS.length;
+avanzarBarra();
+pintarPregunta();
+</script>
+
+</body>
+</html>

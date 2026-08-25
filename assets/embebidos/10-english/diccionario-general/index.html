@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario Vocabulario general · ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 860px; margin: 0 auto; padding: 22px 18px 40px; }
+  .titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .titulo .icono { font-size: 26px; }
+  h1 { margin: 0; font-size: 21px; }
+  .bajada { margin: 0 0 14px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.es { font-weight: 500; }
+  td.en { font-weight: 700; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="titulo"><span class="icono">🔤</span><h1>Diccionario Vocabulario general · ES–EN</h1></div>
+  <p class="bajada">Vocabulario del módulo de Vocabulario general en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar en español o en inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+    <tbody>
+      <tr data-busca="archivo file"><td class="es">archivo</td><td class="en">file</td><td class="uso">Open the file before writing.</td></tr>
+      <tr data-busca="carpeta folder"><td class="es">carpeta</td><td class="en">folder</td><td class="uso">The images are in that folder.</td></tr>
+      <tr data-busca="cadena de texto string"><td class="es">cadena de texto</td><td class="en">string</td><td class="uso">A string is a sequence of characters.</td></tr>
+      <tr data-busca="número entero integer"><td class="es">número entero</td><td class="en">integer</td><td class="uso">An integer has no decimal part.</td></tr>
+      <tr data-busca="bucle loop"><td class="es">bucle</td><td class="en">loop</td><td class="uso">The loop repeats until the condition fails.</td></tr>
+      <tr data-busca="sentencia statement"><td class="es">sentencia</td><td class="en">statement</td><td class="uso">Each statement ends with a semicolon.</td></tr>
+      <tr data-busca="arreglo array"><td class="es">arreglo</td><td class="en">array</td><td class="uso">The array stores three values.</td></tr>
+      <tr data-busca="base de datos database"><td class="es">base de datos</td><td class="en">database</td><td class="uso">The database keeps the records.</td></tr>
+      <tr data-busca="consulta query"><td class="es">consulta</td><td class="en">query</td><td class="uso">Run the query to get the rows.</td></tr>
+      <tr data-busca="depurar debug"><td class="es">depurar</td><td class="en">debug</td><td class="uso">Debug the code to find the error.</td></tr>
+      <tr data-busca="código fuente source code"><td class="es">código fuente</td><td class="en">source code</td><td class="uso">The source code is on the repository.</td></tr>
+      <tr data-busca="fallo bug"><td class="es">fallo</td><td class="en">bug</td><td class="uso">We found a bug in the login.</td></tr>
+      <tr data-busca="prueba test"><td class="es">prueba</td><td class="en">test</td><td class="uso">Every change needs a test.</td></tr>
+      <tr data-busca="versión release"><td class="es">versión</td><td class="en">release</td><td class="uso">The next release ships on Friday.</td></tr>
+      <tr data-busca="requisito requirement"><td class="es">requisito</td><td class="en">requirement</td><td class="uso">The requirement is written in the guide.</td></tr>
+      <tr data-busca="entrega delivery"><td class="es">entrega</td><td class="en">delivery</td><td class="uso">The delivery is due next week.</td></tr>
+      <tr data-busca="copia de seguridad backup"><td class="es">copia de seguridad</td><td class="en">backup</td><td class="uso">Keep a daily backup.</td></tr>
+      <tr data-busca="usuario user"><td class="es">usuario</td><td class="en">user</td><td class="uso">The user cannot see that field.</td></tr>
+      <tr data-busca="permiso permission"><td class="es">permiso</td><td class="en">permission</td><td class="uso">You need permission to edit.</td></tr>
+      <tr data-busca="ejecutar run"><td class="es">ejecutar</td><td class="en">run</td><td class="uso">Run the program from the console.</td></tr>
+    </tbody>
+  </table>
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo  = document.getElementById('buscar');
+  const filas  = Array.from(document.querySelectorAll('tbody tr'));
+  const salida = document.getElementById('resultado');
+  const vacio  = document.getElementById('vacio');
+  const TOTAL  = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en el módulo';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

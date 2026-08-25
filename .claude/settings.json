@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ' *)",
+      "Bash(python \"C:/Users/USUARIO/AppData/Local/Temp/claude/d--LMS-SENA/65b87831-f95c-4d21-a04d-5cb1a0625110/scratchpad/ul_curso.py\")",
+      "Bash(python \"C:/Users/USUARIO/AppData/Local/Temp/claude/d--LMS-SENA/65b87831-f95c-4d21-a04d-5cb1a0625110/scratchpad/nivel3.py\")",
+      "Bash(python \"C:/Users/USUARIO/AppData/Local/Temp/claude/d--LMS-SENA/65b87831-f95c-4d21-a04d-5cb1a0625110/scratchpad/jerarquia.py\")",
+      "Bash(python \"C:/Users/USUARIO/AppData/Local/Temp/claude/d--LMS-SENA/65b87831-f95c-4d21-a04d-5cb1a0625110/scratchpad/submenu.py\")",
+      "Bash(python \"C:/Users/USUARIO/AppData/Local/Temp/claude/d--LMS-SENA/65b87831-f95c-4d21-a04d-5cb1a0625110/scratchpad/tarjetas6x2.py\")",
+      "Bash(python \"C:/Users/USUARIO/AppData/Local/Temp/claude/d--LMS-SENA/f3f8bb37-d302-46c3-8637-3f0362ab7ea0/scratchpad/m3_ficha.py\")",
+      "Bash(curl -s -o /dev/null -w \"aprendiz.html %{http_code}\\\\n\" \"http://127.0.0.1:8000/pages/aprendiz.html\")",
+      "Bash(python \"C:/Users/USUARIO/AppData/Local/Temp/claude/d--LMS-SENA/f3f8bb37-d302-46c3-8637-3f0362ab7ea0/scratchpad/verifica_avance.py\")",
+      "Bash(curl -s -o /dev/null -w \"aprendiz %{http_code} | analitica.css \" \"http://127.0.0.1:8000/pages/aprendiz.html\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://127.0.0.1:8000/assets/css/analitica.css\")",
+      "Bash(python \"C:/Users/USUARIO/AppData/Local/Temp/claude/d--LMS-SENA/f3f8bb37-d302-46c3-8637-3f0362ab7ea0/scratchpad/componentes.py\")",
+      "Bash(python \"C:/Users/USUARIO/AppData/Local/Temp/claude/d--LMS-SENA/f3f8bb37-d302-46c3-8637-3f0362ab7ea0/scratchpad/menu_aprendiz.py\")",
+      "Bash(curl -s -o /dev/null -w \"senacol %{http_code}\\\\n\" \"http://127.0.0.1:8000/pages/senacol/sena_home_index.html\")",
+      "Bash(start \"\" \"d:\\\\LMS SENA\\\\pages\\\\instructor.html\")",
+      "PowerShell(Start-Process \"d:\\\\LMS SENA\\\\pages\\\\instructor.html\")",
+      "PowerShell(Start-Process \"d:\\\\LMS SENA\\\\pages\\\\administrador.html\")",
+      "PowerShell(Start-Process \"d:\\\\LMS SENA\\\\pages\\\\aprendiz.html\")"
+    ]
+  }
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos básicos de C++</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary { padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+                      display: flex; align-items: center; gap: 10px; list-style: none; }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #00599c; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+               letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  pre { margin: 0 0 10px; padding: 14px 16px; border-radius: 9px;
+         background: #08192a; color: #8ec7f0;
+         font-family: Consolas, "Courier New", monospace; font-size: 13.5px; line-height: 1.55; overflow-x: auto; }
+  .salida { padding: 9px 12px; border-left: 3px solid #00599c; border-radius: 6px;
+             background: #f1f7fc; font-family: Consolas, "Courier New", monospace;
+             font-size: 13px; color: #003a66; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Ejemplos básicos de C++</h1>
+  <p class="bajada">Seis piezas de código comentadas, con la salida que producen. Ábrelas, léelas y repítelas antes de pasar a la actividad.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Programa mínimo <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>iostream y el operador de inserción sustituyen a printf.</p>
+      <pre>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Ficha 3293836" &lt;&lt; endl;
+    return 0;
+}</pre>
+      <div class="salida">Ficha 3293836</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>2. Entrada y cadenas <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>string es una clase: conoce su tamaño y gestiona su memoria.</p>
+      <pre>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string nombre;
+    cout &lt;&lt; "Nombre: ";
+    getline(cin, nombre);
+    cout &lt;&lt; "Hola " &lt;&lt; nombre &lt;&lt; " (" &lt;&lt; nombre.size() &lt;&lt; ")";
+}</pre>
+      <div class="salida">Nombre: Sara → Hola Sara (4)</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>3. Vectores <span class="etiqueta">Estructuras</span></summary>
+    <div class="cuerpo">
+      <p>El vector crece solo y sabe cuántos elementos tiene.</p>
+      <pre>#include &lt;vector&gt;
+
+vector&lt;double&gt; notas{4.5, 3.8};
+notas.push_back(4.9);
+
+double suma = 0;
+for (double n : notas) suma += n;
+
+cout &lt;&lt; suma / notas.size();</pre>
+      <div class="salida">4.4</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>4. Clases <span class="etiqueta">Objetos</span></summary>
+    <div class="cuerpo">
+      <p>Los datos privados se tocan solo por métodos públicos.</p>
+      <pre>class Aprendiz {
+private:
+    string nombre;
+    double nota;
+public:
+    Aprendiz(string n, double p) : nombre(n), nota(p) {}
+    bool aprobo() const { return nota &gt;= 3.0; }
+    string getNombre() const { return nombre; }
+};</pre>
+      <div class="salida">Aprendiz a("Sara", 3.8); a.aprobo() devuelve true.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>5. Referencias y punteros <span class="etiqueta">Memoria</span></summary>
+    <div class="cuerpo">
+      <p>La referencia es un alias; el puntero puede ser nulo y reasignarse.</p>
+      <pre>int x = 10;
+int &amp;alias = x;
+int *puntero = &amp;x;
+
+alias = 20;
+cout &lt;&lt; x &lt;&lt; " " &lt;&lt; *puntero;</pre>
+      <div class="salida">20 20</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>6. Plantillas <span class="etiqueta">Genéricos</span></summary>
+    <div class="cuerpo">
+      <p>Una sola función sirve para cualquier tipo comparable.</p>
+      <pre>template &lt;typename T&gt;
+T mayor(T a, T b) {
+    return a &gt; b ? a : b;
+}
+
+cout &lt;&lt; mayor(4, 9) &lt;&lt; " " &lt;&lt; mayor(2.5, 1.5);</pre>
+      <div class="salida">9 2.5</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

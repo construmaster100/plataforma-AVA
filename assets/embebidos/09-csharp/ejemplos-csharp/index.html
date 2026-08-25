@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos básicos de C#</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary { padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+                      display: flex; align-items: center; gap: 10px; list-style: none; }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #68217a; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+               letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  pre { margin: 0 0 10px; padding: 14px 16px; border-radius: 9px;
+         background: #1c0f20; color: #d9a8e6;
+         font-family: Consolas, "Courier New", monospace; font-size: 13.5px; line-height: 1.55; overflow-x: auto; }
+  .salida { padding: 9px 12px; border-left: 3px solid #68217a; border-radius: 6px;
+             background: #f9f2fa; font-family: Consolas, "Courier New", monospace;
+             font-size: 13px; color: #4b1758; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Ejemplos básicos de C#</h1>
+  <p class="bajada">Seis piezas de código comentadas, con la salida que producen. Ábrelas, léelas y repítelas antes de pasar a la actividad.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Programa mínimo <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>La clase y el método Main son el punto de entrada clásico.</p>
+      <pre>using System;
+
+class Programa {
+    static void Main() {
+        Console.WriteLine("Ficha 3293836");
+    }
+}</pre>
+      <div class="salida">Ficha 3293836</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>2. Variables e interpolación <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>El dólar delante de la cadena permite incrustar expresiones.</p>
+      <pre>string ficha = "3293836";
+int aprendices = 27;
+double promedio = 4.5;
+
+Console.WriteLine($"Ficha {ficha}: {aprendices} aprendices, {promedio:F1}");</pre>
+      <div class="salida">Ficha 3293836: 27 aprendices, 4.5</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>3. Colecciones <span class="etiqueta">Estructuras</span></summary>
+    <div class="cuerpo">
+      <p>List&lt;T&gt; es la colección de uso diario.</p>
+      <pre>using System.Collections.Generic;
+
+var notas = new List&lt;double&gt; { 4.5, 3.8 };
+notas.Add(4.9);
+
+Console.WriteLine(notas.Count);</pre>
+      <div class="salida">3</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>4. Clases y propiedades <span class="etiqueta">Objetos</span></summary>
+    <div class="cuerpo">
+      <p>La propiedad encapsula el dato sin escribir get y set a mano.</p>
+      <pre>class Aprendiz {
+    public string Nombre { get; set; }
+    public double Nota { get; set; }
+
+    public bool Aprobo() =&gt; Nota &gt;= 3.0;
+}
+
+var a = new Aprendiz { Nombre = "Sara", Nota = 3.8 };
+Console.WriteLine(a.Aprobo());</pre>
+      <div class="salida">True</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>5. LINQ <span class="etiqueta">Consultas</span></summary>
+    <div class="cuerpo">
+      <p>Where filtra y Select proyecta, sin escribir el ciclo.</p>
+      <pre>using System.Linq;
+
+var notas = new[] { 4.5, 2.8, 3.9 };
+var aprobadas = notas.Where(n =&gt; n &gt;= 3.0).ToList();
+
+Console.WriteLine($"{aprobadas.Count} de {notas.Length} · promedio {notas.Average():F2}");</pre>
+      <div class="salida">2 de 3 · promedio 3.73</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>6. Excepciones <span class="etiqueta">Robustez</span></summary>
+    <div class="cuerpo">
+      <p>finally se ejecuta pase lo que pase.</p>
+      <pre>try {
+    int[] datos = new int[2];
+    Console.WriteLine(datos[5]);
+} catch (IndexOutOfRangeException e) {
+    Console.WriteLine("Índice fuera de rango");
+} finally {
+    Console.WriteLine("Fin");
+}</pre>
+      <div class="salida">Índice fuera de rango<br>Fin</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

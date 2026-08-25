@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario técnico ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 900px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 21px; }
+  .bajada { margin: 0 0 16px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  .grupo { margin-bottom: 22px; }
+  .grupo[hidden] { display: none; }
+  h2 { display: flex; align-items: baseline; gap: 10px; margin: 0 0 8px;
+        font-size: 16px; color: #0b4f49; }
+  .conteo { margin-left: auto; font-size: 11.5px; font-weight: 400; color: #8a9691; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.en { font-weight: 600; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Diccionario técnico ES–EN</h1>
+  <p class="bajada">Vocabulario de los módulos del programa, en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar término en español o inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+      <section class="grupo" data-grupo="general">
+        <h2>Vocabulario general <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="archivo file"><td>archivo</td><td class="en">file</td><td class="uso">Open the file before writing.</td></tr>
+        <tr data-busca="carpeta folder"><td>carpeta</td><td class="en">folder</td><td class="uso">The images are in that folder.</td></tr>
+        <tr data-busca="cadena de texto string"><td>cadena de texto</td><td class="en">string</td><td class="uso">A string is a sequence of characters.</td></tr>
+        <tr data-busca="número entero integer"><td>número entero</td><td class="en">integer</td><td class="uso">An integer has no decimal part.</td></tr>
+        <tr data-busca="bucle loop"><td>bucle</td><td class="en">loop</td><td class="uso">The loop repeats until the condition fails.</td></tr>
+        <tr data-busca="sentencia statement"><td>sentencia</td><td class="en">statement</td><td class="uso">Each statement ends with a semicolon.</td></tr>
+        <tr data-busca="arreglo array"><td>arreglo</td><td class="en">array</td><td class="uso">The array stores three values.</td></tr>
+        <tr data-busca="base de datos database"><td>base de datos</td><td class="en">database</td><td class="uso">The database keeps the records.</td></tr>
+        <tr data-busca="consulta query"><td>consulta</td><td class="en">query</td><td class="uso">Run the query to get the rows.</td></tr>
+        <tr data-busca="depurar debug"><td>depurar</td><td class="en">debug</td><td class="uso">Debug the code to find the error.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="grupo" data-grupo="html">
+        <h2>HTML · English practice <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="etiqueta tag"><td>etiqueta</td><td class="en">tag</td><td class="uso">Close every tag you open.</td></tr>
+        <tr data-busca="encabezado h1–h6 heading"><td>encabezado h1–h6</td><td class="en">heading</td><td class="uso">Use one main heading per page.</td></tr>
+        <tr data-busca="enlace link"><td>enlace</td><td class="en">link</td><td class="uso">The link points to another page.</td></tr>
+        <tr data-busca="formulario form"><td>formulario</td><td class="en">form</td><td class="uso">The form sends data to the server.</td></tr>
+        <tr data-busca="campo field"><td>campo</td><td class="en">field</td><td class="uso">Fill every required field.</td></tr>
+        <tr data-busca="casilla de verificación checkbox"><td>casilla de verificación</td><td class="en">checkbox</td><td class="uso">Tick the checkbox to accept.</td></tr>
+        <tr data-busca="lista desplegable dropdown"><td>lista desplegable</td><td class="en">dropdown</td><td class="uso">Pick a value from the dropdown.</td></tr>
+        <tr data-busca="tabla table"><td>tabla</td><td class="en">table</td><td class="uso">The table has two rows.</td></tr>
+        <tr data-busca="pie de página footer"><td>pie de página</td><td class="en">footer</td><td class="uso">The footer shows the contact data.</td></tr>
+        <tr data-busca="texto alternativo alt text"><td>texto alternativo</td><td class="en">alt text</td><td class="uso">Alt text describes the image.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="grupo" data-grupo="css">
+        <h2>CSS · English practice <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="hoja de estilos stylesheet"><td>hoja de estilos</td><td class="en">stylesheet</td><td class="uso">Link the stylesheet in the head.</td></tr>
+        <tr data-busca="selector selector"><td>selector</td><td class="en">selector</td><td class="uso">The selector targets the element.</td></tr>
+        <tr data-busca="relleno padding"><td>relleno</td><td class="en">padding</td><td class="uso">Padding is the space inside the box.</td></tr>
+        <tr data-busca="margen margin"><td>margen</td><td class="en">margin</td><td class="uso">Margin is the space outside the box.</td></tr>
+        <tr data-busca="borde border"><td>borde</td><td class="en">border</td><td class="uso">The border draws the box limit.</td></tr>
+        <tr data-busca="sombra shadow"><td>sombra</td><td class="en">shadow</td><td class="uso">A soft shadow lifts the card.</td></tr>
+        <tr data-busca="tipografía font"><td>tipografía</td><td class="en">font</td><td class="uso">Choose a readable font.</td></tr>
+        <tr data-busca="cuadrícula grid"><td>cuadrícula</td><td class="en">grid</td><td class="uso">The grid has four columns.</td></tr>
+        <tr data-busca="desplazamiento scroll"><td>desplazamiento</td><td class="en">scroll</td><td class="uso">Scroll down to see the rest.</td></tr>
+        <tr data-busca="punto de corte breakpoint"><td>punto de corte</td><td class="en">breakpoint</td><td class="uso">The layout changes at that breakpoint.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="grupo" data-grupo="web">
+        <h2>Desarrollo web · English practice <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="petición request"><td>petición</td><td class="en">request</td><td class="uso">The browser sends a request.</td></tr>
+        <tr data-busca="respuesta response"><td>respuesta</td><td class="en">response</td><td class="uso">The server sends a response.</td></tr>
+        <tr data-busca="servidor server"><td>servidor</td><td class="en">server</td><td class="uso">The server runs the backend code.</td></tr>
+        <tr data-busca="navegador browser"><td>navegador</td><td class="en">browser</td><td class="uso">Open the page in any browser.</td></tr>
+        <tr data-busca="red network"><td>red</td><td class="en">network</td><td class="uso">Check your network connection.</td></tr>
+        <tr data-busca="inicio de sesión login"><td>inicio de sesión</td><td class="en">login</td><td class="uso">The login form asks for a password.</td></tr>
+        <tr data-busca="contraseña password"><td>contraseña</td><td class="en">password</td><td class="uso">Never share your password.</td></tr>
+        <tr data-busca="actualizar la vista refresh"><td>actualizar la vista</td><td class="en">refresh</td><td class="uso">Refresh the page to see the change.</td></tr>
+        <tr data-busca="almacenamiento storage"><td>almacenamiento</td><td class="en">storage</td><td class="uso">Local storage keeps small data.</td></tr>
+        <tr data-busca="despliegue deployment"><td>despliegue</td><td class="en">deployment</td><td class="uso">The deployment went to production.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="grupo" data-grupo="python">
+        <h2>Python · English practice <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="lista list"><td>lista</td><td class="en">list</td><td class="uso">A list can hold mixed types.</td></tr>
+        <tr data-busca="diccionario dictionary"><td>diccionario</td><td class="en">dictionary</td><td class="uso">The dictionary maps keys to values.</td></tr>
+        <tr data-busca="sangría indentation"><td>sangría</td><td class="en">indentation</td><td class="uso">Python uses indentation for blocks.</td></tr>
+        <tr data-busca="biblioteca library"><td>biblioteca</td><td class="en">library</td><td class="uso">Import the standard library.</td></tr>
+        <tr data-busca="función function"><td>función</td><td class="en">function</td><td class="uso">Define the function with def.</td></tr>
+        <tr data-busca="ámbito scope"><td>ámbito</td><td class="en">scope</td><td class="uso">The variable is out of scope here.</td></tr>
+        <tr data-busca="tupla tuple"><td>tupla</td><td class="en">tuple</td><td class="uso">A tuple cannot be modified.</td></tr>
+        <tr data-busca="conjunto set"><td>conjunto</td><td class="en">set</td><td class="uso">A set removes duplicates.</td></tr>
+        <tr data-busca="excepción exception"><td>excepción</td><td class="en">exception</td><td class="uso">Catch the exception with try.</td></tr>
+        <tr data-busca="módulo module"><td>módulo</td><td class="en">module</td><td class="uso">Each .py file is a module.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="grupo" data-grupo="java">
+        <h2>Java · English practice <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="clase class"><td>clase</td><td class="en">class</td><td class="uso">Every program needs a class.</td></tr>
+        <tr data-busca="herencia inheritance"><td>herencia</td><td class="en">inheritance</td><td class="uso">Inheritance shares behaviour.</td></tr>
+        <tr data-busca="método method"><td>método</td><td class="en">method</td><td class="uso">The method returns a value.</td></tr>
+        <tr data-busca="interfaz interface"><td>interfaz</td><td class="en">interface</td><td class="uso">A class can implement an interface.</td></tr>
+        <tr data-busca="compilar compile"><td>compilar</td><td class="en">compile</td><td class="uso">Compile the code before running it.</td></tr>
+        <tr data-busca="hilo thread"><td>hilo</td><td class="en">thread</td><td class="uso">Each thread runs in parallel.</td></tr>
+        <tr data-busca="paquete package"><td>paquete</td><td class="en">package</td><td class="uso">The package groups related classes.</td></tr>
+        <tr data-busca="sobrecarga overloading"><td>sobrecarga</td><td class="en">overloading</td><td class="uso">Overloading repeats a method name.</td></tr>
+        <tr data-busca="constructor constructor"><td>constructor</td><td class="en">constructor</td><td class="uso">The constructor sets the initial state.</td></tr>
+        <tr data-busca="recolector de basura garbage collector"><td>recolector de basura</td><td class="en">garbage collector</td><td class="uso">The garbage collector frees memory.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="grupo" data-grupo="php">
+        <h2>PHP · English practice <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="sesión session"><td>sesión</td><td class="en">session</td><td class="uso">The session keeps the user logged in.</td></tr>
+        <tr data-busca="arreglo asociativo associative array"><td>arreglo asociativo</td><td class="en">associative array</td><td class="uso">An associative array uses named keys.</td></tr>
+        <tr data-busca="subir archivo file upload"><td>subir archivo</td><td class="en">file upload</td><td class="uso">Validate every file upload.</td></tr>
+        <tr data-busca="plantilla template"><td>plantilla</td><td class="en">template</td><td class="uso">The template renders the HTML.</td></tr>
+        <tr data-busca="encabezados http headers"><td>encabezados HTTP</td><td class="en">headers</td><td class="uso">Set the headers before any output.</td></tr>
+        <tr data-busca="validación validation"><td>validación</td><td class="en">validation</td><td class="uso">Server side validation is mandatory.</td></tr>
+        <tr data-busca="escapado de salida escaping"><td>escapado de salida</td><td class="en">escaping</td><td class="uso">Escaping prevents injection.</td></tr>
+        <tr data-busca="enrutamiento routing"><td>enrutamiento</td><td class="en">routing</td><td class="uso">Routing maps a URL to a script.</td></tr>
+        <tr data-busca="consulta preparada prepared statement"><td>consulta preparada</td><td class="en">prepared statement</td><td class="uso">Use prepared statements always.</td></tr>
+        <tr data-busca="sobrescribir override"><td>sobrescribir</td><td class="en">override</td><td class="uso">The child class can override it.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="grupo" data-grupo="c">
+        <h2>C · English practice <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="puntero pointer"><td>puntero</td><td class="en">pointer</td><td class="uso">The pointer holds an address.</td></tr>
+        <tr data-busca="memoria memory"><td>memoria</td><td class="en">memory</td><td class="uso">Free the memory you reserve.</td></tr>
+        <tr data-busca="dirección address"><td>dirección</td><td class="en">address</td><td class="uso">The ampersand gives the address.</td></tr>
+        <tr data-busca="pila stack"><td>pila</td><td class="en">stack</td><td class="uso">Local variables live on the stack.</td></tr>
+        <tr data-busca="montón heap"><td>montón</td><td class="en">heap</td><td class="uso">malloc reserves memory on the heap.</td></tr>
+        <tr data-busca="desbordamiento overflow"><td>desbordamiento</td><td class="en">overflow</td><td class="uso">A buffer overflow is a security hole.</td></tr>
+        <tr data-busca="cabecera header"><td>cabecera</td><td class="en">header</td><td class="uso">Include the header before using it.</td></tr>
+        <tr data-busca="compilador compiler"><td>compilador</td><td class="en">compiler</td><td class="uso">The compiler reports the error.</td></tr>
+        <tr data-busca="bandera flag"><td>bandera</td><td class="en">flag</td><td class="uso">The flag turns the option on.</td></tr>
+        <tr data-busca="liberar memoria free memory"><td>liberar memoria</td><td class="en">free memory</td><td class="uso">Always free memory after malloc.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="grupo" data-grupo="cpp">
+        <h2>C++ · English practice <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="referencia reference"><td>referencia</td><td class="en">reference</td><td class="uso">A reference is an alias.</td></tr>
+        <tr data-busca="plantilla template"><td>plantilla</td><td class="en">template</td><td class="uso">The template works with any type.</td></tr>
+        <tr data-busca="herencia múltiple multiple inheritance"><td>herencia múltiple</td><td class="en">multiple inheritance</td><td class="uso">C++ allows multiple inheritance.</td></tr>
+        <tr data-busca="sobrecarga de operadores operator overloading"><td>sobrecarga de operadores</td><td class="en">operator overloading</td><td class="uso">Operator overloading redefines the plus sign.</td></tr>
+        <tr data-busca="espacio de nombres namespace"><td>espacio de nombres</td><td class="en">namespace</td><td class="uso">The std namespace holds cout.</td></tr>
+        <tr data-busca="destructor destructor"><td>destructor</td><td class="en">destructor</td><td class="uso">The destructor releases the resources.</td></tr>
+        <tr data-busca="iterador iterator"><td>iterador</td><td class="en">iterator</td><td class="uso">The iterator walks the container.</td></tr>
+        <tr data-busca="constante constant"><td>constante</td><td class="en">constant</td><td class="uso">Mark the method as constant.</td></tr>
+        <tr data-busca="fuga de memoria memory leak"><td>fuga de memoria</td><td class="en">memory leak</td><td class="uso">A memory leak grows over time.</td></tr>
+        <tr data-busca="contenedor container"><td>contenedor</td><td class="en">container</td><td class="uso">Vector is a sequence container.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="grupo" data-grupo="csharp">
+        <h2>C# · English practice <span class="conteo">10 términos</span></h2>
+        <table>
+          <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+          <tbody>
+        <tr data-busca="propiedad property"><td>propiedad</td><td class="en">property</td><td class="uso">The property has a getter and a setter.</td></tr>
+        <tr data-busca="colección collection"><td>colección</td><td class="en">collection</td><td class="uso">The collection grows on demand.</td></tr>
+        <tr data-busca="delegado delegate"><td>delegado</td><td class="en">delegate</td><td class="uso">A delegate points to a method.</td></tr>
+        <tr data-busca="ensamblado assembly"><td>ensamblado</td><td class="en">assembly</td><td class="uso">The assembly is the compiled unit.</td></tr>
+        <tr data-busca="evento event"><td>evento</td><td class="en">event</td><td class="uso">The button raises a click event.</td></tr>
+        <tr data-busca="tipo anulable nullable type"><td>tipo anulable</td><td class="en">nullable type</td><td class="uso">A nullable type can hold null.</td></tr>
+        <tr data-busca="cadena interpolada interpolated string"><td>cadena interpolada</td><td class="en">interpolated string</td><td class="uso">An interpolated string starts with a dollar sign.</td></tr>
+        <tr data-busca="espacio de nombres namespace"><td>espacio de nombres</td><td class="en">namespace</td><td class="uso">The namespace groups the classes.</td></tr>
+        <tr data-busca="recolección de basura garbage collection"><td>recolección de basura</td><td class="en">garbage collection</td><td class="uso">Garbage collection is automatic.</td></tr>
+        <tr data-busca="consulta integrada integrated query"><td>consulta integrada</td><td class="en">integrated query</td><td class="uso">LINQ means language integrated query.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo   = document.getElementById('buscar');
+  const grupos  = Array.from(document.querySelectorAll('.grupo'));
+  const filas   = Array.from(document.querySelectorAll('tbody tr'));
+  const salida  = document.getElementById('resultado');
+  const vacio   = document.getElementById('vacio');
+  const TOTAL   = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    grupos.forEach(grupo => {
+      grupo.hidden = !Array.from(grupo.querySelectorAll('tbody tr')).some(f => !f.hidden);
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en ' + grupos.length + ' grupos';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

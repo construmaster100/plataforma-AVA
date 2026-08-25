@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario Python · ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 860px; margin: 0 auto; padding: 22px 18px 40px; }
+  .titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .titulo .icono { font-size: 26px; }
+  h1 { margin: 0; font-size: 21px; }
+  .bajada { margin: 0 0 14px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.es { font-weight: 500; }
+  td.en { font-weight: 700; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="titulo"><span class="icono">🐍</span><h1>Diccionario Python · ES–EN</h1></div>
+  <p class="bajada">Vocabulario del módulo de Python en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar en español o en inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+    <tbody>
+      <tr data-busca="lista list"><td class="es">lista</td><td class="en">list</td><td class="uso">A list can hold mixed types.</td></tr>
+      <tr data-busca="diccionario dictionary"><td class="es">diccionario</td><td class="en">dictionary</td><td class="uso">The dictionary maps keys to values.</td></tr>
+      <tr data-busca="sangría indentation"><td class="es">sangría</td><td class="en">indentation</td><td class="uso">Python uses indentation for blocks.</td></tr>
+      <tr data-busca="biblioteca library"><td class="es">biblioteca</td><td class="en">library</td><td class="uso">Import the standard library.</td></tr>
+      <tr data-busca="función function"><td class="es">función</td><td class="en">function</td><td class="uso">Define the function with def.</td></tr>
+      <tr data-busca="ámbito scope"><td class="es">ámbito</td><td class="en">scope</td><td class="uso">The variable is out of scope here.</td></tr>
+      <tr data-busca="tupla tuple"><td class="es">tupla</td><td class="en">tuple</td><td class="uso">A tuple cannot be modified.</td></tr>
+      <tr data-busca="conjunto set"><td class="es">conjunto</td><td class="en">set</td><td class="uso">A set removes duplicates.</td></tr>
+      <tr data-busca="excepción exception"><td class="es">excepción</td><td class="en">exception</td><td class="uso">Catch the exception with try.</td></tr>
+      <tr data-busca="módulo module"><td class="es">módulo</td><td class="en">module</td><td class="uso">Each .py file is a module.</td></tr>
+      <tr data-busca="comentario comment"><td class="es">comentario</td><td class="en">comment</td><td class="uso">A comment starts with a hash.</td></tr>
+      <tr data-busca="argumento argument"><td class="es">argumento</td><td class="en">argument</td><td class="uso">Pass the argument to the function.</td></tr>
+      <tr data-busca="parámetro parameter"><td class="es">parámetro</td><td class="en">parameter</td><td class="uso">The parameter has a default value.</td></tr>
+      <tr data-busca="entrada input"><td class="es">entrada</td><td class="en">input</td><td class="uso">The input function returns a string.</td></tr>
+      <tr data-busca="salida output"><td class="es">salida</td><td class="en">output</td><td class="uso">Print writes to the standard output.</td></tr>
+      <tr data-busca="rango range"><td class="es">rango</td><td class="en">range</td><td class="uso">Range generates a number sequence.</td></tr>
+      <tr data-busca="ordenar sort"><td class="es">ordenar</td><td class="en">sort</td><td class="uso">Sort the list before printing.</td></tr>
+      <tr data-busca="filtrar filter"><td class="es">filtrar</td><td class="en">filter</td><td class="uso">Filter keeps only the even numbers.</td></tr>
+      <tr data-busca="longitud length"><td class="es">longitud</td><td class="en">length</td><td class="uso">Len returns the length.</td></tr>
+      <tr data-busca="valor por defecto default value"><td class="es">valor por defecto</td><td class="en">default value</td><td class="uso">Give the parameter a default value.</td></tr>
+    </tbody>
+  </table>
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo  = document.getElementById('buscar');
+  const filas  = Array.from(document.querySelectorAll('tbody tr'));
+  const salida = document.getElementById('resultado');
+  const vacio  = document.getElementById('vacio');
+  const TOTAL  = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en el módulo';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

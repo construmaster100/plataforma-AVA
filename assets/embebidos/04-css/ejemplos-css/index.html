@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos básicos de CSS</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary { padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+                      display: flex; align-items: center; gap: 10px; list-style: none; }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #264de4; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+               letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  pre { margin: 0 0 10px; padding: 14px 16px; border-radius: 9px;
+         background: #0e1436; color: #9db4ff;
+         font-family: Consolas, "Courier New", monospace; font-size: 13.5px; line-height: 1.55; overflow-x: auto; }
+  .salida { padding: 9px 12px; border-left: 3px solid #264de4; border-radius: 6px;
+             background: #f3f6fe; font-family: Consolas, "Courier New", monospace;
+             font-size: 13px; color: #1b357f; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Ejemplos básicos de CSS</h1>
+  <p class="bajada">Seis piezas de código comentadas, con la salida que producen. Ábrelas, léelas y repítelas antes de pasar a la actividad.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Cómo se enlaza <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>La hoja externa se enlaza desde el head y sirve para todo el sitio.</p>
+      <pre>&lt;!-- en el HTML --&gt;
+&lt;link rel="stylesheet" href="estilos.css"&gt;
+
+/* en estilos.css */
+body { font-family: system-ui; }</pre>
+      <div class="salida">Toda la página adopta la tipografía del sistema.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>2. Selectores <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>Etiqueta, clase e identificador, de menor a mayor peso.</p>
+      <pre>p        { color: #444; }
+.destaca { color: #007832; }
+#titulo  { font-size: 24px; }</pre>
+      <div class="salida">Si un párrafo tiene class="destaca", gana el verde sobre el gris.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>3. Modelo de caja <span class="etiqueta">Maquetación</span></summary>
+    <div class="cuerpo">
+      <p>box-sizing: border-box evita que el relleno agrande la caja.</p>
+      <pre>.tarjeta {
+  box-sizing: border-box;
+  width: 300px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}</pre>
+      <div class="salida">La tarjeta mide 300px en total, no 332px.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>4. Flexbox <span class="etiqueta">Maquetación</span></summary>
+    <div class="cuerpo">
+      <p>Una fila que reparte el espacio y se centra en vertical.</p>
+      <pre>.barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}</pre>
+      <div class="salida">Los hijos quedan en fila, separados a los extremos y centrados.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>5. Rejilla <span class="etiqueta">Maquetación</span></summary>
+    <div class="cuerpo">
+      <p>auto-fill llena las columnas que quepan sin desbordar.</p>
+      <pre>.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}</pre>
+      <div class="salida">Cuatro columnas en pantalla ancha, una en el móvil.</div>
+    </div>
+  </details>
+  <details class="ejemplo">
+    <summary>6. Responsive <span class="etiqueta">Adaptación</span></summary>
+    <div class="cuerpo">
+      <p>La consulta de medios cambia la maquetación al estrecharse.</p>
+      <pre>.panel { display: flex; }
+
+@media (max-width: 700px) {
+  .panel { display: block; }
+}</pre>
+      <div class="salida">En el móvil los bloques se apilan en lugar de ir en fila.</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

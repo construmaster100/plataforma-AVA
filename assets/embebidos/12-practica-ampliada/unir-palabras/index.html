@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actividad — Unir palabras y significado</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+    background: #f2f5f3;
+    color: #1a1a1a;
+  }
+  .marco { max-width: 720px; margin: 0 auto; padding: 22px 18px 40px; }
+  .cabecera { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  h1 { margin: 0; font-size: 20px; }
+  .marcador {
+    margin-left: auto; padding: 3px 10px; border-radius: 20px;
+    background: #007832; color: #fff; font-size: 13px; font-weight: 600;
+  }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ficha {
+    display: block; width: 100%; padding: 10px 12px; margin-bottom: 8px;
+    border: 1px solid #dfe6e1; border-radius: 8px; background: #fff;
+    font-size: 13.5px; text-align: left; cursor: pointer; line-height: 1.3;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .ficha:hover:not(:disabled) { background: #f4faf6; border-color: #9dc7ae; }
+  .ficha:disabled { cursor: default; opacity: .55; }
+  .ficha.activa { background: #e9f6e0; border-color: #007832; }
+  .ficha.buena { background: #e9f6e0; border-color: #007832; }
+  .ficha.mala { background: #fdeceb; border-color: #c62828; }
+  .cierre { text-align: center; padding: 20px 0 10px; }
+  .cierre .nota { font-size: 46px; font-weight: 700; color: #007832; line-height: 1; }
+  .cierre .detalle { margin: 6px 0 16px; font-size: 14px; color: #6b7b72; }
+  .btn {
+    padding: 9px 18px; border: 1px solid #007832; border-radius: 7px;
+    background: #fff; color: #007832; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="cabecera">
+    <h1>Unir palabras y significado</h1>
+    <span class="marcador" id="marcador">0 / 6</span>
+  </div>
+  <p class="bajada">Toca primero un término y luego su definición. Seis términos reales de Python, tomados del glosario de la ficha.</p>
+
+  <div class="columnas">
+    <div id="col-terminos"></div>
+    <div id="col-definiciones"></div>
+  </div>
+
+  <div id="cierre-caja"></div>
+</div>
+
+<script>
+const TERMINOS = [
+  ['Variable', 'Espacio con nombre que guarda un valor y puede cambiar durante la ejecución'],
+  ['Función', 'Bloque de código con nombre que se ejecuta al ser invocado y puede devolver un valor'],
+  ['Lista', 'Colección ordenada y mutable de elementos, escrita entre corchetes'],
+  ['Diccionario', 'Colección de pares clave-valor, escrita entre llaves'],
+  ['Bucle', 'Estructura que repite un bloque de instrucciones mientras se cumpla una condición'],
+  ['Módulo', 'Archivo .py con definiciones que otro programa puede importar']
+];
+
+function barajar(lista) {
+  const copia = lista.slice();
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}
+
+const ACTIVIDAD = 'unir-palabras';
+const colTerminos = document.getElementById('col-terminos');
+const colDefiniciones = document.getElementById('col-definiciones');
+const marcador = document.getElementById('marcador');
+const cierreCaja = document.getElementById('cierre-caja');
+
+let elegido = null;
+let armadas = 0;
+let fallos = 0;
+
+const definicionesBarajadas = barajar(TERMINOS);
+
+TERMINOS.forEach(par => {
+  const boton = document.createElement('button');
+  boton.type = 'button';
+  boton.className = 'ficha';
+  boton.textContent = par[0];
+  boton.dataset.termino = par[0];
+  boton.addEventListener('click', () => {
+    if (boton.disabled) return;
+    colTerminos.querySelectorAll('.ficha').forEach(f => f.classList.remove('activa'));
+    boton.classList.add('activa');
+    elegido = par[0];
+  });
+  colTerminos.appendChild(boton);
+});
+
+definicionesBarajadas.forEach(par => {
+  const boton = document.createElement('button');
+  boton.type = 'button';
+  boton.className = 'ficha';
+  boton.textContent = par[1];
+  boton.addEventListener('click', () => {
+    if (boton.disabled || !elegido) return;
+    const correcta = TERMINOS.find(t => t[0] === elegido)[1] === par[1];
+    const botonTermino = colTerminos.querySelector('.ficha.activa');
+
+    if (correcta) {
+      boton.classList.add('buena');
+      boton.disabled = true;
+      if (botonTermino) { botonTermino.classList.add('buena'); botonTermino.disabled = true; botonTermino.classList.remove('activa'); }
+      armadas += 1;
+      marcador.textContent = armadas + ' / ' + TERMINOS.length;
+      elegido = null;
+      if (armadas === TERMINOS.length) cerrar();
+    } else {
+      boton.classList.add('mala');
+      fallos += 1;
+      setTimeout(() => boton.classList.remove('mala'), 500);
+    }
+  });
+  colDefiniciones.appendChild(boton);
+});
+
+function cerrar() {
+  const puntaje = Math.max(0, 100 - fallos * 10);
+  const cierre = document.createElement('div');
+  cierre.className = 'cierre';
+  cierre.innerHTML =
+    '<div class="nota">' + puntaje + '</div>' +
+    '<p class="detalle">' + armadas + ' de ' + TERMINOS.length + ' parejas correctas, ' + fallos + ' intento(s) fallido(s) · escala 0 a 100</p>';
+  cierreCaja.appendChild(cierre);
+
+  try {
+    parent.postMessage({
+      tipo: 'sgma-puntaje',
+      actividad: ACTIVIDAD,
+      puntaje: puntaje,
+      maximo: 100,
+      detalle: armadas + ' de ' + TERMINOS.length + ' parejas, ' + fallos + ' fallos'
+    }, '*');
+  } catch (e) {}
+}
+</script>
+
+</body>
+</html>

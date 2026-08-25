@@ -1,0 +1,10 @@
+ADSO 3293836/
+.env
+ (2).env
+node_modules/
+/docs/Fichas/ADSO 3293836/
+Usuarios_y_contrasenas_AVAsena.xlsx
+Usuarios_y_contrasenas_AVAsena (2).xlsx
+~.docx
+*.tmp
+~$*.docx

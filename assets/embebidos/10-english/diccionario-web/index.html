@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diccionario Desarrollo web · ES–EN</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 860px; margin: 0 auto; padding: 22px 18px 40px; }
+  .titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .titulo .icono { font-size: 26px; }
+  h1 { margin: 0; font-size: 21px; }
+  .bajada { margin: 0 0 14px; font-size: 13px; color: #6b7b72; }
+  .barra { position: sticky; top: 0; padding: 12px 0; background: #f2f5f3; z-index: 2; }
+  input[type="search"] {
+    width: 100%; padding: 11px 14px; border: 1px solid #cfe0dd; border-radius: 9px;
+    font-size: 14.5px; background: #fff;
+  }
+  input[type="search"]:focus { outline: 2px solid #0f766e; border-color: #0f766e; }
+  .resultado { margin: 8px 2px 0; font-size: 12.5px; color: #6b7b72; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #dfe6e1; border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef2ef; font-size: 13.5px; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; color: #8a9691; background: #f0faf8; }
+  tr:last-child td { border-bottom: 0; }
+  tr[hidden] { display: none; }
+  td.es { font-weight: 500; }
+  td.en { font-weight: 700; color: #0f766e; }
+  td.uso { font-style: italic; color: #6b7b72; }
+  .vacio { padding: 18px; text-align: center; color: #8a9691; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <div class="titulo"><span class="icono">🌐</span><h1>Diccionario Desarrollo web · ES–EN</h1></div>
+  <p class="bajada">Vocabulario del módulo de Desarrollo web en español e inglés, con una frase de uso. Escribe en cualquiera de los dos idiomas para filtrar.</p>
+
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="Buscar en español o en inglés…" autocomplete="off">
+    <p class="resultado" id="resultado"></p>
+  </div>
+
+  <table>
+    <thead><tr><th>Español</th><th>English</th><th>Uso en contexto</th></tr></thead>
+    <tbody>
+      <tr data-busca="petición request"><td class="es">petición</td><td class="en">request</td><td class="uso">The browser sends a request.</td></tr>
+      <tr data-busca="respuesta response"><td class="es">respuesta</td><td class="en">response</td><td class="uso">The server sends a response.</td></tr>
+      <tr data-busca="servidor server"><td class="es">servidor</td><td class="en">server</td><td class="uso">The server runs the backend code.</td></tr>
+      <tr data-busca="navegador browser"><td class="es">navegador</td><td class="en">browser</td><td class="uso">Open the page in any browser.</td></tr>
+      <tr data-busca="red network"><td class="es">red</td><td class="en">network</td><td class="uso">Check your network connection.</td></tr>
+      <tr data-busca="inicio de sesión login"><td class="es">inicio de sesión</td><td class="en">login</td><td class="uso">The login form asks for a password.</td></tr>
+      <tr data-busca="contraseña password"><td class="es">contraseña</td><td class="en">password</td><td class="uso">Never share your password.</td></tr>
+      <tr data-busca="actualizar la vista refresh"><td class="es">actualizar la vista</td><td class="en">refresh</td><td class="uso">Refresh the page to see the change.</td></tr>
+      <tr data-busca="almacenamiento storage"><td class="es">almacenamiento</td><td class="en">storage</td><td class="uso">Local storage keeps small data.</td></tr>
+      <tr data-busca="despliegue deployment"><td class="es">despliegue</td><td class="en">deployment</td><td class="uso">The deployment went to production.</td></tr>
+      <tr data-busca="cliente client"><td class="es">cliente</td><td class="en">client</td><td class="uso">The client renders the interface.</td></tr>
+      <tr data-busca="ruta route"><td class="es">ruta</td><td class="en">route</td><td class="uso">Each route maps to a view.</td></tr>
+      <tr data-busca="dominio domain"><td class="es">dominio</td><td class="en">domain</td><td class="uso">The domain points to our server.</td></tr>
+      <tr data-busca="caché cache"><td class="es">caché</td><td class="en">cache</td><td class="uso">Clear the cache and try again.</td></tr>
+      <tr data-busca="galleta cookie"><td class="es">galleta</td><td class="en">cookie</td><td class="uso">The cookie stores the session id.</td></tr>
+      <tr data-busca="cabecera header"><td class="es">cabecera</td><td class="en">header</td><td class="uso">The header carries the token.</td></tr>
+      <tr data-busca="carga load"><td class="es">carga</td><td class="en">load</td><td class="uso">The page load takes two seconds.</td></tr>
+      <tr data-busca="punto final endpoint"><td class="es">punto final</td><td class="en">endpoint</td><td class="uso">The endpoint returns JSON.</td></tr>
+      <tr data-busca="credencial de acceso access token"><td class="es">credencial de acceso</td><td class="en">access token</td><td class="uso">The access token expires in one hour.</td></tr>
+      <tr data-busca="error del servidor server error"><td class="es">error del servidor</td><td class="en">server error</td><td class="uso">A server error returns code 500.</td></tr>
+    </tbody>
+  </table>
+  <p class="vacio" id="vacio" hidden>Ningún término coincide con la búsqueda.</p>
+</div>
+
+<script>
+  const campo  = document.getElementById('buscar');
+  const filas  = Array.from(document.querySelectorAll('tbody tr'));
+  const salida = document.getElementById('resultado');
+  const vacio  = document.getElementById('vacio');
+  const TOTAL  = filas.length;
+
+  function filtrar() {
+    const texto = campo.value.trim().toLowerCase();
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const coincide = !texto || fila.dataset.busca.includes(texto);
+      fila.hidden = !coincide;
+      if (coincide) visibles += 1;
+    });
+
+    vacio.hidden = visibles > 0;
+    salida.textContent = texto
+      ? visibles + ' de ' + TOTAL + ' términos'
+      : TOTAL + ' términos en el módulo';
+  }
+
+  campo.addEventListener('input', filtrar);
+  filtrar();
+</script>
+
+</body>
+</html>

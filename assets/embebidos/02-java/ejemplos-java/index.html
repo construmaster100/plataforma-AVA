@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos básicos de Java</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary {
+    padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; list-style: none;
+  }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #b45309; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+              letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  pre {
+    margin: 0 0 10px; padding: 14px 16px; border-radius: 9px;
+    background: #14110b; color: #f0b866; font-family: Consolas, "Courier New", monospace;
+    font-size: 13.5px; line-height: 1.55; overflow-x: auto;
+  }
+  .salida {
+    padding: 9px 12px; border-left: 3px solid #b45309; border-radius: 6px;
+    background: #fdf6ec; font-family: Consolas, "Courier New", monospace; font-size: 13px; color: #7a4a0c;
+  }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Ejemplos básicos de Java</h1>
+  <p class="bajada">Seis piezas de código comentadas. Java es de tipado estático: cada variable declara su tipo y el bloque se delimita con llaves.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Estructura mínima y variables <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>Todo programa vive dentro de una clase y arranca en <code>main</code>.</p>
+      <pre>public class Ficha {
+    public static void main(String[] args) {
+        String nombre = "Ficha 3293836";
+        int aprendices = 27;
+        double promedio = 4.5;
+        boolean activa = true;
+
+        System.out.println(nombre + " " + aprendices);
+        System.out.println(promedio + " " + activa);
+    }
+}</pre>
+      <div class="salida">Ficha 3293836 27<br>4.5 true</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>2. Entrada por teclado <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p><code>Scanner</code> lee de la consola; hay que importarlo y cerrarlo.</p>
+      <pre>import java.util.Scanner;
+
+public class Edad {
+    public static void main(String[] args) {
+        Scanner lector = new Scanner(System.in);
+        System.out.print("¿Cuántos años tiene? ");
+        int edad = lector.nextInt();
+        System.out.println("El próximo año tendrá " + (edad + 1));
+        lector.close();
+    }
+}</pre>
+      <div class="salida">¿Cuántos años tiene? 19<br>El próximo año tendrá 20</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>3. Condicionales <span class="etiqueta">Control</span></summary>
+    <div class="cuerpo">
+      <p>Las llaves delimitan el bloque y la condición va entre paréntesis.</p>
+      <pre>double nota = 3.8;
+
+if (nota >= 4.0) {
+    System.out.println("Excelente");
+} else if (nota >= 3.0) {
+    System.out.println("Aprobado");
+} else {
+    System.out.println("Debe reforzar");
+}</pre>
+      <div class="salida">Aprobado</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>4. Ciclos <span class="etiqueta">Control</span></summary>
+    <div class="cuerpo">
+      <p>El <code>for</code> clásico lleva inicio, condición y paso; el <code>for-each</code> recorre colecciones.</p>
+      <pre>for (int i = 1; i < 4; i++) {
+    System.out.println("Vuelta " + i);
+}
+
+String[] fases = {"Análisis", "Planeación", "Ejecución"};
+for (String fase : fases) {
+    System.out.println("Fase: " + fase);
+}</pre>
+      <div class="salida">Vuelta 1<br>Vuelta 2<br>Vuelta 3<br>Fase: Análisis<br>Fase: Planeación<br>Fase: Ejecución</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>5. Arreglos y listas <span class="etiqueta">Estructuras</span></summary>
+    <div class="cuerpo">
+      <p>El arreglo tiene tamaño fijo; <code>ArrayList</code> crece.</p>
+      <pre>import java.util.ArrayList;
+
+double[] notas = {4.5, 3.8, 4.9};
+System.out.println(notas[0] + " " + notas.length);
+
+ArrayList&lt;String&gt; ficha = new ArrayList&lt;&gt;();
+ficha.add("Sara Valentina");
+ficha.add("Kevin Sair");
+System.out.println(ficha.get(0) + " · " + ficha.size());</pre>
+      <div class="salida">4.5 3<br>Sara Valentina · 2</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>6. Métodos y clases <span class="etiqueta">Modularidad</span></summary>
+    <div class="cuerpo">
+      <p>Un método declara el tipo que devuelve; <code>void</code> significa que no devuelve nada.</p>
+      <pre>public class Calculadora {
+
+    public static double promedio(double[] valores) {
+        if (valores.length == 0) return 0;
+        double suma = 0;
+        for (double valor : valores) suma += valor;
+        return suma / valores.length;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(promedio(new double[]{4.5, 3.8, 4.9}));
+    }
+}</pre>
+      <div class="salida">4.4</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

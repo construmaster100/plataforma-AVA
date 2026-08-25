@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos básicos de Python</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Roboto, system-ui, sans-serif; background: #f2f5f3; color: #1a1a1a; }
+  .marco { max-width: 780px; margin: 0 auto; padding: 22px 18px 40px; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .bajada { margin: 0 0 18px; font-size: 13px; color: #6b7b72; }
+  .ejemplo { margin-bottom: 14px; border: 1px solid #dfe6e1; border-radius: 12px; background: #fff; overflow: hidden; }
+  .ejemplo summary {
+    padding: 13px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; list-style: none;
+  }
+  .ejemplo summary::-webkit-details-marker { display: none; }
+  .ejemplo summary::before { content: "▸"; color: #007832; font-size: 13px; }
+  .ejemplo[open] summary::before { content: "▾"; }
+  .etiqueta { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+              letter-spacing: .3px; color: #8a9691; }
+  .cuerpo { padding: 0 16px 16px; }
+  .cuerpo p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: #4a5a52; }
+  pre {
+    margin: 0 0 10px; padding: 14px 16px; border-radius: 9px;
+    background: #05130d; color: #b8e986; font-family: Consolas, "Courier New", monospace;
+    font-size: 13.5px; line-height: 1.55; overflow-x: auto;
+  }
+  .salida {
+    padding: 9px 12px; border-left: 3px solid #007832; border-radius: 6px;
+    background: #f4faf6; font-family: Consolas, "Courier New", monospace; font-size: 13px; color: #24503a;
+  }
+</style>
+</head>
+<body>
+
+<div class="marco">
+  <h1>Ejemplos básicos de Python</h1>
+  <p class="bajada">Seis piezas de código comentadas. Ábrelas, léelas y repítelas en la consola antes de pasar a la actividad.</p>
+
+  <details class="ejemplo" open>
+    <summary>1. Variables y tipos <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p>Una variable guarda un valor y no se declara con tipo: Python lo deduce.</p>
+      <pre>nombre = "Ficha 3293836"   # str
+aprendices = 27            # int
+promedio = 4.5             # float
+activa = True              # bool
+
+print(nombre, aprendices, promedio, activa)
+print(type(promedio))</pre>
+      <div class="salida">Ficha 3293836 27 4.5 True<br>&lt;class 'float'&gt;</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>2. Entrada y salida <span class="etiqueta">Fundamentos</span></summary>
+    <div class="cuerpo">
+      <p><code>input</code> siempre devuelve texto: si se necesita un número hay que convertirlo.</p>
+      <pre>edad = int(input("¿Cuántos años tiene? "))
+print("El próximo año tendrá", edad + 1)</pre>
+      <div class="salida">¿Cuántos años tiene? 19<br>El próximo año tendrá 20</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>3. Condicionales <span class="etiqueta">Control</span></summary>
+    <div class="cuerpo">
+      <p>El bloque se delimita con la sangría, no con llaves.</p>
+      <pre>nota = 3.8
+
+if nota >= 4.0:
+    print("Excelente")
+elif nota >= 3.0:
+    print("Aprobado")
+else:
+    print("Debe reforzar")</pre>
+      <div class="salida">Aprobado</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>4. Ciclos <span class="etiqueta">Control</span></summary>
+    <div class="cuerpo">
+      <p><code>for</code> recorre cualquier colección; <code>range</code> genera una secuencia de números.</p>
+      <pre>for i in range(1, 4):
+    print("Vuelta", i)
+
+fases = ["Análisis", "Planeación", "Ejecución"]
+for fase in fases:
+    print("Fase:", fase)</pre>
+      <div class="salida">Vuelta 1<br>Vuelta 2<br>Vuelta 3<br>Fase: Análisis<br>Fase: Planeación<br>Fase: Ejecución</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>5. Listas y diccionarios <span class="etiqueta">Estructuras</span></summary>
+    <div class="cuerpo">
+      <p>La lista es ordenada y se indexa desde cero; el diccionario guarda pares clave–valor.</p>
+      <pre>notas = [4.5, 3.8, 4.9]
+notas.append(3.2)
+print(notas[0], len(notas), sum(notas) / len(notas))
+
+aprendiz = {"nombre": "Sara Valentina", "ficha": 3293836}
+print(aprendiz["nombre"])</pre>
+      <div class="salida">4.5 4 4.1<br>Sara Valentina</div>
+    </div>
+  </details>
+
+  <details class="ejemplo">
+    <summary>6. Funciones <span class="etiqueta">Modularidad</span></summary>
+    <div class="cuerpo">
+      <p>Una función agrupa un cálculo con nombre y puede devolver un resultado.</p>
+      <pre>def promedio(valores):
+    """Devuelve el promedio de una lista de notas."""
+    if not valores:
+        return 0
+    return sum(valores) / len(valores)
+
+print(promedio([4.5, 3.8, 4.9]))
+print(promedio([]))</pre>
+      <div class="salida">4.4<br>0</div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>
