@@ -87,18 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
     aplicarCursoAprendiz();
   }
 
-  // ── Selector Ficha/Curso del instructor: su propia vista previa (3.4) ──
-  // Clave separada de la del aprendiz (getCursoInstructor/setCursoInstructor
-  // en ficha.js) — no comparten estado a propósito.
-  const cursoInstructor = document.getElementById('ins-curso-activo');
-  if (cursoInstructor && typeof getCursoInstructor === 'function') {
-    cursoInstructor.value = getCursoInstructor();
-    cursoInstructor.addEventListener('change', () => {
-      setCursoInstructor(cursoInstructor.value);
-      if (typeof pintarPracticaInstructor === 'function') pintarPracticaInstructor();
-    });
-  }
-
   // ── Cambio de vista por sección ──
   const disparadores  = document.querySelectorAll('[data-view]');
   // La marca de «vista abierta» vale para el menú lateral y para los

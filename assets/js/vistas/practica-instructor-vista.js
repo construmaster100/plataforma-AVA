@@ -3,23 +3,19 @@
 
    Genera tarjetas desde EMBEBIDOS (no copia el markup estático
    del aprendiz) para que el instructor vea el mismo material que
-   desbloquea puntos y alimenta el plan de mejora, alternando
-   ADSO/English según su propio selector de curso. Los enlaces los
+   desbloquea puntos y alimenta el plan de mejora. Solo el material
+   de ADSO: Zulma Salas no dicta English Coding. Los enlaces los
    intercepta visor.js (ya cargado) igual que en el resto del sitio.
 
    Depende de:
      · embebidos-catalogo.js → EMBEBIDOS
-     · ficha.js              → getCursoInstructor
 ══════════════════════════════════════════ */
 
 function pintarPracticaInstructor() {
   const zona = document.getElementById('practica-ins-tarjetas');
   if (!zona) return;
 
-  const curso = typeof getCursoInstructor === 'function' ? getCursoInstructor() : 'adso';
-  const catalogo = curso === 'english'
-    ? EMBEBIDOS.filter(a => a.modulo === 'English')
-    : EMBEBIDOS.filter(a => a.modulo !== 'English');
+  const catalogo = EMBEBIDOS.filter(a => a.modulo !== 'English');
 
   zona.replaceChildren();
 

@@ -28,8 +28,7 @@ const CLAVES = {
   matricula:  'sgma_matricula',
   fichaInstructor: 'sgma_ficha_instructor',
   asignaciones: 'sgma_instructores',
-  cursoActivo: 'sgma_curso_activo',
-  cursoInstructor: 'sgma_curso_activo_instructor'
+  cursoActivo: 'sgma_curso_activo'
 };
 
 function leerAlmacen(clave, porDefecto) {
@@ -250,15 +249,3 @@ function setCursoActivo(curso) {
   return guardarAlmacen(CLAVES.cursoActivo, curso === 'english' ? 'english' : 'adso');
 }
 
-/* ── Curso que el instructor tiene activo en su propio selector ──
-   Clave separada de la del aprendiz a propósito: en este prototipo
-   el estado vive en localStorage por navegador, así que si un mismo
-   navegador se usa para probar los tres roles, compartir la misma
-   clave haría que el instructor cambiara en silencio lo que ve el
-   aprendiz. Aquí es solo su vista previa de práctica (3.4). */
-function getCursoInstructor() {
-  return leerAlmacen(CLAVES.cursoInstructor, 'adso');
-}
-function setCursoInstructor(curso) {
-  return guardarAlmacen(CLAVES.cursoInstructor, curso === 'english' ? 'english' : 'adso');
-}
