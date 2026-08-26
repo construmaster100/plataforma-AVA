@@ -35,3 +35,22 @@
   border-radius: 8px;
   margin-bottom: 8px;
 }
+
+/* Las cards son <button data-view="..."> reales: seleccionarlas
+   navega igual que el menú lateral, reemplazando todo el <main>.
+   Reset de botón + el mismo realce que ya usan otras cards
+   clickeables de la app (.pantalla[data-ir]:hover). */
+.franja-media-grid button.content-card {
+  display: block;
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.franja-media-grid button.content-card:hover,
+.franja-media-grid button.content-card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.16);
+  outline: none;
+}
