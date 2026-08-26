@@ -48,29 +48,32 @@
           </label>
         </div>
       </div>
-      <div class="sidebar-role">
-        <img id="ses-avatar" class="sidebar-avatar" src="../assets/img/SENA/usuario.JPG" alt="">
-        <div>
-          <p class="sidebar-nombre" id="ses-nombre">Aprendiz</p>
-          <p class="sidebar-rol">Aprendiz</p>
+      <div class="sidebar-scroll">
+        <button type="button" class="sidebar-role sidebar-toggle" id="sidebar-toggle-menu" aria-expanded="true" aria-controls="sidebar-menu-lista">
+          <img id="ses-avatar" class="sidebar-avatar" src="../assets/img/SENA/usuario.JPG" alt="">
+          <div>
+            <p class="sidebar-nombre" id="ses-nombre">Aprendiz</p>
+            <p class="sidebar-rol">Aprendiz</p>
+          </div>
+          <span class="arrow" aria-hidden="true">❯</span>
+        </button>
+
+        <div class="sidebar-ficha">
+          <label class="visually-hidden" for="apr-curso-activo">Ficha / curso activo</label>
+          <div class="input-group input-group-sm ficha-selector">
+            <span class="input-group-text" id="apr-curso-icono">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </span>
+            <select class="form-select" id="apr-curso-activo">
+              <option value="adso">ADSO - Análisis y Desarrollo de Software</option>
+              <option value="english">English Coding</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="sidebar-ficha">
-        <label class="visually-hidden" for="apr-curso-activo">Ficha / curso activo</label>
-        <div class="input-group input-group-sm ficha-selector">
-          <span class="input-group-text" id="apr-curso-icono">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-            </svg>
-          </span>
-          <select class="form-select" id="apr-curso-activo">
-            <option value="adso">ADSO - Análisis y Desarrollo de Software</option>
-            <option value="english">English Coding</option>
-          </select>
-        </div>
-      </div>
-      <ul class="sidebar-menu">
+        <ul class="sidebar-menu" id="sidebar-menu-lista">
 
         <li>
           <button class="menu-btn" aria-expanded="false">
@@ -122,6 +125,7 @@
         </li>
 
       </ul>
+      </div>
     </aside>
 
     <main class="main-content">

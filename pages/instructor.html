@@ -47,29 +47,32 @@
           </label>
         </div>
       </div>
-      <div class="sidebar-role">
-        <div>
-          <p class="sidebar-nombre" id="ses-nombre">Zulma Salas</p>
-          <p class="sidebar-rol">Instructora · <span id="ins-quien"></span></p>
-        </div>
-      </div>
 
-      <div class="sidebar-ficha">
-        <label class="visually-hidden" for="ins-ficha-activa">Ficha activa</label>
-        <div class="input-group input-group-sm ficha-selector">
-          <span class="input-group-text" id="ins-ficha-icono">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M12 3.5 22 8l-10 4.5L2 8z"/>
-              <path d="M6 10.6V15c0 1.5 2.7 2.7 6 2.7s6-1.2 6-2.7v-4.4"/>
-              <path d="M22 8v5"/>
-            </svg>
-          </span>
-          <select class="form-select" id="ins-ficha-activa" aria-describedby="ins-ficha-icono">
-            <option value="3293836">3293836 &middot; Tecn&oacute;logo</option>
-          </select>
+      <div class="sidebar-scroll">
+        <button type="button" class="sidebar-role sidebar-toggle" id="sidebar-toggle-menu" aria-expanded="true" aria-controls="sidebar-menu-lista">
+          <div>
+            <p class="sidebar-nombre" id="ses-nombre">Zulma Salas</p>
+            <p class="sidebar-rol">Instructora · <span id="ins-quien"></span></p>
+          </div>
+          <span class="arrow" aria-hidden="true">❯</span>
+        </button>
+
+        <div class="sidebar-ficha">
+          <label class="visually-hidden" for="ins-ficha-activa">Ficha activa</label>
+          <div class="input-group input-group-sm ficha-selector">
+            <span class="input-group-text" id="ins-ficha-icono">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 3.5 22 8l-10 4.5L2 8z"/>
+                <path d="M6 10.6V15c0 1.5 2.7 2.7 6 2.7s6-1.2 6-2.7v-4.4"/>
+                <path d="M22 8v5"/>
+              </svg>
+            </span>
+            <select class="form-select" id="ins-ficha-activa" aria-describedby="ins-ficha-icono">
+              <option value="3293836">3293836 &middot; Tecn&oacute;logo</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <ul class="sidebar-menu">
+        <ul class="sidebar-menu" id="sidebar-menu-lista">
 
         <li>
           <button class="menu-btn" aria-expanded="false">
@@ -143,6 +146,7 @@
           </ul>
         </li>
       </ul>
+      </div>
     </aside>
 
     <main class="main-content">

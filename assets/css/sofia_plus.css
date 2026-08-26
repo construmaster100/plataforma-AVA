@@ -70,6 +70,31 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-bottom: 1px solid #ddd;
   line-height: 1.4;
 }
+/* Encabezado "Nombre · Rol": además de mostrar la identidad, es el
+   botón que expande/colapsa la lista de navegación de abajo. La
+   foto de perfil queda fuera de este bloque, siempre visible. */
+.sidebar-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+.sidebar-toggle .arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: #999;
+  font-size: 11px;
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.sidebar-toggle[aria-expanded="true"] .arrow {
+  transform: rotate(90deg);
+  color: #007832;
+}
 .sidebar-avatar {
   width: 78px;
   height: 78px;
@@ -945,7 +970,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .sidebar {
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* La foto de perfil (.sidebar-marca) queda fija arriba, igual que
+   el navbar: no se desplaza. Todo lo demás —encabezado, ficha y
+   menú— vive en esta franja, que sí puede hacer scroll si el
+   contenido no cabe. */
+.sidebar-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── Escritorio: columna fija, nada la cruza ── */
@@ -1181,6 +1219,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ── Logosímbolo cuadrado ── */
 .sidebar-marca {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;

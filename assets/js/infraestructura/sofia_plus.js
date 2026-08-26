@@ -1241,6 +1241,19 @@ document.addEventListener('DOMContentLoaded', () => {
     pintarHilo();
   }
 
+  /* ── Encabezado "Nombre · Rol": toggle de la lista de navegación ──
+     La foto de perfil (.sidebar-marca) queda fija arriba; al pulsar
+     el encabezado se muestra u oculta el <ul class="sidebar-menu">. */
+  const toggleMenu = document.getElementById('sidebar-toggle-menu');
+  const listaMenu  = document.getElementById('sidebar-menu-lista');
+  if (toggleMenu && listaMenu) {
+    toggleMenu.addEventListener('click', () => {
+      const abierto = toggleMenu.getAttribute('aria-expanded') === 'true';
+      toggleMenu.setAttribute('aria-expanded', String(!abierto));
+      listaMenu.hidden = abierto;
+    });
+  }
+
   const botones = document.querySelectorAll('.sidebar-menu button.menu-btn');
 
   botones.forEach(btn => {
