@@ -45,28 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Panel «Instructor» del aprendiz: quién dicta la ficha real ──
-  // Antes decía «Zulma Salas · Ficha 3293836» fijo. Ahora sale de
-  // fichaDeQuienJuega() y de quién esté asignado como titular en
-  // ese momento.
-  const nombreInstructorPanel = document.getElementById('mi-instructor-nombre');
-  if (nombreInstructorPanel && typeof fichaDeQuienJuega === 'function' && typeof titularDeFicha === 'function') {
-    const fichaId = fichaDeQuienJuega();
-    const titular = titularDeFicha(fichaId);
-    const ficha = typeof FICHAS_SISTEMA === 'object' ? FICHAS_SISTEMA[fichaId] : null;
-
-    nombreInstructorPanel.textContent = titular ? titular.nombre : 'Sin asignar';
-
-    const campoFicha = document.getElementById('mi-instructor-ficha');
-    if (campoFicha) campoFicha.textContent = 'Instructor · Ficha ' + fichaId;
-
-    const campoPrograma = document.getElementById('mi-instructor-programa');
-    if (campoPrograma) {
-      campoPrograma.textContent = (ficha ? ficha.programa : 'Análisis y Desarrollo de Software') +
-        ' · SENA CEGAFE — Regional Boyacá';
-    }
-  }
-
   // ── Selector Ficha/Curso del aprendiz: decide a dónde apunta 2.4/3.3 ──
   // No toca el switcher de abajo: solo cambia el data-view de destino
   // antes de que el usuario haga clic, para no duplicar esa lógica.

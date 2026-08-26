@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/css/sofia_plus.css">
   <link rel="stylesheet" href="../assets/css/arbol.css">
+  <link rel="stylesheet" href="../assets/css/franja-media.css">
   <!-- El tablero de 64 bits usa «.medidas», que vive aquí -->
   <link rel="stylesheet" href="../assets/css/analitica.css">
 </head>
@@ -35,7 +36,7 @@
     </div>
   </nav>
 
-  <div class="page-wrapper con-lateral">
+  <div class="page-wrapper">
 
     <aside class="sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="menuLateral" aria-labelledby="menuLateralTitulo">
       <div class="sidebar-marca">
@@ -122,6 +123,35 @@
 
       </ul>
     </aside>
+
+    <section class="franja-media" aria-label="Recursos multimedia destacados">
+      <div class="franja-media-grid">
+        <article class="card content-card">
+          <div class="cc-icon">🎬</div>
+          <span class="badge badge-type badge-video">VIDEO</span>
+          <h4>Título del video 1</h4>
+          <p>Descripción breve del recurso.</p>
+        </article>
+        <article class="card content-card">
+          <div class="cc-icon">🎬</div>
+          <span class="badge badge-type badge-video">VIDEO</span>
+          <h4>Título del video 2</h4>
+          <p>Descripción breve del recurso.</p>
+        </article>
+        <article class="card content-card">
+          <div class="cc-icon">🖼</div>
+          <span class="badge badge-type badge-imagen">IMAGEN</span>
+          <h4>Título de la imagen 1</h4>
+          <p>Descripción breve del recurso.</p>
+        </article>
+        <article class="card content-card">
+          <div class="cc-icon">🖼</div>
+          <span class="badge badge-type badge-imagen">IMAGEN</span>
+          <h4>Título de la imagen 2</h4>
+          <p>Descripción breve del recurso.</p>
+        </article>
+      </div>
+    </section>
 
     <main class="main-content">
 
@@ -4808,52 +4838,6 @@
       </footer>
 
     </main>
-
-    <aside class="panel-lateral panel-lateral-alto panel-lateral-sitios lateral-aprendiz" aria-label="Seleccionar sitio institucional">
-
-      <div class="pantallas" id="pantallas-aprendiz">
-        <article class="pantalla pantalla-administrar" id="pantalla-instructor">
-          <header class="pantalla-barra"><span>Instructor</span><i class="pantalla-led"></i></header>
-          <div class="pantalla-cuerpo">
-            <div class="sidebar-role" style="padding:0;border-bottom:0;">
-              <img class="sidebar-avatar" src="../assets/img/SENA/usuario.JPG" alt="">
-              <div>
-                <p class="sidebar-nombre" id="mi-instructor-nombre">—</p>
-                <p class="sidebar-rol" id="mi-instructor-ficha">—</p>
-              </div>
-            </div>
-            <p class="bloque-nota" style="margin:6px 0 0;" id="mi-instructor-programa">—</p>
-            <button type="button" class="btn btn-action btn-secondary" style="margin-top:8px;width:100%;"
-                    data-bs-toggle="offcanvas" data-bs-target="#bandejaCorreo" aria-controls="bandejaCorreo">
-              ✉ Enviar mensaje
-            </button>
-          </div>
-        </article>
-
-        <article class="pantalla pantalla-administrar">
-          <header class="pantalla-barra"><span>Enlaces</span><i class="pantalla-led"></i></header>
-          <div class="pantalla-cuerpo">
-            <div class="acciones-rejilla">
-              <a class="accion" href="senacol/sena_home_index.html" target="_blank" rel="noopener">
-                <img src="../assets/img/iconos/ubicacion.svg" alt=""><span>SENA Colombia</span>
-              </a>
-              <a class="accion" href="Senacegafe/index.html" target="_blank" rel="noopener">
-                <img src="../assets/img/iconos/ubicacion.svg" alt=""><span>SENA CEGAFE</span>
-              </a>
-              <a class="accion" href="sena%20sofia/index.html" target="_blank" rel="noopener">
-                <img src="../assets/img/iconos/ubicacion.svg" alt=""><span>SENA Sofia</span>
-              </a>
-              <a class="accion" href="betowa/betowa_index.html" target="_blank" rel="noopener">
-                <img src="../assets/img/iconos/ubicacion.svg" alt=""><span>SENA Betowa</span>
-              </a>
-              <a class="accion" href="LMS/sofia_plus.html" target="_blank" rel="noopener">
-                <img src="../assets/img/iconos/ubicacion.svg" alt=""><span>LMS</span>
-              </a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </aside>
   </div>
 
   <footer class="footer">

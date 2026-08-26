@@ -30,14 +30,14 @@
 .panel-lateral-alto {
   margin-top: calc(var(--subida-lateral) * -1);
   position: sticky;
-  top: 12px;
+  top: 0;
   align-self: start;
   z-index: 5;              /* por encima de la línea del título de vista */
 
   /* Fondo propio: al subir, tapa la línea del título de vista */
   padding: 14px 0 14px 16px;
   border-left: 3px solid var(--acento);
-  border-radius: 10px 0 0 10px;
+  border-radius: 0;
   background: #fff;
   box-shadow: -6px 0 14px rgba(255, 255, 255, .9);
 }
