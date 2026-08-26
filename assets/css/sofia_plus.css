@@ -2143,8 +2143,8 @@ img.ava-escudo {
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 22px;
-  background: linear-gradient(160deg, #0b3d66 0%, #10527f 45%, #0d4670 100%);
-  box-shadow: 0 10px 26px rgba(11,61,102,.28);
+  background: linear-gradient(160deg, #3c4a1a 0%, #5c6b28 45%, #333f16 100%);
+  box-shadow: 0 10px 26px rgba(60,74,26,.32);
 }
 
 .tablero-barra {

@@ -209,7 +209,7 @@
   font-weight: 700;
   letter-spacing: .05em;
   text-transform: uppercase;
-  color: #bcd8ef;
+  color: #d7e3a8;
 }
 
 /* Flexbox en vez de grid: si la última fila queda con menos
@@ -238,9 +238,9 @@
   color: #bcd8ef;
 }
 
-/* Tablero sin pantalla de actividades: solo barra y módulos.
-   Sin esto la tercera fila reservaría 320px en blanco. */
-.tablero-compacto { grid-template-rows: auto auto auto; }
+/* Tablero sin pantalla de actividades: solo barra y cards.
+   Sin esto la fila de contenido reservaría 420px en blanco. */
+.tablero-compacto { grid-template-rows: auto auto; }
 
 /* Los niveles del módulo, dentro del tablero */
 .tablero-niveles {
