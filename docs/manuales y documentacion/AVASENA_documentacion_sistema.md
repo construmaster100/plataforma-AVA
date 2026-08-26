@@ -59,8 +59,6 @@ Desde el 14 de agosto viven en subcarpetas de `assets/js/` por tipo de función 
 | Módulo | Líneas | Responsabilidad |
 | --- | --- | --- |
 | `tablero.js` | 368 | Banco de preguntas del programa y pantalla de actividades del aprendiz (quiz10/quiz30). Desde esta corrección también reporta cada resultado al backend (ver 2.5), en paralelo a `localStorage` |
-| `tablero64.js` | 522 | Tablero de 64 bits: visualiza logro por actividad o bloque evaluado |
-| `embebido.js` | 410 | Contenido embebido del tablero de 64 bits (términos, glosario, encuesta) para las actividades evaluables de Python |
 | `embebidos-catalogo.js` | ~690 | Las 54 actividades embebidas, identidad de quien juega, puntajes — el corazón del sistema de calificación |
 | `actividad.js` | 390 | Componentes evaluables de GAA1/AA1 (cuestionario, glosario, práctica) |
 | `resultados-ficha.js` | 307 | Instructor y administrador: consolidado de puntajes de toda la ficha |

@@ -579,12 +579,6 @@
         </section>
 
         <section class="act-bloque">
-          <h2>Tablero de 64 bits</h2>
-          <p>El tablero de la ficha tiene sección propia, con los cuatro reportes y las cuatro vistas.</p>
-          <button type="button" class="btn btn-action btn-secondary" data-view="sec-tablero64">Abrir el tablero de 64 bits →</button>
-        </section>
-
-        <section class="act-bloque">
           <h2>Adjuntar evidencias</h2>
           <form id="act-form-evidencia">
             <div class="form-grid">
@@ -598,29 +592,6 @@
           </form>
           <ul class="act-lista-evidencias" id="act-evidencias"></ul>
         </section>
-      </section>
-
-      <!-- ══ TABLERO DE 64 BITS ══ -->
-      <section class="view-section" id="sec-tablero64">
-        <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/panel.JPG" alt="Tablero"> Tablero de 64 bits</h1>
-          <p>Ocho por ocho para la ficha completa o para un aprendiz. Cada bit toma uno de tres tonos y una altura según el logro alcanzado; la vista decide si eso se lee en planta, en barras, en relieve isométrico o en torres de volumen.</p>
-        </div>
-
-        <div class="t64-controles">
-          <div class="form-group"><label for="t64-ins-reporte">Reporte</label>
-            <select class="form-select" id="t64-ins-reporte"></select>
-          </div>
-          <div class="form-group"><label for="t64-ins-modo">Alcance</label>
-            <select class="form-select" id="t64-ins-modo"></select>
-          </div>
-          <div class="form-group"><label for="t64-ins-vista">Vista del tablero</label>
-            <select class="form-select" id="t64-ins-vista"></select>
-          </div>
-        </div>
-
-        <div class="medidas" id="t64-ins-medidas"></div>
-        <div class="t64-marco" id="t64-instructor"></div>
       </section>
 
       <!-- ══ MATERIALES EN EXCEL ══ -->
@@ -3755,7 +3726,6 @@ for i in range(1, 11):
   <script src="../assets/js/catalogo/estructura.js"></script>
   <script src="../assets/js/catalogo/curso-nivel3.js"></script>
   <script src="../assets/js/evaluacion/actividad.js"></script>
-  <script src="../assets/js/evaluacion/tablero64.js"></script>
   <script src="../assets/js/vistas/novedades.js"></script>
   <script src="../assets/js/infraestructura/visor.js"></script>
   <script src="../assets/js/evaluacion/embebidos-catalogo.js"></script>

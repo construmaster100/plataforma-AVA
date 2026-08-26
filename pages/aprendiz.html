@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="../assets/css/sofia_plus.css">
   <link rel="stylesheet" href="../assets/css/arbol.css">
   <link rel="stylesheet" href="../assets/css/franja-media.css">
-  <!-- El tablero de 64 bits usa «.medidas», que vive aquí -->
   <link rel="stylesheet" href="../assets/css/analitica.css">
 </head>
 <body data-rol="Aprendiz">
@@ -3602,29 +3601,6 @@
           </table>
         
         </div>
-
-        <!-- ── 3. Tablero de 64 bits ── -->
-        <div class="puntajes-bloque" id="puntajes-64">
-          <h2 class="puntajes-titulo">Tablero de 64 bits &mdash; <span id="t64-aprendiz-quien">Aprendiz</span></h2>
-          <p>Los 64 bits reparten el reporte elegido. En AA 1 · Programación en Python son 20 preguntas del sondeo, 6 términos, 20 pares del glosario y 18 criterios de práctica. Cada bit toma uno de tres tonos y una altura según el logro alcanzado.</p>
-          <p><strong>Toque cualquier casilla</strong> para abrir su actividad: evaluación, encuesta, minijuego, video o ficha de información. Lo que resuelva queda guardado.</p>
-        <div class="t64-controles">
-          <div class="form-group"><label for="t64-ap-reporte">Reporte</label>
-            <select class="form-select" id="t64-ap-reporte"></select>
-          </div>
-          <div class="form-group"><label for="t64-ap-vista">Vista del tablero</label>
-            <select class="form-select" id="t64-ap-vista"></select>
-          </div>
-        </div>
-
-        <div class="medidas" id="t64-aprendiz-medidas"></div>
-
-        <div class="t64-marco" id="t64-aprendiz"></div>
-
-        <!-- Aquí se arma la actividad del bit que se toque -->
-        <div id="t64-contenido" aria-live="polite"></div>
-      
-        </div>
       </section>
 
       <!-- ══ REPORTE ANTE EL INSTRUCTOR ══ -->
@@ -4934,8 +4910,6 @@
   <script src="../assets/js/estado/ranking.js"></script>
   <script src="../assets/js/catalogo/documentos.js"></script>
   <script src="../assets/js/evaluacion/tablero.js"></script>
-  <script src="../assets/js/evaluacion/tablero64.js"></script>
-  <script src="../assets/js/evaluacion/embebido.js"></script>
   <script src="../assets/js/infraestructura/consola.js"></script>
   <script src="../assets/js/vistas/consola-practica-vista.js"></script>
   <script src="../assets/js/infraestructura/visor.js"></script>
