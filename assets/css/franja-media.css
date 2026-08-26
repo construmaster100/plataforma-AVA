@@ -1,21 +1,11 @@
 /* ══════════════════════════════════════════
-   FRANJA DE MEDIOS — franja horizontal de 4 cards
-   (video / imagen) debajo del navbar, a todo el
-   ancho del contenido: desde el borde del sidebar
-   izquierdo hasta el borde derecho de la pantalla.
-   En la rejilla de dos columnas (main + sidebar
-   derecho) ocupa las dos, por eso "grid-column: 1/-1".
-
-   Las cards reusan el estilo ".content-card" que ya
-   existe en el resto de la app (icono + badge-type +
-   h4 + p), solo se acomodan a una rejilla de 4
-   columnas iguales en vez del ancho fijo de 200px.
+   CARDS DE MUESTRA — fila de 4 cards (video / imagen)
+   dentro de la card "Tablero" en Inicio, junto a las
+   cards de módulo. Reusan el estilo ".content-card" que
+   ya existe en el resto de la app (icono/foto + badge-type
+   + h4), acomodadas a una rejilla de 4 columnas iguales
+   en vez del ancho fijo de 200px.
 ══════════════════════════════════════════ */
-
-.franja-media {
-  grid-column: 1 / -1;
-  margin-bottom: 20px;
-}
 
 .franja-media-grid {
   display: grid;
@@ -30,7 +20,18 @@
   .franja-media-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
-.franja-media .content-card {
+.franja-media-grid .content-card {
   width: auto;
   margin: 0;
+}
+
+/* Cards con foto real (portada de un módulo) en vez del icono
+   emoji: la imagen ocupa el lugar del ícono, arriba del badge. */
+.franja-media-grid .cc-foto {
+  display: block;
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }

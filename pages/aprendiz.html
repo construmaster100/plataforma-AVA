@@ -124,35 +124,6 @@
       </ul>
     </aside>
 
-    <section class="franja-media" aria-label="Recursos multimedia destacados">
-      <div class="franja-media-grid">
-        <article class="card content-card">
-          <div class="cc-icon">🎬</div>
-          <span class="badge badge-type badge-video">VIDEO</span>
-          <h4>Título del video 1</h4>
-          <p>Descripción breve del recurso.</p>
-        </article>
-        <article class="card content-card">
-          <div class="cc-icon">🎬</div>
-          <span class="badge badge-type badge-video">VIDEO</span>
-          <h4>Título del video 2</h4>
-          <p>Descripción breve del recurso.</p>
-        </article>
-        <article class="card content-card">
-          <div class="cc-icon">🖼</div>
-          <span class="badge badge-type badge-imagen">IMAGEN</span>
-          <h4>Título de la imagen 1</h4>
-          <p>Descripción breve del recurso.</p>
-        </article>
-        <article class="card content-card">
-          <div class="cc-icon">🖼</div>
-          <span class="badge badge-type badge-imagen">IMAGEN</span>
-          <h4>Título de la imagen 2</h4>
-          <p>Descripción breve del recurso.</p>
-        </article>
-      </div>
-    </section>
-
     <main class="main-content">
 
       <div class="titulo-vista" id="titulo-vista">Inicio</div>
@@ -160,42 +131,43 @@
       <!-- ══ BIENVENIDA ══ -->
       <section class="view-section" id="sec-home">
 
-        <div class="panel-solo">
-        <div class="tablero" id="tablero">
+        <div class="tablero tablero-compacto">
           <header class="tablero-barra">
-            <span class="tablero-titulo" id="tablero-titulo">Tablero</span>
-            <span class="tablero-marcador" id="tablero-marcador"></span>
+            <span class="tablero-titulo">Tablero</span>
           </header>
           <div class="tablero-modulos">
-            <p class="tablero-modulo-titulo">Módulos disponibles</p>
-            <div class="grid-tarjetas grid-4" id="modulos-disponibles-tarjetas"></div>
+            <p class="tablero-modulo-titulo">Cards de muestra</p>
+            <div class="franja-media-grid">
+              <article class="card content-card">
+                <div class="cc-icon">🎬</div>
+                <span class="badge badge-type badge-video">VIDEO</span>
+                <h4>Título del video 1</h4>
+                <p>Descripción breve del recurso.</p>
+              </article>
+              <article class="card content-card">
+                <div class="cc-icon">🎬</div>
+                <span class="badge badge-type badge-video">VIDEO</span>
+                <h4>Título del video 2</h4>
+                <p>Descripción breve del recurso.</p>
+              </article>
+              <article class="card content-card">
+                <img class="cc-foto" src="../assets/img/portadas%20video/Lenguajes%20de%20programaci%C3%B3n/instroduccion%20a%20python.jpeg" alt="">
+                <span class="badge badge-type badge-imagen">IMAGEN</span>
+                <h4>Introducción a Python</h4>
+              </article>
+              <article class="card content-card">
+                <img class="cc-foto" src="../assets/img/SENA/sedestunja.jpeg" alt="">
+                <span class="badge badge-type badge-imagen">IMAGEN</span>
+                <h4>Módulo Sede Tunja</h4>
+              </article>
+            </div>
           </div>
           <div class="tablero-modulos">
-            <p class="tablero-modulo-titulo">Módulos de mi ficha</p>
+            <p class="tablero-modulo-titulo">Módulo</p>
             <div class="card-modulo-rejilla" data-progreso></div>
-          </div>
-          <div class="tablero-apps" role="group" aria-label="Actividades del tablero">
-            <button type="button" class="tablero-app" data-app="video">🎬 Video de la sesión</button>
-            <button type="button" class="tablero-app" data-app="consola">⌨ Consola JavaScript</button>
-            <button type="button" class="tablero-app" data-app="imagenes">🖼 Galería de imágenes</button>
-            <button type="button" class="tablero-app" data-app="quiz10">📝 Cuestionario — 10</button>
-            <button type="button" class="tablero-app" data-app="quiz30">📝 Cuestionario — 30</button>
-            <button type="button" class="tablero-app" data-app="puntajes">📊 Mis puntajes</button>
-          </div>
-          <div class="tablero-pantalla" id="tablero-pantalla">
-            <p class="tablero-vacio">Elija una actividad de la fila de arriba para abrirla aquí.</p>
           </div>
         </div>
 
-        <p class="frecuentes-title">Mis opciones frecuentes</p>
-        <ol class="frecuentes-list">
-          <li><a href="#" onclick="showSection('sec-materiales');return false;">Consultar Materiales Formativos (RF03)</a></li>
-          <li><a href="#" onclick="showSection('sec-presentar');return false;">Presentar Evaluaciones (RF07)</a></li>
-          <li><a href="#" onclick="showSection('sec-evidencias');return false;">Entregar Evidencias de Código (RF12)</a></li>
-          <li><a href="#" onclick="showSection('sec-puntajes');return false;">Consultar Dashboard Académico (RF09)</a></li>
-          <li><a href="#" onclick="showSection('sec-historial-ver');return false;">Historial de Versiones (RF14)</a></li>
-        </ol>
-          </div>
       </section>
 
       <!-- ══ RESUMEN DE SECCIÓN — se abre al hacer clic en el título de 1/2/3 ══ -->

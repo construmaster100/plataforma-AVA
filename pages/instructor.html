@@ -145,35 +145,6 @@
       </ul>
     </aside>
 
-    <section class="franja-media" aria-label="Recursos multimedia destacados">
-      <div class="franja-media-grid">
-        <article class="card content-card">
-          <div class="cc-icon">🎬</div>
-          <span class="badge badge-type badge-video">VIDEO</span>
-          <h4>Título del video 1</h4>
-          <p>Descripción breve del recurso.</p>
-        </article>
-        <article class="card content-card">
-          <div class="cc-icon">🎬</div>
-          <span class="badge badge-type badge-video">VIDEO</span>
-          <h4>Título del video 2</h4>
-          <p>Descripción breve del recurso.</p>
-        </article>
-        <article class="card content-card">
-          <div class="cc-icon">🖼</div>
-          <span class="badge badge-type badge-imagen">IMAGEN</span>
-          <h4>Título de la imagen 1</h4>
-          <p>Descripción breve del recurso.</p>
-        </article>
-        <article class="card content-card">
-          <div class="cc-icon">🖼</div>
-          <span class="badge badge-type badge-imagen">IMAGEN</span>
-          <h4>Título de la imagen 2</h4>
-          <p>Descripción breve del recurso.</p>
-        </article>
-      </div>
-    </section>
-
     <main class="main-content">
 
       <div class="titulo-vista" id="titulo-vista">Inicio</div>
@@ -181,87 +152,42 @@
       <!-- ══ DASHBOARD ══ -->
       <section class="view-section" id="sec-home">
 
-            <div class="tablero tablero-compacto">
-              <header class="tablero-barra">
-                <span class="tablero-titulo">Tablero &mdash; Actividad de Python</span>
-                <span class="tablero-marcador">Ficha 3293836</span>
-              </header>
-              <div class="tablero-modulos">
-                <p class="tablero-modulo-titulo">M&oacute;dulo</p>
-                <div class="card-modulo-rejilla" data-modulos="Python, Sede Tunja" data-ficha="3293836"></div>
-              </div>
-              <div class="tablero-niveles" data-niveles="Python" data-ficha="3293836"></div>
+        <div class="tablero tablero-compacto">
+          <header class="tablero-barra">
+            <span class="tablero-titulo">Tablero</span>
+          </header>
+          <div class="tablero-modulos">
+            <p class="tablero-modulo-titulo">Cards de muestra</p>
+            <div class="franja-media-grid">
+              <article class="card content-card">
+                <div class="cc-icon">🎬</div>
+                <span class="badge badge-type badge-video">VIDEO</span>
+                <h4>Título del video 1</h4>
+                <p>Descripción breve del recurso.</p>
+              </article>
+              <article class="card content-card">
+                <div class="cc-icon">🎬</div>
+                <span class="badge badge-type badge-video">VIDEO</span>
+                <h4>Título del video 2</h4>
+                <p>Descripción breve del recurso.</p>
+              </article>
+              <article class="card content-card">
+                <img class="cc-foto" src="../assets/img/portadas%20video/Lenguajes%20de%20programaci%C3%B3n/instroduccion%20a%20python.jpeg" alt="">
+                <span class="badge badge-type badge-imagen">IMAGEN</span>
+                <h4>Introducción a Python</h4>
+              </article>
+              <article class="card content-card">
+                <img class="cc-foto" src="../assets/img/SENA/sedestunja.jpeg" alt="">
+                <span class="badge badge-type badge-imagen">IMAGEN</span>
+                <h4>Módulo Sede Tunja</h4>
+              </article>
             </div>
-
-            <section class="section-table act-bloque">
-              <div class="tabla-header">
-                <h2>M&oacute;dulo de la instructora</h2>
-                <span class="pantalla-sello">Ficha 3293836 &middot; Zulma Salas</span>
-              </div>
-              <p class="bloque-nota">La imagen sale del material del m&oacute;dulo. Usa el buscador para cambiar el m&oacute;dulo que muestra la tarjeta.</p>
-              <div class="card-modulo" id="inst-card-modulo" data-modulo="Python" data-ficha="3293836"></div>
-              <div class="autocompletar" data-destino="inst-card-modulo">
-                <input class="form-control" type="text" id="inst-buscar-modulo"
-                       placeholder="Buscar m&oacute;dulo o actividad&hellip;" autocomplete="off"
-                       role="combobox" aria-expanded="false" aria-autocomplete="list"
-                       aria-controls="inst-sugerencias">
-                <ul class="autocompletar-lista" id="inst-sugerencias" role="listbox" hidden></ul>
-              </div>
-            </section>
-
-            <div class="dashboard-metrics">
-              <div class="metric-card">
-                <div class="metric-icon chip-verde">📋</div>
-                <div class="metric-value">3</div>
-                <div class="metric-label">Evaluaciones activas</div>
-                <a href="#" class="metric-link" data-view="sec-admin-eval">Ver evaluaciones →</a>
-              </div>
-              <div class="metric-card metric-alert">
-                <div class="metric-icon chip-rojo">⚠️</div>
-                <div class="metric-value">2</div>
-                <div class="metric-label">Aprendices en riesgo</div>
-                <a href="#" class="metric-link" data-view="sec-alertas">Ver aprendices →</a>
-              </div>
-              <div class="metric-card">
-                <div class="metric-icon chip-azul">📬</div>
-                <div class="metric-value">5</div>
-                <div class="metric-label">Entregas por revisar</div>
-                <a href="#" class="metric-link" data-view="sec-revisar">Ver entregas →</a>
-              </div>
-              <div class="metric-card">
-                <div class="metric-icon chip-verde">📈</div>
-                <div class="metric-value">78%</div>
-                <div class="metric-label">Avance promedio</div>
-                <a href="#" class="metric-link" data-view="sec-dashboard-inst">Ver analíticas →</a>
-              </div>
-            </div>
-
-            <div class="quick-actions">
-              <h2>Acciones rápidas</h2>
-              <div class="d-flex flex-wrap gap-2 action-buttons">
-                <a href="#" class="btn btn-action btn-primary" data-view="sec-crear-eval">➕ Crear evaluación</a>
-                <a href="#" class="btn btn-action btn-secondary" data-view="sec-dashboard-inst">📊 Ver dashboard</a>
-                <a href="#" class="btn btn-action btn-secondary" data-view="sec-reportes">📄 Generar reporte</a>
-                <a href="#" class="btn btn-action btn-secondary" data-view="sec-ejercicios">💻 Nuevo ejercicio</a>
-              </div>
-            </div>
-
-            <section class="section-table">
-              <div class="tabla-header">
-                <h2>Evaluaciones recientes</h2>
-                <a href="#" class="ver-todas" data-view="sec-admin-eval">Ver todas →</a>
-              </div>
-              <table class="table table-hover align-middle data-table">
-                <thead><tr><th>Nombre</th><th>RA</th><th>Apertura</th><th>Cierre</th><th>Estado</th><th>Acciones</th></tr></thead>
-                <tbody>
-                  <tr><td>Evaluación Módulo 1</td><td>RA-01</td><td>2026-06-10</td><td>2026-06-25</td><td><span class="badge status-badge status-active">Habilitada</span></td><td><a href="#" class="btn btn-sm btn-table">✏ Editar</a><a href="#" class="btn btn-sm btn-table btn-danger">✖ Cerrar</a></td></tr>
-                  <tr><td>Taller Python</td><td>RA-02</td><td>2026-06-15</td><td>2026-06-30</td><td><span class="badge status-badge status-active">Habilitada</span></td><td><a href="#" class="btn btn-sm btn-table">✏ Editar</a><a href="#" class="btn btn-sm btn-table btn-danger">✖ Cerrar</a></td></tr>
-                  <tr><td>Cuestionario BD</td><td>RA-03</td><td>2026-06-01</td><td>2026-06-14</td><td><span class="badge status-badge status-closed">Cerrada</span></td><td><a href="#" class="btn btn-sm btn-table">📊 Ver resultados</a></td></tr>
-                  <tr><td>Proyecto Integrador</td><td>RA-04</td><td>2026-05-20</td><td>2026-06-20</td><td><span class="badge status-badge status-curso">En curso</span></td><td><a href="#" class="btn btn-sm btn-table">📥 Ver entregas</a></td></tr>
-                </tbody>
-              </table>
-              <p class="tabla-pie"><a href="#" data-view="sec-admin-eval">Ver más evaluaciones →</a></p>
-            </section>
+          </div>
+          <div class="tablero-modulos">
+            <p class="tablero-modulo-titulo">Módulo</p>
+            <div class="card-modulo-rejilla" data-modulos="Python, Sede Tunja" data-ficha="3293836"></div>
+          </div>
+        </div>
 
       </section>
 
