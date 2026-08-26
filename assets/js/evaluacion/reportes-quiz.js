@@ -9,7 +9,7 @@
    prueba futura que postee a /api/resultados).
 ══════════════════════════════════════════ */
 
-const API_BASE_INS = 'http://localhost:3000/api';
+const API_BASE_INS = '/api';
 
 /* Nómina de aprendices registrados, por ficha. Hoy solo REGISTRO_FICHA1
    (3293836) tiene identidades reales capaces de iniciar sesión; se arma

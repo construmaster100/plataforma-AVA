@@ -6,7 +6,7 @@
    usan los quices — sin tope de puntaje ("créditos ilimitados").
 ══════════════════════════════════════════ */
 
-const API_BASE_SCORE = 'http://localhost:3000/api';
+const API_BASE_SCORE = '/api';
 // ADSO tiene 72 RA; English Coding solo tiene 5 (pages/Fichas Tecnicos y
 // tecnologos/English coding/RA1..RA5) — el selector de RA se ajusta según
 // la ficha activa (ver poblarSelectorRA()).

@@ -99,7 +99,7 @@ let preguntaId = null;
 // &ra=1&aa=1), según en qué carpeta pages/Resultados de Aprendizaje/RA{n}/AA{m}
 // esté. Sin "ra"/"aa" (por ejemplo si se abre suelto) usa el id genérico de
 // siempre. Sin "doc" se omite el reporte, pero el quiz sigue funcionando igual.
-const API_BASE = "http://localhost:3000/api";
+const API_BASE = "/api";
 
 function idCuestionarioActual() {
   const params = new URLSearchParams(location.search);

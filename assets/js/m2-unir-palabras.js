@@ -7,7 +7,7 @@
    ========================================================================== */
 
 const MODULO_M2 = "SENAEnglish";
-const API_BASE_M2 = "http://localhost:3000/api";
+const API_BASE_M2 = "/api";
 const PORCENTAJE_APROBACION_M2 = 70;
 const LETRAS_M2 = ["A", "B", "C", "D"];
 

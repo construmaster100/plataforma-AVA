@@ -148,7 +148,7 @@
     // en vez de asumir una ruta fija.
     async function irAlQuiz() {
       try {
-        const catalogo = await (await fetch("http://localhost:3000/api/actividades")).json();
+        const catalogo = await (await fetch("/api/actividades")).json();
         const actividad = catalogo.find((a) => a.cuestionarioId === "adso-ra-01-act-1");
         if (actividad) {
           window.location.href = actividad.embebidoUrl + "?ra=1&aa=1&ficha=adso";

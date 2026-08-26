@@ -15,11 +15,23 @@ const io = new Server(server);
 
 const estado = new EvaluationState();
 
+app.use(express.json());
 app.use("/assets", express.static(path.join(ROOT, "assets")));
 app.use("/pages", express.static(path.join(ROOT, "pages")));
 app.use("/docs", express.static(path.join(ROOT, "docs")));
 app.get("/", (req, res) => res.redirect("/pages/bienvenida.html"));
 app.get("/index.html", (req, res) => res.sendFile(path.join(ROOT, "index.html")));
+
+/* Sistema de 72 RA (ADSO): antes solo vivía en server/server.js, un
+   segundo proceso (puerto 3000) que Render nunca desplegaba junto a
+   este. Se monta aquí para que /api/actividades, /api/resultados,
+   /api/acceso y /api/aprendices respondan en el mismo origen que
+   sirve las páginas — así los fetch("/api/...") del frontend
+   funcionan sin importar el dominio o puerto real. */
+app.use("/api/aprendices", require("../server/routes/aprendices"));
+app.use("/api/resultados", require("../server/routes/resultados"));
+app.use("/api/actividades", require("../server/routes/actividades"));
+app.use("/api/acceso", require("../server/routes/acceso"));
 
 io.on("connection", (socket) => {
   socket.on("observar", (_payload, cb) => {

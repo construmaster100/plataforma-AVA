@@ -12,7 +12,7 @@
    antes del sistema de 3 niveles (quiz30-ingles, irregular-verbs) ya
    no los reporta nadie, pero se conservan como respaldo por si queda
    historial viejo en la base de datos. */
-const API_BASE_APR = 'http://localhost:3000/api';
+const API_BASE_APR = '/api';
 const PORCENTAJE_APROBACION = 70;
 
 const CUESTIONARIOS_CONOCIDOS = {

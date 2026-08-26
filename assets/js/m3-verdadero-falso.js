@@ -5,7 +5,7 @@
    ========================================================================== */
 
 const MODULO_M3 = "SENAEnglish";
-const API_BASE_M3 = "http://localhost:3000/api";
+const API_BASE_M3 = "/api";
 const PORCENTAJE_APROBACION_M3 = 70;
 
 const AFIRMACIONES_M3 = [

@@ -2888,35 +2888,20 @@
 
 
       <!-- ══ PRESENTAR EVALUACIÓN ══ -->
+      <!-- ══ PRESENTAR EVALUACIÓN — cards por RA (RA1, RA2…) ══
+           Un card por cada RA con contenido real (server/routes/actividades.js
+           escanea pages/Fichas Tecnicos y tecnologos/.../RA{n}/AA{m}/M{k}).
+           Cada card trae sus pestañas de AA y, dentro, las de M1-M4 sobre un
+           solo iframe para contestar — ver assets/js/evaluacion/ra-cards-presentar.js. -->
       <section class="view-section" id="sec-presentar">
         <div class="sec-header">
           <h1><img class="ico ico-h1" src="../assets/img/iconos/presentar.svg" alt="Presentar"> Presentar Evaluación</h1>
-          <p>RF07 — Evaluación Módulo 1 — Fundamentos · RA-01 · Cierra: 2026-06-25</p>
+          <p>Elige la Actividad de Aprendizaje (AA) y su módulo (M1-M4) para presentarlo; tu puntaje se reporta a tu instructor.
+             Un RA queda aprobado cuando todas sus AA quedan aprobadas.</p>
         </div>
-        <form onsubmit="return false;">
-          <div class="quiz-question">
-            <p>1. ¿Qué es un requisito funcional?</p>
-            <label class="quiz-option"><input type="radio" name="q1" value="a"> Describe cómo debe comportarse el sistema ante una acción del usuario</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="b"> Define características de calidad como rendimiento o seguridad</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="c"> Es el diseño visual de la interfaz de usuario</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="d"> Corresponde al código fuente del sistema</label>
-          </div>
-          <div class="quiz-question">
-            <p>2. ¿Qué actor en el SGMA-ADSO puede crear evaluaciones?</p>
-            <label class="quiz-option"><input type="radio" name="q2" value="a"> Aprendiz</label>
-            <label class="quiz-option"><input type="radio" name="q2" value="b"> Instructor</label>
-            <label class="quiz-option"><input type="radio" name="q2" value="c"> Sistema</label>
-            <label class="quiz-option"><input type="radio" name="q2" value="d"> Todos los roles</label>
-          </div>
-          <div class="quiz-question">
-            <p>3. Describe con tus palabras el flujo de autenticación del sistema (RF02).</p>
-            <div class="form-group"><textarea class="form-control" placeholder="Escribe tu respuesta aquí..."></textarea></div>
-          </div>
-          <div class="d-flex flex-wrap gap-2 form-footer">
-            <button class="btn btn-action btn-primary" onclick="alert('Evaluación enviada exitosamente. Fecha y hora registradas (simulación)')">📤 Enviar evaluación</button>
-            <button class="btn btn-action btn-secondary" onclick="showSection('sec-ver-eval')">Cancelar</button>
-          </div>
-        </form>
+        <p class="small text-muted" id="ra-cards-estado">Cargando…</p>
+        <div class="btn-group flex-wrap mb-3" role="group" id="ra-cards-selector"></div>
+        <div id="ra-cards-contenedor"></div>
       </section>
 
       <!-- ══ DASHBOARD ACADÉMICO ══ -->
@@ -3367,7 +3352,7 @@
             var p = new URLSearchParams(window.location.search);
             var frame = document.getElementById('frame-quiz-irregular-verbs');
             if (!frame || frame.src) return;
-            fetch('http://localhost:3000/api/actividades').then(function (r) { return r.json(); }).then(function (catalogo) {
+            fetch('/api/actividades').then(function (r) { return r.json(); }).then(function (catalogo) {
               var actividad = catalogo.find(function (a) { return a.cuestionarioId === 'adso-ra-02-aa-1-m-4'; });
               if (!actividad) return;
               frame.src = actividad.embebidoUrl + '?doc=' + encodeURIComponent(p.get('doc') || '')
@@ -4950,6 +4935,7 @@
   <script src="../assets/js/evaluacion/reporte-quiz-aprendiz.js"></script>
   <script src="../assets/js/evaluacion/progreso-ra.js"></script>
   <script src="../assets/js/evaluacion/actividad-aprendizaje.js"></script>
+  <script src="../assets/js/evaluacion/ra-cards-presentar.js"></script>
   <script src="../assets/js/evaluacion/footer-progreso.js"></script>
 
   <script>

@@ -6,7 +6,7 @@
    se ajusta según cuál esté seleccionada.
 ══════════════════════════════════════════ */
 
-const API_BASE_FOOTER = 'http://localhost:3000/api';
+const API_BASE_FOOTER = '/api';
 const PORCENTAJE_APROBACION_FOOTER = 70;
 const TOTAL_RA_POR_FICHA_FOOTER = { adso: 72, english: 5 };
 

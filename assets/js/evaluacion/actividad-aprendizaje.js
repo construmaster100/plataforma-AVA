@@ -9,7 +9,7 @@
    AA{n}/M{k}/) se muestra deshabilitado como "sin contenido aún".
 ══════════════════════════════════════════ */
 
-const API_BASE_AA = 'http://localhost:3000/api';
+const API_BASE_AA = '/api';
 const RA_ACTIVIDAD_APRENDIZAJE = 1;
 const FICHA_ACTIVIDAD_APRENDIZAJE = 'adso';
 const PORCENTAJE_APROBACION_AA = 70;

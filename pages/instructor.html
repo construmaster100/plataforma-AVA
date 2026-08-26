@@ -98,7 +98,9 @@
             <li><a href="#" data-view="sec-revisar">2.3 Revisión de código</a></li>
             <li><a href="#" data-view="sec-retro-cod">2.4 Retroalimentación sobre código</a></li>
             <li><a href="#" data-view="sec-dashboard-inst">2.5 Indicadores de desempeño</a></li>
-            <li><a href="#" data-view="sec-ficha-aprendizaje">2.6 Seguimiento por resultados de aprendizaje</a></li>
+            <li class="menu-grupo">2.6 Seguimiento por resultados de aprendizaje</li>
+            <li><a href="#" class="sub-item" data-view="sec-tabla-score-ra">Avance y score por RA (asignar/editar)</a></li>
+            <li><a href="#" class="sub-item" data-view="sec-reportes-quiz">Score acumulado por aprendiz</a></li>
             <li><a href="#" data-view="sec-alertas">2.7 Alertas tempranas</a></li>
             <li><a href="#" data-view="sec-reportes">2.8 Generación de reportes académicos</a></li>
             <li><a href="#" data-view="sec-grafica-avance">2.9 Comparativo de desempeño</a></li>
@@ -330,12 +332,12 @@
 
         <div class="tabla-header" id="ac-estado-ficha" style="flex-wrap:wrap;gap:10px;margin-bottom:16px;"></div>
 
-        <div class="section-table" style="margin-bottom:20px;">
+        <div class="section-table" style="margin-bottom:20px;" id="ac-crear-ficha-bloque" hidden>
           <div class="tabla-header">
             <h2>Crear ficha de aprendizaje virtual</h2>
             <span class="repo-conteo">Ficha 2 en adelante &middot; 4 m&oacute;dulos &middot; hasta 30 cupos</span>
           </div>
-          <p class="bloque-nota">La ficha 3293836 es real y est&aacute;tica: ya tiene su asignaci&oacute;n, su instructora y su material en <code>docs/Fichas/ADSO 3293836</code>. Las fichas N son plantillas para montar cursos nuevos; sus cupos van de &laquo;Aprendiz 1&raquo; a &laquo;Aprendiz 35&raquo;.</p>
+          <p class="bloque-nota">Solo el instructor administrador puede crear fichas nuevas. La ficha 3293836 es real y est&aacute;tica: ya tiene su asignaci&oacute;n, su instructora y su material en <code>docs/Fichas/ADSO 3293836</code>. Las fichas N son plantillas para montar cursos nuevos; sus cupos van de &laquo;Aprendiz 1&raquo; a &laquo;Aprendiz 35&raquo;.</p>
           <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
             <input class="form-control" type="text" id="ac-nueva-nombre" placeholder="Nombre del curso" style="max-width:280px;">
             <select class="form-select" id="ac-nueva-nivel" style="max-width:180px;"></select>
@@ -3758,6 +3760,11 @@ for i in range(1, 11):
     if (new URLSearchParams(window.location.search).get('admin') === '1') {
       const menuModulo4 = document.getElementById('menu-modulo-4');
       if (menuModulo4) menuModulo4.hidden = false;
+
+      /* Crear ficha de aprendizaje virtual: exclusiva del instructor
+         administrador, no de un instructor cualquiera (ver 1.2). */
+      const crearFichaBloque = document.getElementById('ac-crear-ficha-bloque');
+      if (crearFichaBloque) crearFichaBloque.hidden = false;
     }
 
     function showSection(id) {

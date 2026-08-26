@@ -85,7 +85,7 @@ function registrarPuntaje(actividad, puntos, maximo) {
    guardar el resultado en el servidor. Si no hay cédula (login viejo,
    o se entró sin loguearse) o el servidor no responde, no pasa nada:
    el cuestionario sigue funcionando igual, esto es solo un extra. ── */
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = '/api';
 
 async function reportarResultadoBackend(modulo, cuestionario, puntaje, totalPreguntas) {
   const params = new URLSearchParams(window.location.search);

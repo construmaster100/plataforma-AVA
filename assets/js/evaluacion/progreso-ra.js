@@ -11,7 +11,7 @@
    — para pintar el estado de cada casilla y la barra de progreso general.
 ══════════════════════════════════════════ */
 
-const API_BASE_RA = 'http://localhost:3000/api';
+const API_BASE_RA = '/api';
 const PORCENTAJE_APROBACION_RA = 70;
 // ADSO tiene 72 RA; English Coding solo tiene 5 (pages/Fichas Tecnicos y
 // tecnologos/English coding/RA1..RA5) — el tope se ajusta por ficha.
