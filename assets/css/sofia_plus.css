@@ -282,6 +282,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .badge-guia   { background:#f3e5f5; color:#6a1b9a; }
 .badge-code   { background:#e9f6e0; color:#007832; }
 .badge-imagen { background:#fff3e0; color:#e65100; }
+.badge-modulo { background:#e0f7fa; color:#00695c; }
 .btn-ver {
   display: block;
   text-align: center;

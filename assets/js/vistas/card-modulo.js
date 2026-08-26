@@ -68,6 +68,11 @@ function irAlModulo(modulo) {
 
 /* ── Una card ── */
 
+/* Misma plantilla de tarjeta que las cards de muestra (.content-card:
+   icono/foto + badge-type + h4 + p), para que módulo, video, imagen,
+   artículo y actividad compartan un único formato visual. La portada
+   sustituye al icono; candado y cinta de estado se conservan encima
+   de la imagen. */
 function construirCardModulo(modulo, fichaId, conProgreso) {
   const marcas  = typeof misPuntajes === 'function' ? misPuntajes() : {};
   const niveles = contenidoAsignado(fichaId, marcas).filter(a => a.modulo === modulo);
@@ -78,7 +83,7 @@ function construirCardModulo(modulo, fichaId, conProgreso) {
   const enlazable = abierto && Boolean(document.getElementById(ANCLA_MODULO[modulo] || ''));
 
   const card = document.createElement(enlazable ? 'button' : 'div');
-  card.className = 'card-modulo ' + (abierto ? 'es-abierto' : 'es-cerrado');
+  card.className = 'card content-card card-modulo ' + (abierto ? 'es-abierto' : 'es-cerrado');
   if (enlazable) {
     card.type = 'button';
     card.addEventListener('click', () => irAlModulo(modulo));
@@ -112,15 +117,16 @@ function construirCardModulo(modulo, fichaId, conProgreso) {
     card.appendChild(marco);
   }
 
-  const cuerpo = document.createElement('span');
-  cuerpo.className = 'card-modulo-cuerpo';
+  const badgeTipo = document.createElement('span');
+  badgeTipo.className = 'badge badge-type badge-modulo';
+  badgeTipo.textContent = 'MÓDULO';
+  card.appendChild(badgeTipo);
 
-  const titulo = document.createElement('span');
-  titulo.className = 'card-modulo-titulo';
+  const titulo = document.createElement('h4');
   titulo.textContent = 'Módulo ' + modulo;
+  card.appendChild(titulo);
 
-  const detalle = document.createElement('span');
-  detalle.className = 'card-modulo-detalle';
+  const detalle = document.createElement('p');
 
   if (!enFicha) {
     detalle.textContent = 'Fuera de la ficha ' + fichaId;
@@ -134,7 +140,7 @@ function construirCardModulo(modulo, fichaId, conProgreso) {
     detalle.textContent = niveles.length + ' niveles asignados';
   }
 
-  cuerpo.append(titulo, detalle);
+  card.appendChild(detalle);
 
   if (niveles.length && conProgreso) {
     const barra = document.createElement('span');
@@ -142,10 +148,9 @@ function construirCardModulo(modulo, fichaId, conProgreso) {
     const relleno = document.createElement('span');
     relleno.style.width = Math.round(hechos / niveles.length * 100) + '%';
     barra.appendChild(relleno);
-    cuerpo.appendChild(barra);
+    card.appendChild(barra);
   }
 
-  card.appendChild(cuerpo);
   return card;
 }
 
