@@ -101,6 +101,7 @@
             <li class="menu-grupo">2.6 Seguimiento por resultados de aprendizaje</li>
             <li><a href="#" class="sub-item" data-view="sec-tabla-score-ra">Avance y score por RA (asignar/editar)</a></li>
             <li><a href="#" class="sub-item" data-view="sec-reportes-quiz">Score acumulado por aprendiz</a></li>
+            <li><a href="#" class="sub-item" data-view="sec-ra-cards-instructor">Progreso por RA (cards)</a></li>
             <li><a href="#" data-view="sec-alertas">2.7 Alertas tempranas</a></li>
             <li><a href="#" data-view="sec-reportes">2.8 Generación de reportes académicos</a></li>
             <li><a href="#" data-view="sec-grafica-avance">2.9 Comparativo de desempeño</a></li>
@@ -1212,6 +1213,32 @@ for i in range(1, 11):
           <tbody id="reportes-quiz-tbody"></tbody>
         </table>
         <div id="reportes-quiz-detalle" class="notif-card" hidden></div>
+      </section>
+
+      <!-- ══ PROGRESO POR RA (CARDS) ══
+           Mismo sistema de cards que ve el aprendiz en "Presentar
+           Evaluación" (assets/js/evaluacion/ra-cards-render.js), aquí
+           con selector de ficha/aprendiz para que el instructor (y el
+           administrador, mismo panel con ?admin=1) vea el progreso de
+           cualquiera, no el suyo. -->
+      <section class="view-section" id="sec-ra-cards-instructor">
+        <div class="sec-header">
+          <h1><img class="ico ico-h1" src="../assets/img/SENA/panel.JPG" alt="Progreso"> Progreso por RA (cards)</h1>
+          <p>Elige un aprendiz para ver sus resultados de aprendizaje con el mismo formato de cards que él ve al presentar.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <div class="input-group input-group-sm" style="max-width:220px;" id="rac-ficha-grupo" hidden>
+            <span class="input-group-text">Ficha</span>
+            <select class="form-select" id="rac-ficha-selector"></select>
+          </div>
+          <div class="input-group input-group-sm" style="max-width:280px;">
+            <span class="input-group-text">Aprendiz</span>
+            <select class="form-select" id="rac-aprendiz-selector"></select>
+          </div>
+        </div>
+        <p class="notif-card" id="rac-estado">Selecciona un aprendiz.</p>
+        <div class="btn-group flex-wrap mb-3" role="group" id="rac-selector"></div>
+        <div id="rac-contenedor"></div>
       </section>
 
       <!-- ══ ASIGNAR SCORE POR RA ══
@@ -3755,6 +3782,8 @@ for i in range(1, 11):
   <script src="../assets/js/autenticacion/registro.js"></script>
   <script src="../assets/js/evaluacion/reportes-quiz.js"></script>
   <script src="../assets/js/evaluacion/tabla-score-ra.js"></script>
+  <script src="../assets/js/evaluacion/ra-cards-render.js"></script>
+  <script src="../assets/js/evaluacion/ra-cards-instructor.js"></script>
   <script src="../assets/js/evaluacion/actividad-aprendizaje.js"></script>
 
   <script>
