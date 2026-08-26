@@ -21,7 +21,9 @@ function pintarContenedorRaCards() {
   const cedula = params.get('doc');
   const fichas = typeof fichasDeAprendiz === 'function' ? fichasDeAprendiz(cedula) : ['adso'];
   const ficha = typeof getCursoActivo === 'function' ? getCursoActivo() : 'adso';
-  const totalRA = TOTAL_RA_POR_FICHA_CARDS[ficha] || 72;
+  // Al aprendiz solo le llegan los primeros 5 RA para presentar y
+  // que se le califique; el instructor sigue viendo los 72 completos.
+  const totalRA = Math.min(TOTAL_RA_POR_FICHA_CARDS[ficha] || 72, 5);
   const desbloqueados = new Set((datosRaCards.acceso.unlocked || []));
   const ultimos = ultimosPorCuestionarioCards(datosRaCards.resultados.historial);
 

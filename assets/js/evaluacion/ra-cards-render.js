@@ -129,9 +129,18 @@ function pintarCardRA(raId, porAA, ultimos, params, seleccionMPorRA, onRefrescar
   [1, 2, 3, 4].forEach(m => {
     const material = materiales.find(x => x.materialIndex === m);
     const tile = pintarTileM(m, material, ultimos, mSel === m, elegido => {
+      // Acordeón: al abrir un cuestionario se cierran los demás, para
+      // no apilar varios iframes de 60vh en un solo bloque largo.
+      document.querySelectorAll('.ra-card-frame').forEach(otro => {
+        if (otro !== frame) otro.style.display = 'none';
+      });
+      Object.keys(seleccionMPorRA).forEach(k => {
+        if (Number(k) !== raId) delete seleccionMPorRA[k];
+      });
       seleccionMPorRA[raId] = m;
       frame.style.display = 'block';
       cargarFrameRaCards(frame, elegido, params);
+      frame.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     fila.appendChild(tile);
   });
