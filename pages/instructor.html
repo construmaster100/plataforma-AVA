@@ -1231,11 +1231,12 @@ for i in range(1, 11):
             <span class="input-group-text">Ficha</span>
             <select class="form-select" id="score-ficha-selector"></select>
           </div>
-          <div class="input-group input-group-sm" style="max-width:220px;">
-            <span class="input-group-text">RA</span>
-            <select class="form-select" id="score-ra-selector"></select>
-          </div>
         </div>
+        <!-- Las 72 RA como cards (5 para English): con contenido cargado
+             resaltadas, sin contenido igual seleccionables (la tabla de
+             abajo avisa que falta cargar material) — así el instructor ve
+             de un vistazo el alcance completo del programa. -->
+        <div class="btn-group flex-wrap mb-3" role="group" id="score-ra-cards"></div>
         <p class="notif-card" id="score-ra-estado">Selecciona un RA.</p>
         <div class="table-responsive">
           <table class="table table-hover align-middle data-table">

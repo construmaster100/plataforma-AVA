@@ -13,6 +13,7 @@ const API_BASE_SCORE = '/api';
 const TOTAL_RA_POR_FICHA_SCORE = { adso: 72, english: 5 };
 
 let catalogoCompleto = null;
+let raSeleccionadaScore = 1;
 
 function estadoActualTexto(resultado) {
   if (!resultado) return 'Sin presentar';
@@ -40,18 +41,35 @@ async function cargarCatalogoUnaVez() {
   return catalogoCompleto;
 }
 
-function poblarSelectorRA(ficha) {
-  const selector = document.getElementById('score-ra-selector');
+/* Las 72 RA (5 en English) como cards clicables — no un <select> — para
+   que el instructor vea de un vistazo cuáles ya tienen contenido
+   cargado (resaltadas) y cuáles todavía no (la tabla de abajo avisa
+   igual si elige una vacía; puede habilitar el acceso de todos modos). */
+async function pintarCardsRA(ficha) {
+  const contenedor = document.getElementById('score-ra-cards');
   const total = TOTAL_RA_POR_FICHA_SCORE[ficha] || 72;
-  if (Number(selector.dataset.total) === total) return;
-  selector.innerHTML = '';
+  if (!raSeleccionadaScore || raSeleccionadaScore > total) raSeleccionadaScore = 1;
+
+  let conContenido = new Set();
+  try {
+    const catalogo = await cargarCatalogoUnaVez();
+    conContenido = new Set(catalogo.filter(a => a.ficha === ficha).map(a => a.raId));
+  } catch (e) { /* se resalta igual con lo que haya en memoria */ }
+
+  contenedor.replaceChildren();
   for (let ra = 1; ra <= total; ra++) {
-    const opt = document.createElement('option');
-    opt.value = ra;
-    opt.textContent = 'RA-' + String(ra).padStart(2, '0');
-    selector.appendChild(opt);
+    const boton = document.createElement('button');
+    boton.type = 'button';
+    const activa = ra === raSeleccionadaScore;
+    boton.className = 'btn btn-sm ' + (activa ? 'btn-primary' : conContenido.has(ra) ? 'btn-outline-success' : 'btn-outline-secondary');
+    boton.textContent = 'RA-' + String(ra).padStart(2, '0');
+    boton.addEventListener('click', () => {
+      raSeleccionadaScore = ra;
+      pintarCardsRA(ficha);
+      renderTablaRA(ra);
+    });
+    contenedor.appendChild(boton);
   }
-  selector.dataset.total = total;
 }
 
 const NOMBRE_FICHA = { adso: 'Análisis y Desarrollo de Software', english: 'English Coding' };
@@ -167,15 +185,13 @@ async function guardarCelda(celda) {
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-view="sec-tabla-score-ra"]').forEach(a => a.addEventListener('click', () => {
     poblarSelectorFicha();
-    poblarSelectorRA(fichaActual());
-    const selector = document.getElementById('score-ra-selector');
-    renderTablaRA(selector.value || 1);
+    pintarCardsRA(fichaActual());
+    renderTablaRA(raSeleccionadaScore);
   }));
 
-  document.getElementById('score-ra-selector').addEventListener('change', e => renderTablaRA(e.target.value));
   document.getElementById('score-ficha-selector').addEventListener('change', () => {
-    poblarSelectorRA(fichaActual());
-    renderTablaRA(document.getElementById('score-ra-selector').value || 1);
+    pintarCardsRA(fichaActual());
+    renderTablaRA(raSeleccionadaScore);
   });
 
   document.getElementById('score-ra-tbody').addEventListener('click', e => {
@@ -187,9 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('score-ra-encabezado').addEventListener('click', async e => {
     const btn = e.target.closest('.acceso-habilitar');
     if (!btn) return;
-    const raId = document.getElementById('score-ra-selector').value;
     btn.disabled = true;
-    await habilitarAcceso(btn.dataset.cedula, raId);
+    await habilitarAcceso(btn.dataset.cedula, raSeleccionadaScore);
     btn.textContent = '✅ Habilitado';
   });
 });
