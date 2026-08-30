@@ -76,19 +76,13 @@
 
         <li>
           <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/SENA/manual.JPG" alt="">1. Modulo 1</span>
+            <span><img class="icon-left icon-img" src="../assets/img/iconos/galeria.svg" alt="">1. Módulo 1</span>
             <span class="arrow">❯</span>
           </button>
           <ul class="submenu">
-            <li class="menu-grupo">1.1 Consulta de contenidos formativos</li>
-            <li><a href="#" class="sub-item" data-view="sec-materiales">1.11 Consulta de recursos multimedia</a></li>
-            <li><a href="#" class="sub-item" data-view="sec-ejer-prog">1.12 Consulta de ejemplos de código</a></li>
-            <li><a href="#" class="sub-item" data-view="sec-buscar">1.13 Acceso a recursos interactivos</a></li>
-            <li><a href="#" data-view="sec-progreso-ra">1.2 Consulta de actividades asociadas</a></li>
-            <li class="menu-grupo">1.3 Contenidos</li>
-            <li><a href="#" class="sub-item" data-view="sec-descargar">Buscar/descargar contenidos de aprendizaje</a></li>
-            <li><a href="#" class="sub-item" data-view="sec-guias-gaa">Consulta de orientaciones de aprendizaje</a></li>
-            <li hidden><a href="#" id="apr-link-material-aprendizaje" data-view="sec-ver-eval">Material de aprendizaje</a></li>
+            <li><a href="#" data-view="sec-carrusel-guias">1.1 Guías de aprendizaje</a></li>
+            <li><a href="#" data-view="sec-carrusel-chequeo">1.2 Listas de chequeo</a></li>
+            <li><a href="#" data-view="sec-carrusel-material">1.3 Material de aprendizaje</a></li>
           </ul>
         </li>
 
@@ -141,6 +135,24 @@
           </button>
           <ul class="submenu">
             <li><a href="#" data-view="sec-code-lab">5.1 AVA Code Lab</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <button class="menu-btn" aria-expanded="false">
+            <span><img class="icon-left icon-img" src="../assets/img/SENA/manual.JPG" alt="">6. Módulo 6</span>
+            <span class="arrow">❯</span>
+          </button>
+          <ul class="submenu">
+            <li class="menu-grupo">6.1 Consulta de contenidos formativos</li>
+            <li><a href="#" class="sub-item" data-view="sec-materiales">6.11 Consulta de recursos multimedia</a></li>
+            <li><a href="#" class="sub-item" data-view="sec-ejer-prog">6.12 Consulta de ejemplos de código</a></li>
+            <li><a href="#" class="sub-item" data-view="sec-buscar">6.13 Acceso a recursos interactivos</a></li>
+            <li><a href="#" data-view="sec-progreso-ra">6.2 Consulta de actividades asociadas</a></li>
+            <li class="menu-grupo">6.3 Contenidos</li>
+            <li><a href="#" class="sub-item" data-view="sec-descargar">Buscar/descargar contenidos de aprendizaje</a></li>
+            <li><a href="#" class="sub-item" data-view="sec-guias-gaa">Consulta de orientaciones de aprendizaje</a></li>
+            <li hidden><a href="#" id="apr-link-material-aprendizaje" data-view="sec-ver-eval">Material de aprendizaje</a></li>
           </ul>
         </li>
 
@@ -4914,6 +4926,139 @@
         <span id="footer-progreso-score"><strong>Score:</strong> 0 pts</span>
       </footer>
 
+      <!-- ══ MÓDULO 1 · 1.1 GUÍAS DE APRENDIZAJE (carrusel) ══
+           assets/js/vistas/carrusel-guias.js + carrusel-generico.js.
+           Catálogo global en localStorage; instructor carga/edita/
+           elimina, aprendiz consulta/visualiza/descarga. -->
+      <section class="view-section" id="sec-carrusel-guias">
+        <div class="sec-header">
+          <h1>Guía de aprendizaje en curso</h1>
+          <p>Consulta, visualiza y descarga las guías de aprendizaje asociadas a tu ficha.</p>
+        </div>
+
+        <div class="card content-card mb-3 p-3" id="carrusel-guias-instructor" hidden>
+          <h3 style="margin-top:0;">Cargar / asignar guía</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>RA</label><input class="form-control" id="cg-form-ra" placeholder="Ej: RA-01"></div>
+            <div class="form-group"><label>GA</label><input class="form-control" id="cg-form-ga" placeholder="Ej: GA1"></div>
+            <div class="form-group span-2"><label>Nombre de la guía</label><input class="form-control" id="cg-form-nombre" placeholder="Ej: Guía 1 — Fundamentos"></div>
+            <div class="form-group span-2"><label>URL del PDF</label><input class="form-control" id="cg-form-url" placeholder="https://... o ruta relativa"></div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
+            <button type="button" class="btn btn-action btn-primary" id="cg-btn-guardar">➕ Cargar / guardar guía</button>
+            <button type="button" class="btn btn-action btn-secondary" id="cg-btn-nueva">🆕 Nueva</button>
+            <button type="button" class="btn btn-action btn-outline-danger" id="cg-btn-eliminar">🗑 Eliminar la actual</button>
+            <span class="bloque-nota" id="cg-aviso" hidden></span>
+          </div>
+        </div>
+
+        <div class="card content-card p-3" id="carrusel-guias-contenedor">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button type="button" class="btn btn-action btn-secondary" id="cg-btn-anterior">‹ Anterior</button>
+            <span class="fw-bold" id="cg-contador">0 de 0</span>
+            <button type="button" class="btn btn-action btn-secondary" id="cg-btn-siguiente">Siguiente ›</button>
+          </div>
+          <select class="form-select mb-3" id="cg-lista"></select>
+          <div id="cg-visor" class="mb-2"></div>
+          <div class="d-flex flex-wrap gap-2" id="cg-acciones"></div>
+        </div>
+      </section>
+
+      <!-- ══ MÓDULO 1 · 1.2 LISTAS DE CHEQUEO (carrusel) ══ -->
+      <section class="view-section" id="sec-carrusel-chequeo">
+        <div class="sec-header">
+          <h1>Lista de chequeo en curso</h1>
+          <p>Consulta, visualiza, descarga y entrega tus listas de chequeo diligenciadas.</p>
+        </div>
+
+        <div class="card content-card mb-3 p-3" id="carrusel-chequeo-instructor" hidden>
+          <h3 style="margin-top:0;">Cargar / asignar lista de chequeo</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>RA</label><input class="form-control" id="cc-form-ra" placeholder="Ej: RA-01"></div>
+            <div class="form-group"><label>GA</label><input class="form-control" id="cc-form-ga" placeholder="Ej: GA1"></div>
+            <div class="form-group span-2"><label>Nombre de la lista</label><input class="form-control" id="cc-form-nombre" placeholder="Ej: Lista de chequeo 1"></div>
+            <div class="form-group span-2"><label>URL del documento</label><input class="form-control" id="cc-form-url" placeholder="https://... o ruta relativa"></div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
+            <button type="button" class="btn btn-action btn-primary" id="cc-btn-guardar">➕ Cargar / guardar lista</button>
+            <button type="button" class="btn btn-action btn-secondary" id="cc-btn-nueva">🆕 Nueva</button>
+            <button type="button" class="btn btn-action btn-outline-danger" id="cc-btn-eliminar">🗑 Eliminar la actual</button>
+            <span class="bloque-nota" id="cc-aviso" hidden></span>
+          </div>
+        </div>
+
+        <div class="card content-card p-3" id="carrusel-chequeo-contenedor">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button type="button" class="btn btn-action btn-secondary" id="cc-btn-anterior">‹ Anterior</button>
+            <span class="fw-bold" id="cc-contador">0 de 0</span>
+            <button type="button" class="btn btn-action btn-secondary" id="cc-btn-siguiente">Siguiente ›</button>
+          </div>
+          <select class="form-select mb-3" id="cc-lista"></select>
+          <div id="cc-visor" class="mb-2"></div>
+          <div class="d-flex flex-wrap gap-2 align-items-start" id="cc-acciones"></div>
+        </div>
+      </section>
+
+      <!-- ══ MÓDULO 1 · 1.3 MATERIAL DE APRENDIZAJE (carrusel) ══
+           Filtrado por RA + GA — la colección solo trae el material de
+           ese contexto (ver assets/js/vistas/carrusel-material.js). -->
+      <section class="view-section" id="sec-carrusel-material">
+        <div class="sec-header">
+          <h1>Material de aprendizaje</h1>
+          <p>Video, imagen, documento, video embebido o presentación — filtrado por Resultado de Aprendizaje y Guía de Aprendizaje.</p>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <select class="form-select" id="cm-filtro-ra" style="max-width:220px;"><option value="">Todos los RA</option></select>
+          <select class="form-select" id="cm-filtro-ga" style="max-width:220px;"><option value="">Todas las GA</option></select>
+        </div>
+
+        <div class="card content-card mb-3 p-3" id="carrusel-material-instructor" hidden>
+          <h3 style="margin-top:0;">Cargar / asignar material</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>RA</label><input class="form-control" id="cm-form-ra" placeholder="Ej: RA-01"></div>
+            <div class="form-group"><label>GA</label><input class="form-control" id="cm-form-ga" placeholder="Ej: GA1"></div>
+            <div class="form-group"><label>Sección de la guía</label><input class="form-control" id="cm-form-seccion" placeholder="Ej: Introducción"></div>
+            <div class="form-group span-2"><label>Nombre del material</label><input class="form-control" id="cm-form-nombre" placeholder="Ej: Video — Variables"></div>
+            <div class="form-group"><label>Tipo</label>
+              <select class="form-select" id="cm-form-tipo">
+                <option value="video">Video</option>
+                <option value="imagen">Imagen</option>
+                <option value="documento">Documento</option>
+                <option value="iframe_video">Video embebido (iframe)</option>
+                <option value="presentacion">Presentación</option>
+              </select>
+            </div>
+            <div class="form-group span-2"><label>URL del recurso</label><input class="form-control" id="cm-form-url" placeholder="https://... o ruta relativa"></div>
+            <div class="form-group span-2" id="cm-form-slides-grupo" hidden>
+              <label>Diapositivas (una URL de imagen por línea)</label>
+              <textarea class="form-control" id="cm-form-slides" rows="3" placeholder="https://.../slide1.png&#10;https://.../slide2.png"></textarea>
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="cm-form-descargable" checked>
+              <label class="form-check-label" for="cm-form-descargable">Permitir descarga</label>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
+            <button type="button" class="btn btn-action btn-primary" id="cm-btn-guardar">➕ Cargar / guardar material</button>
+            <button type="button" class="btn btn-action btn-secondary" id="cm-btn-nueva">🆕 Nuevo</button>
+            <button type="button" class="btn btn-action btn-outline-danger" id="cm-btn-eliminar">🗑 Eliminar el actual</button>
+            <span class="bloque-nota" id="cm-aviso" hidden></span>
+          </div>
+        </div>
+
+        <div class="card content-card p-3" id="carrusel-material-contenedor">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button type="button" class="btn btn-action btn-secondary" id="cm-btn-anterior">‹ Anterior</button>
+            <span class="fw-bold" id="cm-contador">0 de 0</span>
+            <button type="button" class="btn btn-action btn-secondary" id="cm-btn-siguiente">Siguiente ›</button>
+          </div>
+          <select class="form-select mb-3" id="cm-lista"></select>
+          <div id="cm-visor" class="mb-2"></div>
+          <div class="d-flex flex-wrap gap-2" id="cm-acciones"></div>
+        </div>
+      </section>
+
     </main>
   </div>
 
@@ -4999,6 +5144,10 @@
   <script src="../assets/js/evaluacion/quiz-dinamico-presentar.js"></script>
   <script src="../assets/js/evaluacion/resultados-eval-aprendiz.js"></script>
   <script src="../assets/js/evaluacion/footer-progreso.js"></script>
+  <script src="../assets/js/vistas/carrusel-generico.js"></script>
+  <script src="../assets/js/vistas/carrusel-guias.js"></script>
+  <script src="../assets/js/vistas/carrusel-chequeo.js"></script>
+  <script src="../assets/js/vistas/carrusel-material.js"></script>
 
   <script>
     function showSection(id) {
