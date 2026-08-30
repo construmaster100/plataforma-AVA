@@ -84,7 +84,7 @@ router.get("/puntaje/:cedula", async (req, res) => {
     const cedula = String(req.params.cedula);
     const quizzes = await Quiz.find({}, "ficha raId aa modulo tipo puntajeMaximo").lean();
     if (!quizzes.length) {
-      return res.json({ puntajeTotal: 0, escalaTotal: 0, porRAA: [] });
+      return res.json({ puntajeTotal: 0, escalaTotal: 0, scoreSimple: 0, porRAA: [] });
     }
 
     const aprendiz = await Aprendiz.findOne({ cedula }).lean();
@@ -92,12 +92,19 @@ router.get("/puntaje/:cedula", async (req, res) => {
       ? await Resultado.find({ aprendiz: aprendiz._id }).lean()
       : [];
     // Se queda con el MEJOR puntaje de cada cuestionario, no el más reciente:
-    // más intentos solo pueden ayudar, nunca bajar el puntaje ya ganado.
+    // más intentos solo pueden ayudar, nunca bajar el puntaje ya ganado. Esto
+    // alimenta el puntaje PONDERADO (contra el objetivo de la ficha).
     const mejorPorCuestionario = new Map();
     historial.forEach((r) => {
       const previo = mejorPorCuestionario.get(r.cuestionario);
       if (!previo || r.puntaje > previo.puntaje) mejorPorCuestionario.set(r.cuestionario, r);
     });
+
+    // Score simple: acumulativo de verdad — cada reporte que llega de un
+    // módulo suma sus puntos al marcador, sin deduplicar por cuestionario
+    // ni ponderar contra ningún objetivo. Reintentar el mismo módulo varias
+    // veces sigue sumando cada vez. Convive con puntajeTotal; no lo reemplaza.
+    const scoreSimple = historial.reduce((suma, r) => suma + r.puntaje, 0);
 
     const porRAA = new Map();
     quizzes.forEach((q) => {
@@ -149,6 +156,7 @@ router.get("/puntaje/:cedula", async (req, res) => {
     res.json({
       puntajeTotal: Math.round(puntajeTotal * 100) / 100,
       escalaTotal,
+      scoreSimple,
       porRAA: porRAAResultado,
     });
   } catch (err) {

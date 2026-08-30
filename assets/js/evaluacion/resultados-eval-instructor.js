@@ -29,11 +29,13 @@ async function cargarResultadosEvalInstructor() {
     const puntaje = d ? d.puntajeTotal : 0;
     const escala = d ? d.escalaTotal : 0;
     const pct = escala ? Math.round((puntaje / escala) * 10000) / 100 : 0;
+    const score = d ? (d.scoreSimple || 0) : 0;
     return `<tr>
       <td>${a.nombre}</td>
       <td>${a.cedula}</td>
       <td>${puntaje.toFixed(2)} / ${escala}</td>
       <td>${pct}%</td>
+      <td>🏆 ${score}</td>
       <td><button type="button" class="btn btn-sm btn-outline-success rei-btn-detalle" data-cedula="${a.cedula}">Ver detalle</button></td>
     </tr>`;
   }).join('');

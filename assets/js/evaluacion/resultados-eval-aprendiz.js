@@ -22,6 +22,7 @@ function filaRAAResultadoEval(raa) {
 async function cargarResultadosEvalAprendiz() {
   const resumen = document.getElementById('rea-resumen');
   const barraFill = document.getElementById('rea-barra-fill');
+  const scoreSimpleEl = document.getElementById('rea-score-simple');
   const tbody = document.getElementById('rea-tbody');
   if (!resumen || !tbody) return;
 
@@ -43,6 +44,11 @@ async function cargarResultadosEvalAprendiz() {
     ? `${datos.puntajeTotal.toFixed(2)} / ${datos.escalaTotal} puntos (${porcentajeGlobal}%)`
     : 'Tu instructor todavía no ha creado módulos de evaluación.';
   if (barraFill) barraFill.style.width = `${Math.min(porcentajeGlobal, 100)}%`;
+
+  if (scoreSimpleEl) {
+    scoreSimpleEl.hidden = false;
+    scoreSimpleEl.textContent = `🏆 Score: ${datos.scoreSimple || 0} puntos (acumulado: suma cada reporte, sin ponderar ni quedarse solo con el mejor intento)`;
+  }
 
   tbody.innerHTML = (datos.porRAA || []).map(filaRAAResultadoEval).join('');
 }
