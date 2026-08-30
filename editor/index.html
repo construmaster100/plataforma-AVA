@@ -12,30 +12,58 @@
 
   <header class="acl-header">
     <h1 class="acl-header-title">AVA Code Lab</h1>
-    <p class="acl-header-subtitle">Editor interactivo HTML, CSS y JavaScript</p>
+    <p class="acl-header-subtitle">Tu código · Ejemplo · Resultado y consola</p>
   </header>
 
-  <nav class="acl-tabs" role="tablist">
-    <button type="button" class="acl-tab is-active" data-tab="html" role="tab" aria-selected="true">HTML</button>
-    <button type="button" class="acl-tab" data-tab="css" role="tab" aria-selected="false">CSS</button>
-    <button type="button" class="acl-tab" data-tab="js" role="tab" aria-selected="false">JS</button>
-  </nav>
+  <div class="acl-paneles">
 
-  <div class="acl-editor-wrap">
-    <div class="acl-editor-pane is-active" data-pane="html"><textarea id="acl-code-html"></textarea></div>
-    <div class="acl-editor-pane" data-pane="css"><textarea id="acl-code-css"></textarea></div>
-    <div class="acl-editor-pane" data-pane="js"><textarea id="acl-code-js"></textarea></div>
-  </div>
+    <!-- ── Panel 1: Tu código (editable) ── -->
+    <section class="acl-panel acl-panel-codigo">
+      <div class="acl-panel-titulo">✏️ Tu código</div>
+      <nav class="acl-tabs" role="tablist">
+        <button type="button" class="acl-tab is-active" data-panel="codigo" data-tab="html" role="tab" aria-selected="true">HTML</button>
+        <button type="button" class="acl-tab" data-panel="codigo" data-tab="css" role="tab" aria-selected="false">CSS</button>
+        <button type="button" class="acl-tab" data-panel="codigo" data-tab="js" role="tab" aria-selected="false">JS</button>
+      </nav>
+      <div class="acl-editor-wrap">
+        <div class="acl-editor-pane is-active" data-pane="codigo-html"><textarea id="acl-code-html"></textarea></div>
+        <div class="acl-editor-pane" data-pane="codigo-css"><textarea id="acl-code-css"></textarea></div>
+        <div class="acl-editor-pane" data-pane="codigo-js"><textarea id="acl-code-js"></textarea></div>
+      </div>
+      <div class="acl-controls">
+        <button type="button" class="acl-btn" id="acl-btn-download">⬇ Download</button>
+        <button type="button" class="acl-btn acl-btn-secondary" id="acl-btn-reset">↺ Reset</button>
+      </div>
+    </section>
 
-  <div class="acl-controls">
-    <button type="button" class="acl-btn" id="acl-btn-download">⬇ Download</button>
-    <button type="button" class="acl-btn acl-btn-secondary" id="acl-btn-reset">↺ Reset</button>
-  </div>
+    <!-- ── Panel 2: Ejemplo (solo lectura, referencia fija) ── -->
+    <section class="acl-panel acl-panel-ejemplo">
+      <div class="acl-panel-titulo">📘 Ejemplo</div>
+      <nav class="acl-tabs" role="tablist">
+        <button type="button" class="acl-tab is-active" data-panel="ejemplo" data-tab="html" role="tab" aria-selected="true">HTML</button>
+        <button type="button" class="acl-tab" data-panel="ejemplo" data-tab="css" role="tab" aria-selected="false">CSS</button>
+        <button type="button" class="acl-tab" data-panel="ejemplo" data-tab="js" role="tab" aria-selected="false">JS</button>
+      </nav>
+      <div class="acl-editor-wrap">
+        <div class="acl-editor-pane is-active" data-pane="ejemplo-html"><textarea id="acl-ejemplo-html"></textarea></div>
+        <div class="acl-editor-pane" data-pane="ejemplo-css"><textarea id="acl-ejemplo-css"></textarea></div>
+        <div class="acl-editor-pane" data-pane="ejemplo-js"><textarea id="acl-ejemplo-js"></textarea></div>
+      </div>
+      <p class="acl-panel-nota">Solo lectura — referencia fija, no cambia aunque edites tu código.</p>
+    </section>
 
-  <div class="acl-preview-wrap">
-    <div class="acl-preview-label">LIVE</div>
-    <iframe id="acl-preview" class="acl-preview-frame" title="Vista en vivo del código"
-      sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+    <!-- ── Panel 3: Resultado (visual) + Consola (texto) ── -->
+    <section class="acl-panel acl-panel-salida">
+      <div class="acl-panel-titulo">▶ Resultado y consola</div>
+      <div class="acl-salida-wrap">
+        <iframe id="acl-preview" class="acl-preview-frame" title="Vista en vivo del código"
+          sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+        <div class="acl-consola" id="acl-consola">
+          <div class="acl-consola-linea acl-consola-info">Consola lista — usa console.log(), console.warn() o console.error() en tu JS.</div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>

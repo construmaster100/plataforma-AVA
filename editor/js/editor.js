@@ -5,6 +5,11 @@
    Módulo independiente: no lee ni escribe nada del resto de AVAsena /
    plataforma-AVA, y no depende de ningún script global del sitio. Vive
    solo, listo para incrustarse en un <iframe> desde cualquier panel.
+
+   Dos juegos de editores comparten el mismo contenido inicial
+   (ACL_DEFAULT): "codigo" es editable (lo que ve la vista en vivo),
+   "ejemplo" es de solo lectura y nunca cambia — sirve de referencia
+   fija mientras el aprendiz modifica el suyo.
 ══════════════════════════════════════════ */
 
 const ACL_DEFAULT = {
@@ -16,35 +21,35 @@ const ACL_DEFAULT = {
 const ACL_MODOS = { html: 'htmlmixed', css: 'css', js: 'javascript' };
 
 window.aclEditores = {};
+window.aclEjemplos = {};
 
-function aclCrearEditor(lenguaje) {
-  const textarea = document.getElementById('acl-code-' + lenguaje);
-  const editor = CodeMirror.fromTextArea(textarea, {
+function aclCrearEditor(lenguaje, idTextarea, soloLectura) {
+  const textarea = document.getElementById(idTextarea);
+  return CodeMirror.fromTextArea(textarea, {
     mode: ACL_MODOS[lenguaje],
     theme: 'dracula',
     lineNumbers: true,
     lineWrapping: true,
     tabSize: 2,
     indentUnit: 2,
+    readOnly: soloLectura ? 'nocursor' : false,
     value: ACL_DEFAULT[lenguaje]
   });
-  editor.on('change', aclProgramarActualizacion);
-  return editor;
 }
 
-function aclCambiarPestana(lenguaje) {
-  document.querySelectorAll('.acl-tab').forEach(t => {
+function aclCambiarPestana(panel, lenguaje) {
+  document.querySelectorAll('.acl-tab[data-panel="' + panel + '"]').forEach(t => {
     const activa = t.dataset.tab === lenguaje;
     t.classList.toggle('is-active', activa);
     t.setAttribute('aria-selected', activa ? 'true' : 'false');
   });
-  document.querySelectorAll('.acl-editor-pane').forEach(p => {
-    p.classList.toggle('is-active', p.dataset.pane === lenguaje);
+  document.querySelectorAll('[data-pane^="' + panel + '-"]').forEach(p => {
+    p.classList.toggle('is-active', p.dataset.pane === panel + '-' + lenguaje);
   });
   // CodeMirror calcula su tamaño cuando está visible; un pane que estaba
   // oculto con display:none necesita un refresh al mostrarse, si no el
   // editor se ve en blanco o mal recortado.
-  const editor = window.aclEditores[lenguaje];
+  const editor = (panel === 'codigo' ? window.aclEditores : window.aclEjemplos)[lenguaje];
   if (editor) setTimeout(() => editor.refresh(), 0);
 }
 
@@ -82,16 +87,24 @@ async function aclDescargar() {
 
 function aclRefrescarTodos() {
   Object.values(window.aclEditores).forEach(editor => editor && editor.refresh());
+  Object.values(window.aclEjemplos).forEach(editor => editor && editor.refresh());
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.aclEditores.html = aclCrearEditor('html');
-  window.aclEditores.css = aclCrearEditor('css');
-  window.aclEditores.js = aclCrearEditor('js');
+  window.aclEditores.html = aclCrearEditor('html', 'acl-code-html', false);
+  window.aclEditores.css = aclCrearEditor('css', 'acl-code-css', false);
+  window.aclEditores.js = aclCrearEditor('js', 'acl-code-js', false);
+
+  window.aclEjemplos.html = aclCrearEditor('html', 'acl-ejemplo-html', true);
+  window.aclEjemplos.css = aclCrearEditor('css', 'acl-ejemplo-css', true);
+  window.aclEjemplos.js = aclCrearEditor('js', 'acl-ejemplo-js', true);
+
   aclActualizarPreview();
 
+  Object.values(window.aclEditores).forEach(editor => editor.on('change', aclProgramarActualizacion));
+
   document.querySelectorAll('.acl-tab').forEach(tab => {
-    tab.addEventListener('click', () => aclCambiarPestana(tab.dataset.tab));
+    tab.addEventListener('click', () => aclCambiarPestana(tab.dataset.panel, tab.dataset.tab));
   });
 
   document.getElementById('acl-btn-reset').addEventListener('click', aclReset);
