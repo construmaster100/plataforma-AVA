@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVA Code Lab</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+<link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+
+  <header class="acl-header">
+    <h1 class="acl-header-title">AVA Code Lab</h1>
+    <p class="acl-header-subtitle">Editor interactivo HTML, CSS y JavaScript</p>
+  </header>
+
+  <nav class="acl-tabs" role="tablist">
+    <button type="button" class="acl-tab is-active" data-tab="html" role="tab" aria-selected="true">HTML</button>
+    <button type="button" class="acl-tab" data-tab="css" role="tab" aria-selected="false">CSS</button>
+    <button type="button" class="acl-tab" data-tab="js" role="tab" aria-selected="false">JS</button>
+  </nav>
+
+  <div class="acl-editor-wrap">
+    <div class="acl-editor-pane is-active" data-pane="html"><textarea id="acl-code-html"></textarea></div>
+    <div class="acl-editor-pane" data-pane="css"><textarea id="acl-code-css"></textarea></div>
+    <div class="acl-editor-pane" data-pane="js"><textarea id="acl-code-js"></textarea></div>
+  </div>
+
+  <div class="acl-controls">
+    <button type="button" class="acl-btn" id="acl-btn-download">⬇ Download</button>
+    <button type="button" class="acl-btn acl-btn-secondary" id="acl-btn-reset">↺ Reset</button>
+  </div>
+
+  <div class="acl-preview-wrap">
+    <div class="acl-preview-label">LIVE</div>
+    <iframe id="acl-preview" class="acl-preview-frame" title="Vista en vivo del código"
+      sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="js/preview.js"></script>
+  <script src="js/editor.js"></script>
+</body>
+</html>

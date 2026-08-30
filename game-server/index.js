@@ -19,6 +19,9 @@ app.use(express.json());
 app.use("/assets", express.static(path.join(ROOT, "assets")));
 app.use("/pages", express.static(path.join(ROOT, "pages")));
 app.use("/docs", express.static(path.join(ROOT, "docs")));
+// Módulo 5 · AVA Code Lab: editor HTML/CSS/JS independiente, incrustado
+// por iframe desde pages/aprendiz.html (ver sec-code-lab).
+app.use("/editor", express.static(path.join(ROOT, "editor")));
 app.get("/", (req, res) => res.redirect("/pages/bienvenida.html"));
 app.get("/index.html", (req, res) => res.sendFile(path.join(ROOT, "index.html")));
 

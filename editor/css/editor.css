@@ -1,0 +1,121 @@
+/* ══════════════════════════════════════════
+   AVA Code Lab — módulo independiente (Módulo 5)
+   Estilos propios, sin depender de sofia_plus.css ni de ningún otro CSS
+   global de AVAsena/plataforma-AVA. Pensado para vivir dentro de un
+   <iframe> a pantalla completa (100% x 100%), aislado del resto del sitio.
+══════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #1e1e2e;
+  color: #eee;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.acl-header {
+  flex: 0 0 auto;
+  padding: 10px 16px;
+  background: #181825;
+  border-bottom: 1px solid #313244;
+}
+.acl-header-title { margin: 0; font-size: 16px; font-weight: 700; color: #cdd6f4; }
+.acl-header-subtitle { margin: 2px 0 0; font-size: 12px; color: #9399b2; }
+
+.acl-tabs {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 2px;
+  background: #181825;
+  padding: 0 12px;
+}
+.acl-tab {
+  border: none;
+  background: transparent;
+  color: #9399b2;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+}
+.acl-tab:hover { color: #cdd6f4; }
+.acl-tab.is-active { background: #282a3a; color: #a6e3a1; }
+
+.acl-editor-wrap {
+  flex: 0 0 45%;
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+}
+.acl-editor-pane { display: none; width: 100%; height: 100%; }
+.acl-editor-pane.is-active { display: block; }
+.acl-editor-pane .CodeMirror {
+  width: 100%;
+  height: 100%;
+  font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+  font-size: 14px;
+}
+
+.acl-controls {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #181825;
+  border-top: 1px solid #313244;
+  border-bottom: 1px solid #313244;
+}
+.acl-btn {
+  border: 1px solid #45475a;
+  background: #313244;
+  color: #cdd6f4;
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.acl-btn:hover { background: #45475a; }
+.acl-btn-secondary { background: transparent; }
+
+.acl-preview-wrap {
+  flex: 1 1 55%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 120px;
+  background: #fff;
+}
+.acl-preview-label {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: #6c7086;
+  background: #f4f4f5;
+  padding: 4px 10px;
+  border-bottom: 1px solid #e2e2e6;
+}
+.acl-preview-frame {
+  flex: 1 1 auto;
+  width: 100%;
+  border: 0;
+  background: #fff;
+}
+
+/* ── Responsive: en tablet/mobile el editor y la vista en vivo comparten
+   el alto por igual, en vez del 45/55 de escritorio. ── */
+@media (max-width: 900px) {
+  .acl-editor-wrap { flex-basis: 50%; }
+  .acl-preview-wrap { flex-basis: 50%; }
+}
