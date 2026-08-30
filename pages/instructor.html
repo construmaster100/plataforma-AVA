@@ -26,7 +26,7 @@
 
   <nav class="navbar">
     <button class="navbar-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menú">☰</button>
-    <div class="navbar-user">INSTRUCTORA</div>
+    <a href="#" class="navbar-user" id="btn-tablero-inicio" data-view="sec-home">Inicio</a>
     <div class="navbar-right">
       <button class="nav-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#bandejaCorreo" aria-controls="bandejaCorreo">📬 Bandeja de correo</button>
       <div class="nav-item">Cambiar clave</div>
@@ -3413,7 +3413,7 @@ for i in range(1, 11):
              preguntas o Evaluación de 30, con preguntas Verdadero/Falso o de 4 opciones con una correcta.</p>
         </div>
 
-        <div class="card" style="width:100%;margin-bottom:16px;padding:14px;">
+        <div class="card w-100 mb-3 p-3">
           <div class="d-flex flex-wrap align-items-end gap-2">
             <div class="form-group" style="min-width:220px;"><label>Puntaje objetivo de esta ficha (100% del curso)</label>
               <input class="form-control" type="number" id="qc-objetivo-ficha" min="1" value="1000">
@@ -3466,7 +3466,7 @@ for i in range(1, 11):
           <button type="button" class="btn btn-sm btn-outline-secondary" id="qc-btn-expandir-todas">Expandir todas</button>
           <button type="button" class="btn btn-sm btn-outline-secondary" id="qc-btn-colapsar-todas">Colapsar todas</button>
         </div>
-        <div id="qc-preguntas-contenedor" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <div id="qc-preguntas-contenedor" class="d-flex flex-column gap-2"></div>
 
         <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
           <button type="button" class="btn btn-action btn-primary" id="qc-btn-guardar">Guardar Quiz</button>

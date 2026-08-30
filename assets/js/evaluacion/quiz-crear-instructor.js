@@ -20,14 +20,14 @@ function avisoQC(texto, esError) {
 
 function opcionesHtmlQC(idx, tipo, opciones, correcta) {
   if (tipo === 'vf') {
-    return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">` + ['Verdadero', 'Falso'].map((etiqueta, j) => `
-      <div class="form-check">
-        <input type="radio" name="qc-correcta-${idx}" class="qc-correcta" value="${j}" ${correcta === j ? 'checked' : ''}>
+    return `<div class="row g-2">` + ['Verdadero', 'Falso'].map((etiqueta, j) => `
+      <div class="col-6 form-check">
+        <input type="radio" name="qc-correcta-${idx}" class="form-check-input qc-correcta" value="${j}" ${correcta === j ? 'checked' : ''}>
         <label class="form-check-label">${etiqueta}</label>
       </div>`).join('') + `</div>`;
   }
-  return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;">` + [0, 1, 2, 3].map(j => `
-    <div class="d-flex align-items-center gap-2">
+  return `<div class="row g-2">` + [0, 1, 2, 3].map(j => `
+    <div class="col-6 d-flex align-items-center gap-2">
       <input type="radio" name="qc-correcta-${idx}" class="qc-correcta" value="${j}" ${correcta === j ? 'checked' : ''}>
       <input type="text" class="form-control qc-opcion-texto" data-opt="${j}" value="${(opciones && opciones[j]) || ''}" placeholder="Opción ${LETRAS_QC[j]}">
     </div>`).join('') + `</div>`;
@@ -51,27 +51,27 @@ function filaPreguntaHtmlQC(idx, preset) {
   const correcta = preset ? preset.respuestaCorrecta : null;
   const puntos = preset && preset.puntos ? preset.puntos : 1;
   return `
-    <div class="card qc-pregunta" data-idx="${idx}" style="padding:0;overflow:hidden;width:100%;">
+    <div class="card qc-pregunta w-100 p-0 overflow-hidden" data-idx="${idx}">
       <button type="button" class="qc-pregunta-header" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;width:100%;background:#fafafa;">
-        <span class="qc-pregunta-punto" style="width:9px;height:9px;border-radius:50%;flex-shrink:0;background:${texto.trim() ? '#39A900' : '#ccc'};"></span>
-        <strong style="flex-shrink:0;">P${idx + 1}</strong>
-        <span class="qc-pregunta-preview text-muted" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;">${previewTextoQC(texto)}</span>
+        <span class="qc-pregunta-punto rounded-circle flex-shrink-0" style="width:9px;height:9px;background:${texto.trim() ? '#39A900' : '#ccc'};"></span>
+        <strong class="flex-shrink-0">P${idx + 1}</strong>
+        <span class="qc-pregunta-preview text-muted flex-grow-1 text-truncate text-start" style="min-width:0;">${previewTextoQC(texto)}</span>
         <span class="badge bg-secondary qc-pregunta-badge-tipo">${tipo === 'vf' ? 'V/F' : '4 op.'}</span>
         <span class="badge bg-secondary qc-pregunta-badge-puntos">${puntos} pt${puntos === 1 ? '' : 's'}</span>
-        <span class="qc-pregunta-chevron" style="flex-shrink:0;display:inline-block;transition:transform .15s;">▸</span>
+        <span class="qc-pregunta-chevron flex-shrink-0 d-inline-block" style="transition:transform .15s;">▸</span>
       </button>
-      <div class="qc-pregunta-cuerpo" style="display:none;padding:12px;border-top:1px solid #eee;">
+      <div class="qc-pregunta-cuerpo d-none p-3 border-top">
         <div class="form-group"><label>Pregunta ${idx + 1}</label>
           <input type="text" class="form-control qc-texto" value="${texto.replace(/"/g, '&quot;')}" placeholder="Texto de la pregunta">
         </div>
         <div class="d-flex flex-wrap gap-2 mb-2">
-          <div class="form-group" style="flex:2;min-width:150px;margin-bottom:0;"><label>Tipo</label>
+          <div class="form-group mb-0" style="flex:2;min-width:150px;"><label>Tipo</label>
             <select class="form-select qc-tipo-pregunta">
               <option value="opciones" ${tipo === 'opciones' ? 'selected' : ''}>4 opciones</option>
               <option value="vf" ${tipo === 'vf' ? 'selected' : ''}>Verdadero/Falso</option>
             </select>
           </div>
-          <div class="form-group" style="flex:1;min-width:80px;margin-bottom:0;"><label>Puntos</label>
+          <div class="form-group mb-0" style="flex:1;min-width:80px;"><label>Puntos</label>
             <input type="number" class="form-control qc-puntos" min="1" value="${puntos}">
           </div>
         </div>
@@ -83,8 +83,8 @@ function filaPreguntaHtmlQC(idx, preset) {
 function alternarPreguntaQC(fila, expandir) {
   const cuerpo = fila.querySelector('.qc-pregunta-cuerpo');
   const chevron = fila.querySelector('.qc-pregunta-chevron');
-  const abrir = expandir !== undefined ? expandir : cuerpo.style.display === 'none';
-  cuerpo.style.display = abrir ? 'block' : 'none';
+  const abrir = expandir !== undefined ? expandir : cuerpo.classList.contains('d-none');
+  cuerpo.classList.toggle('d-none', !abrir);
   chevron.style.transform = abrir ? 'rotate(90deg)' : 'rotate(0deg)';
 }
 
