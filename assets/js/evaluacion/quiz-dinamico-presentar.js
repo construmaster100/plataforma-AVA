@@ -66,29 +66,15 @@ function pintarCardRAAQD(raId, aa, quizzesRAA, ultimos, params) {
   const fila = document.createElement('div');
   fila.className = 'd-flex flex-wrap gap-2';
 
-  const frame = document.createElement('iframe');
-  frame.className = 'qd-card-frame';
-  frame.title = `RA-${raId} módulo`;
-  frame.style.cssText = 'width:100%;height:60vh;border:0;border-radius:12px;margin-top:14px;display:none;';
-
   const mSel = seleccionModuloQD[raId];
   [1, 2, 3, 4].forEach(m => {
     const quizEntry = quizzesRAA.find(x => x.modulo === m);
     const tile = pintarTileModuloQD(m, quizEntry, ultimos, mSel === m, elegido => {
-      document.querySelectorAll('.qd-card-frame').forEach(otro => {
-        if (otro !== frame) otro.style.display = 'none';
-      });
-      Object.keys(seleccionModuloQD).forEach(k => { if (Number(k) !== raId) delete seleccionModuloQD[k]; });
-      seleccionModuloQD[raId] = m;
-      frame.style.display = 'block';
-      frame.src = `/pages/quiz-dinamico.html?doc=${encodeURIComponent(params.get('doc') || '')}`
-        + `&u=${encodeURIComponent(params.get('u') || '')}&ficha=${elegido.ficha}&ra=${elegido.raId}&aa=${elegido.aa}&modulo=${elegido.modulo}`;
-      frame.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      abrirFormularioQD(elegido, params);
     });
     fila.appendChild(tile);
   });
   card.appendChild(fila);
-  card.appendChild(frame);
 
   const pie = document.createElement('p');
   pie.className = 'small text-muted mb-0 mt-2';
@@ -98,6 +84,146 @@ function pintarCardRAAQD(raId, aa, quizzesRAA, ultimos, params) {
   card.appendChild(pie);
 
   return card;
+}
+
+/* ── Responder un módulo: pantalla completa dentro del panel (no un
+   iframe), con las preguntas en un formulario Bootstrap (form-check),
+   igual al resto del sitio. Reemplaza el motor de pages/quiz-dinamico.html
+   para esta interacción; ese archivo sigue existiendo por compatibilidad
+   pero ya no se usa desde aquí. ── */
+
+let temporizadorQDR = null;
+
+function irAListaQD() {
+  if (temporizadorQDR) { clearInterval(temporizadorQDR); temporizadorQDR = null; }
+  document.querySelectorAll('.view-section').forEach(s => { s.style.display = 'none'; });
+  const lista = document.getElementById('sec-quiz-dinamico');
+  if (lista) lista.style.display = 'block';
+}
+
+async function abrirFormularioQD(quizEntry, params) {
+  const cedula = params.get('doc') || '';
+  const nombre = params.get('u') || 'Aprendiz';
+  const cId = cuestionarioIdQD(quizEntry.ficha, quizEntry.raId, quizEntry.aa, quizEntry.modulo);
+
+  let quiz;
+  try {
+    const resp = await fetch(`${API_BASE_QD}/quizzes/${quizEntry.ficha}/${quizEntry.raId}/${quizEntry.aa}/${quizEntry.modulo}`);
+    if (!resp.ok) throw new Error('no encontrado');
+    quiz = await resp.json();
+  } catch (e) {
+    alert('No se pudo cargar el módulo.');
+    return;
+  }
+
+  if (quiz.intentosPermitidos > 0 && cedula) {
+    let intentosUsados = 0;
+    try {
+      const historial = await (await fetch(`${API_BASE_QD}/resultados/${encodeURIComponent(cedula)}`)).json();
+      intentosUsados = (historial.historial || []).filter(r => r.cuestionario === cId).length;
+    } catch (e) { /* si no se puede consultar, se deja presentar (best-effort) */ }
+    if (intentosUsados >= quiz.intentosPermitidos) {
+      alert(`Ya usaste tus ${quiz.intentosPermitidos} intento(s) permitido(s) para este módulo.`);
+      return;
+    }
+  }
+
+  const puntajeMaximo = quiz.preguntas.reduce((suma, p) => suma + p.puntos, 0);
+  document.getElementById('qdr-titulo').textContent =
+    `RA-${String(quizEntry.raId).padStart(2, '0')} · AA${quizEntry.aa} · Módulo ${quizEntry.modulo}`;
+  document.getElementById('qdr-subtitulo').textContent =
+    `${quiz.preguntas.length} preguntas · máximo ${puntajeMaximo} puntos`;
+  document.getElementById('qdr-msg').textContent = '';
+  document.getElementById('qdr-msg').className = 'login-msg';
+
+  const contenedor = document.getElementById('qdr-preguntas');
+  contenedor.innerHTML = quiz.preguntas.map((p, i) => {
+    const opciones = p.tipo === 'vf' ? ['Verdadero', 'Falso'] : p.opciones;
+    return '<div class="quiz-question">' +
+      '<p>' + (i + 1) + '. ' + p.texto + '</p>' +
+      opciones.map((op, j) =>
+        '<div class="form-check">' +
+          '<input class="form-check-input" type="radio" name="qdr-q' + i + '" id="qdr-q' + i + '-o' + j + '" value="' + j + '" required>' +
+          '<label class="form-check-label" for="qdr-q' + i + '-o' + j + '">' + op + '</label>' +
+        '</div>'
+      ).join('') +
+      '</div>';
+  }).join('');
+
+  const form = document.getElementById('qdr-form');
+  form.dataset.contexto = JSON.stringify({ cId, cedula, nombre, puntajeMaximo, total: quiz.preguntas.length, preguntas: quiz.preguntas });
+
+  const zonaTiempo = document.getElementById('qdr-tiempo');
+  if (temporizadorQDR) { clearInterval(temporizadorQDR); temporizadorQDR = null; }
+  if (quiz.limiteTiempoMinutos > 0) {
+    let segundos = quiz.limiteTiempoMinutos * 60;
+    zonaTiempo.hidden = false;
+    const actualizarTiempo = () => {
+      const m = Math.floor(segundos / 60), s = segundos % 60;
+      zonaTiempo.textContent = 'Tiempo restante: ' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    };
+    actualizarTiempo();
+    temporizadorQDR = setInterval(() => {
+      segundos -= 1;
+      actualizarTiempo();
+      if (segundos <= 0) {
+        clearInterval(temporizadorQDR);
+        temporizadorQDR = null;
+        enviarFormularioQD(true);
+      }
+    }, 1000);
+  } else {
+    zonaTiempo.hidden = true;
+  }
+
+  document.querySelectorAll('.view-section').forEach(s => { s.style.display = 'none'; });
+  document.getElementById('sec-quiz-dinamico-responder').style.display = 'block';
+  window.scrollTo({ top: 0 });
+}
+
+async function enviarFormularioQD(porTiempoAgotado) {
+  const form = document.getElementById('qdr-form');
+  const msg = document.getElementById('qdr-msg');
+  const contexto = JSON.parse(form.dataset.contexto || '{}');
+  const { cId, cedula, nombre, puntajeMaximo, total, preguntas } = contexto;
+
+  if (!porTiempoAgotado) {
+    for (let i = 0; i < total; i++) {
+      if (!form.querySelector(`input[name="qdr-q${i}"]:checked`)) {
+        msg.textContent = 'Falta responder la pregunta ' + (i + 1) + '.';
+        msg.className = 'login-msg error';
+        return;
+      }
+    }
+  }
+  if (temporizadorQDR) { clearInterval(temporizadorQDR); temporizadorQDR = null; }
+
+  let puntosGanados = 0;
+  for (let i = 0; i < total; i++) {
+    const marcada = form.querySelector(`input[name="qdr-q${i}"]:checked`);
+    if (marcada && Number(marcada.value) === preguntas[i].respuestaCorrecta) {
+      puntosGanados += preguntas[i].puntos;
+    }
+  }
+
+  if (cedula) {
+    try {
+      await fetch(API_BASE_QD + '/resultados', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cedula, nombre, modulo: 'SENAEnglish', cuestionario: cId, puntaje: puntosGanados, totalPreguntas: puntajeMaximo }),
+      });
+    } catch (e) { /* best-effort */ }
+  }
+
+  const porcentaje = puntajeMaximo ? Math.round((puntosGanados / puntajeMaximo) * 10000) / 100 : 0;
+  alert(
+    (porcentaje >= 70 ? 'APROBADO ✅' : 'SIN APROBAR ⚠️') +
+    '\nPuntaje: ' + puntosGanados + ' / ' + puntajeMaximo + ' (' + porcentaje.toFixed(2) + '%)'
+  );
+
+  irAListaQD();
+  cargarQuizDinamicoPresentar();
 }
 
 async function cargarQuizDinamicoPresentar() {
@@ -153,4 +279,15 @@ async function cargarQuizDinamicoPresentar() {
 document.addEventListener('DOMContentLoaded', () => {
   if (!document.getElementById('qd-presentar-contenedor')) return;
   document.querySelectorAll('[data-view="sec-quiz-dinamico"]').forEach(a => a.addEventListener('click', cargarQuizDinamicoPresentar));
+
+  const formQDR = document.getElementById('qdr-form');
+  if (formQDR) {
+    formQDR.addEventListener('submit', e => {
+      e.preventDefault();
+      enviarFormularioQD(false);
+    });
+    formQDR.querySelectorAll('[data-view="sec-quiz-dinamico"]').forEach(btn => {
+      btn.addEventListener('click', () => { if (temporizadorQDR) { clearInterval(temporizadorQDR); temporizadorQDR = null; } });
+    });
+  }
 });
