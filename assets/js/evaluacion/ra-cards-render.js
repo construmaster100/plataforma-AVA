@@ -11,7 +11,6 @@
 
 const PORCENTAJE_APROBACION_RA_CARDS = 70;
 const AA_TARJETA_RA_CARDS = 1;
-const TOTAL_RA_POR_FICHA_CARDS = { adso: 72, english: 5 };
 
 const ETIQUETA_M = {
   1: { nombre: 'Módulo 1', tipo: 'Cuestionario', unidad: 'preguntas' },

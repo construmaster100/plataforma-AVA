@@ -1,14 +1,12 @@
 /* ══════════════════════════════════════════
    Footer de progreso — pages/aprendiz.html (solo visible en "Inicio")
    Barra de avance + score de la ficha activa (selector "Ficha / curso
-   activo" del sidebar). ADSO tiene 72 RA; English Coding solo tiene 5
-   (pages/Fichas Tecnicos y tecnologos/English coding/RA1..RA5) — el total
-   se ajusta según cuál esté seleccionada.
+   activo" del sidebar). Los RA de cada ficha se crean progresivamente —
+   el total se deriva del catálogo real, no de un número fijo.
 ══════════════════════════════════════════ */
 
 const API_BASE_FOOTER = '/api';
 const PORCENTAJE_APROBACION_FOOTER = 70;
-const TOTAL_RA_POR_FICHA_FOOTER = { adso: 72, english: 5 };
 
 function ultimoIntentoPorCuestionarioFooter(historial) {
   const ultimos = new Map();
@@ -30,7 +28,6 @@ async function actualizarFooterProgreso() {
   if (!cedula) return;
 
   const ficha = typeof getCursoActivo === 'function' ? getCursoActivo() : 'adso';
-  const totalRA = TOTAL_RA_POR_FICHA_FOOTER[ficha] || 72;
 
   let catalogo, datos, acceso;
   try {
@@ -46,13 +43,14 @@ async function actualizarFooterProgreso() {
 
   const historialFicha = (datos.historial || []).filter(h => h.cuestionario.startsWith(ficha + '-ra-'));
   const ultimos = ultimoIntentoPorCuestionarioFooter(historialFicha);
-  const desbloqueados = (acceso.unlocked || []).filter(ra => ra <= totalRA);
 
   const porRA = new Map();
   catalogo.filter(a => a.ficha === ficha).forEach(a => {
     if (!porRA.has(a.raId)) porRA.set(a.raId, []);
     porRA.get(a.raId).push(a);
   });
+  const totalRA = porRA.size ? Math.max(...porRA.keys()) : 0;
+  const desbloqueados = (acceso.unlocked || []).filter(ra => ra <= totalRA);
 
   /* El avance se calcula sobre las RA desbloqueadas que YA tienen
      contenido cargado, no sobre las 72 fijas (casi todas aún vacías):
@@ -83,7 +81,7 @@ async function actualizarFooterProgreso() {
   const porcentaje = raConContenido ? Math.round((sumaFraccion / raConContenido) * 100) : 0;
 
   fill.style.width = porcentaje + '%';
-  texto.textContent = `${raCompletas}/${raConContenido} RA con contenido · ${porcentaje}% · ${totalRA} RA en el programa`;
+  texto.textContent = `${raCompletas}/${raConContenido} RA con contenido · ${porcentaje}%`;
   estadoEl.textContent = porcentaje >= 100 ? 'APROBADO' : 'EN PROGRESO';
   estadoEl.className = 'badge ' + (porcentaje >= 100 ? 'bg-success' : 'bg-warning text-dark');
   scoreEl.innerHTML = `<strong>Score:</strong> ${scoreTotal} pts`;

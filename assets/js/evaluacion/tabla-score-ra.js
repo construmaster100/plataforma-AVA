@@ -7,10 +7,6 @@
 ══════════════════════════════════════════ */
 
 const API_BASE_SCORE = '/api';
-// ADSO tiene 72 RA; English Coding solo tiene 5 (pages/Fichas Tecnicos y
-// tecnologos/English coding/RA1..RA5) — el selector de RA se ajusta según
-// la ficha activa (ver poblarSelectorRA()).
-const TOTAL_RA_POR_FICHA_SCORE = { adso: 72, english: 5 };
 
 let catalogoCompleto = null;
 let raSeleccionadaScore = 1;
@@ -26,7 +22,8 @@ function celdaEditor(actividad, aprendiz, resultado) {
   const controles = `<input type="number" min="0" max="${max}" class="form-control form-control-sm score-input" placeholder="n/${max}">`;
   return `
     <td class="score-celda" data-cedula="${aprendiz.cedula}" data-nombre="${aprendiz.nombre}"
-        data-cuestionario="${actividad.cuestionarioId}" data-tipo="${actividad.tipo}" data-max="${max}">
+        data-cuestionario="${actividad.cuestionarioId}" data-tipo="${actividad.tipo}" data-max="${max}"
+        data-ficha="${actividad.ficha}">
       <div class="score-actual small text-muted">${actual}</div>
       <div class="input-group input-group-sm">
         ${controles}
@@ -41,20 +38,23 @@ async function cargarCatalogoUnaVez() {
   return catalogoCompleto;
 }
 
-/* Las 72 RA (5 en English) como cards clicables — no un <select> — para
-   que el instructor vea de un vistazo cuáles ya tienen contenido
-   cargado (resaltadas) y cuáles todavía no (la tabla de abajo avisa
-   igual si elige una vacía; puede habilitar el acceso de todos modos). */
+/* Los RA se crean progresivamente (RA1, RA2, RA3...) — como cards
+   clicables, no un <select>, para que el instructor vea de un vistazo
+   cuáles ya tienen contenido cargado (resaltadas). Se muestra uno extra
+   más allá del último con contenido, para poder preparar/consultar el
+   siguiente antes de que exista. */
 async function pintarCardsRA(ficha) {
   const contenedor = document.getElementById('score-ra-cards');
-  const total = TOTAL_RA_POR_FICHA_SCORE[ficha] || 72;
-  if (!raSeleccionadaScore || raSeleccionadaScore > total) raSeleccionadaScore = 1;
 
   let conContenido = new Set();
   try {
     const catalogo = await cargarCatalogoUnaVez();
     conContenido = new Set(catalogo.filter(a => a.ficha === ficha).map(a => a.raId));
   } catch (e) { /* se resalta igual con lo que haya en memoria */ }
+
+  const maxConContenido = conContenido.size ? Math.max(...conContenido) : 0;
+  const total = Math.max(maxConContenido, raSeleccionadaScore) + 1;
+  if (!raSeleccionadaScore || raSeleccionadaScore > total) raSeleccionadaScore = 1;
 
   contenedor.replaceChildren();
   for (let ra = 1; ra <= total; ra++) {
@@ -110,7 +110,7 @@ async function renderTablaRA(raId) {
     catalogo = await cargarCatalogoUnaVez();
     roster = typeof rosterRegistrado === 'function' ? rosterRegistrado() : [];
   } catch (e) {
-    estado.textContent = 'No se pudo conectar con el servidor de reportes (npm run start:adso).';
+    estado.textContent = 'No se pudo conectar con el servidor de reportes.';
     return;
   }
 
@@ -168,6 +168,7 @@ async function guardarCelda(celda) {
   const nombre = celda.dataset.nombre;
   const cuestionario = celda.dataset.cuestionario;
   const totalPreguntas = Number(celda.dataset.max) || 30;
+  const modulo = celda.dataset.ficha || 'adso';
 
   const input = celda.querySelector('.score-input');
   const puntaje = Number(input.value);
@@ -176,7 +177,7 @@ async function guardarCelda(celda) {
   await fetch(API_BASE_SCORE + '/resultados', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cedula, nombre, modulo: 'SENAEnglish', cuestionario, puntaje, totalPreguntas }),
+    body: JSON.stringify({ cedula, nombre, modulo, cuestionario, puntaje, totalPreguntas }),
   });
 
   celda.querySelector('.score-actual').textContent = `${puntaje}/${totalPreguntas}`;

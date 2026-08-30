@@ -20,17 +20,19 @@ function pintarContenedorRaCards() {
   const params = new URLSearchParams(window.location.search);
   const cedula = params.get('doc');
   const fichas = typeof fichasDeAprendiz === 'function' ? fichasDeAprendiz(cedula) : ['adso'];
-  const ficha = typeof getCursoActivo === 'function' ? getCursoActivo() : 'adso';
-  // Al aprendiz solo le llegan los primeros 5 RA para presentar y
-  // que se le califique; el instructor sigue viendo los 72 completos.
-  const totalRA = Math.min(TOTAL_RA_POR_FICHA_CARDS[ficha] || 72, 5);
   const desbloqueados = new Set((datosRaCards.acceso.unlocked || []));
   const ultimos = ultimosPorCuestionarioCards(datosRaCards.resultados.historial);
 
+  // Los RA se crean progresivamente (RA1, RA2, RA3...) — no hay un total
+  // fijo por ficha. Al aprendiz solo le llegan los primeros 5 con
+  // contenido para presentar y que se le califique; el instructor sigue
+  // viendo todos los que existan.
   const porRA = agruparPorRaYAa(catalogoRaCards, fichas);
-  const raConContenido = [...porRA.keys()]
-    .filter(raId => desbloqueados.has(raId) && raId <= totalRA && (porRA.get(raId).get(AA_TARJETA_RA_CARDS) || []).length)
+  const raIdsConContenido = [...porRA.keys()]
+    .filter(raId => (porRA.get(raId).get(AA_TARJETA_RA_CARDS) || []).length)
     .sort((a, b) => a - b);
+  const totalRA = raIdsConContenido.length ? Math.max(...raIdsConContenido) : 0;
+  const raConContenido = raIdsConContenido.filter(raId => desbloqueados.has(raId)).slice(0, 5);
 
   contenedor.replaceChildren();
 

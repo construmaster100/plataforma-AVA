@@ -5,7 +5,10 @@ const router = express.Router();
 
 const ROOT = path.join(__dirname, "..", "..");
 const BASE_DIR = path.join(ROOT, "pages", "Fichas Tecnicos y tecnologos");
-const TOTAL_RA = 72;
+// No es un total declarado: es solo un tope de sanidad contra nombres de
+// carpeta mal formados (p. ej. "RA99999"). Los RA reales que existan hoy
+// son los que efectivamente tengan una subcarpeta RA{n} en el filesystem.
+const TOPE_SANIDAD_RA = 500;
 
 /* Puntaje máximo fijo por material (M = envío de reporte/tabla para
    aprobado): M1 = cuestionario 10 preguntas, M2 = unir palabras (20),
@@ -37,7 +40,7 @@ function escanearCatalogo() {
         .filter((d) => d.isDirectory() && /^RA\d+$/i.test(d.name))
         .forEach((raDir) => {
           const raId = Number(raDir.name.replace(/^RA/i, ""));
-          if (raId < 1 || raId > TOTAL_RA) return;
+          if (raId < 1 || raId > TOPE_SANIDAD_RA) return;
           const raPath = path.join(fichaPath, raDir.name);
 
           fs.readdirSync(raPath, { withFileTypes: true })

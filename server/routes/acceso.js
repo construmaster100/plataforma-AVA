@@ -3,7 +3,11 @@ const router = express.Router();
 const AccesoRA = require("../models/AccesoRA");
 
 const RA_ABIERTOS_POR_DEFECTO = [1, 2, 3, 4, 5];
-const TOTAL_RA = 72;
+// No es un total de RA declarado (los RA se crean progresivamente, sin
+// límite fijo por ficha) — es solo el rango que reciben las cédulas de
+// "acceso total" de prueba; el contenido real que exista es lo que
+// termina importando en el frontend.
+const RANGO_ACCESO_TOTAL_PRUEBA = 200;
 
 // Semilla de esta fase: estos dos ya tienen las 72 desbloqueadas para
 // probar el flujo completo. Todos los demás aprendices arrancan solo con
@@ -16,7 +20,7 @@ router.get("/:cedula", async (req, res) => {
   try {
     const cedula = String(req.params.cedula);
     if (CEDULAS_CON_ACCESO_TOTAL.includes(cedula)) {
-      const todos = Array.from({ length: TOTAL_RA }, (_, i) => i + 1);
+      const todos = Array.from({ length: RANGO_ACCESO_TOTAL_PRUEBA }, (_, i) => i + 1);
       return res.json({ unlocked: todos });
     }
     const otorgados = await AccesoRA.find({ cedula }).lean();

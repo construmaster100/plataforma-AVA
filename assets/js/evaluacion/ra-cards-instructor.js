@@ -72,7 +72,6 @@ async function pintarCardsInstructor() {
 
   estado.textContent = 'Cargando…';
   const ficha = fichaRacActual();
-  const totalRA = TOTAL_RA_POR_FICHA_CARDS[ficha] || 72;
 
   let catalogo, datos, acceso;
   try {
@@ -94,9 +93,13 @@ async function pintarCardsInstructor() {
   const desbloqueados = new Set(acceso.unlocked || []);
   const ultimos = ultimosPorCuestionarioCards((datos && datos.historial) || []);
   const porRA = agruparPorRaYAa(catalogo, [ficha]);
-  const raConContenido = [...porRA.keys()]
-    .filter(raId => desbloqueados.has(raId) && raId <= totalRA && (porRA.get(raId).get(AA_TARJETA_RA_CARDS) || []).length)
+  // Los RA se crean progresivamente (RA1, RA2, RA3...) — no hay un total
+  // fijo por ficha; el instructor ve todos los que ya tengan contenido.
+  const raIdsConContenido = [...porRA.keys()]
+    .filter(raId => (porRA.get(raId).get(AA_TARJETA_RA_CARDS) || []).length)
     .sort((a, b) => a - b);
+  const totalRA = raIdsConContenido.length ? Math.max(...raIdsConContenido) : 0;
+  const raConContenido = raIdsConContenido.filter(raId => desbloqueados.has(raId));
 
   const aprobadasPorRA = new Map();
   raConContenido.forEach(raId => {

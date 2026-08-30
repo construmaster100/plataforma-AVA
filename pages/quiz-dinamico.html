@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cuestionario · Irregular Verbs</title>
+<title>Cuestionario · Módulo 4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,16 +16,20 @@
 
     <header class="topbar">
       <div class="topbar-title">
-        <span class="topbar-eyebrow">SENAEnglish · Irregular Verbs</span>
-        <h1>Cuestionario — IRREGULAR VERBS</h1>
+        <span class="topbar-eyebrow">Módulo 4 · Quiz/Evaluación</span>
+        <h1 id="titulo-cuestionario">Cuestionario</h1>
       </div>
       <div class="topbar-status" id="status-panel">
         <div class="status-zone">
           <span class="status-label">Pregunta</span>
           <span class="status-value" id="progreso-actual">—</span>
         </div>
+        <div class="status-zone" id="zona-tiempo" style="display:none;">
+          <span class="status-label">Tiempo</span>
+          <span class="status-value" id="tiempo-restante">—</span>
+        </div>
         <div class="status-coords">
-          <span id="progreso-texto">— / 30</span>
+          <span id="progreso-texto">— / —</span>
         </div>
       </div>
     </header>
@@ -36,7 +40,6 @@
         <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progress-fill"></div></div>
 
         <div class="question-card" id="question-card">
-          <span class="question-category">IRREGULAR VERBS</span>
           <p class="question-text" id="question-text">Cargando pregunta…</p>
         </div>
 
@@ -47,7 +50,7 @@
         <div class="player-panel">
           <div class="player-panel-info">
             <span id="player-name">—</span>
-            <span class="player-score">Score: <strong id="player-score">0</strong> / 30</span>
+            <span class="player-score">Score: <strong id="player-score">0</strong> / <span id="player-score-total">—</span></span>
           </div>
         </div>
       </aside>
@@ -58,6 +61,6 @@
 
   </div>
 
-  <script src="/assets/js/quiz-irregular-verbs.js"></script>
+  <script src="/assets/js/quiz-dinamico.js"></script>
 </body>
 </html>

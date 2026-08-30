@@ -32,6 +32,7 @@ app.use("/api/aprendices", require("../server/routes/aprendices"));
 app.use("/api/resultados", require("../server/routes/resultados"));
 app.use("/api/actividades", require("../server/routes/actividades"));
 app.use("/api/acceso", require("../server/routes/acceso"));
+app.use("/api/quizzes", require("../server/routes/quizzes"));
 
 io.on("connection", (socket) => {
   socket.on("observar", (_payload, cb) => {

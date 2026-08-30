@@ -123,6 +123,17 @@
           </ul>
         </li>
 
+        <li>
+          <button class="menu-btn" aria-expanded="false">
+            <span><img class="icon-left icon-img" src="../assets/img/SENA/chulo.JPG" alt="">4. Módulo 4</span>
+            <span class="arrow">❯</span>
+          </button>
+          <ul class="submenu">
+            <li><a href="#" data-view="sec-quiz-dinamico">4.1 Presentar Quiz/Evaluación</a></li>
+            <li><a href="#" data-view="sec-resultados-eval">4.2 Resultados de evaluación</a></li>
+          </ul>
+        </li>
+
       </ul>
       </div>
     </aside>
@@ -2977,6 +2988,40 @@
         <div id="ra-cards-contenedor"></div>
       </section>
 
+      <!-- ══ MÓDULO 4 · PRESENTAR QUIZ/EVALUACIÓN ══
+           Banco de preguntas nuevo (Mongo, server/routes/quizzes.js),
+           independiente del esquema M1-M4 de arriba — ver
+           assets/js/evaluacion/quiz-dinamico-presentar.js. -->
+      <section class="view-section" id="sec-quiz-dinamico">
+        <div class="sec-header">
+          <h1><img class="ico ico-h1" src="../assets/img/iconos/presentar.svg" alt="Quiz"> Presentar Quiz/Evaluación</h1>
+          <p>Cada RAA puede tener hasta 4 módulos creados por tu instructor (Quiz de 10 preguntas o Evaluación de 30).
+             Tu puntaje se reporta y suma al puntaje ponderado del curso (ver 4.2 Resultados de evaluación).</p>
+        </div>
+        <p class="small text-muted" id="qd-presentar-estado">Cargando…</p>
+        <div id="qd-presentar-contenedor"></div>
+      </section>
+
+      <!-- ══ MÓDULO 4 · RESULTADOS DE EVALUACIÓN ══
+           Puntaje ponderado sobre el puntaje objetivo que el instructor
+           asignó a la ficha (server/models/FichaConfig.js) — ver
+           assets/js/evaluacion/resultados-eval-aprendiz.js. -->
+      <section class="view-section" id="sec-resultados-eval">
+        <div class="sec-header">
+          <h1><img class="ico ico-h1" src="../assets/img/iconos/historial.svg" alt="Resultados"> Resultados de evaluación</h1>
+          <p>Puntaje acumulado sobre el puntaje objetivo que tu instructor asignó para el curso (100%). Cada RAA
+             creado pesa una parte proporcional de ese objetivo; ganas ese peso según lo que apruebes en sus módulos.</p>
+        </div>
+        <p class="small text-muted" id="rea-resumen">Cargando…</p>
+        <div style="height:16px;border-radius:8px;background:#e2e2e2;overflow:hidden;margin-bottom:18px;">
+          <div id="rea-barra-fill" style="height:100%;width:0%;background:#39A900;transition:width .3s ease;"></div>
+        </div>
+        <table class="table table-hover align-middle data-table">
+          <thead><tr><th>RAA</th><th>Peso máximo</th><th>Puntos ganados</th><th>%</th></tr></thead>
+          <tbody id="rea-tbody"></tbody>
+        </table>
+      </section>
+
       <!-- ══ DASHBOARD ACADÉMICO ══ -->
 
       <!-- ══ HISTORIAL ACADÉMICO ══ -->
@@ -4939,6 +4984,8 @@
   <script src="../assets/js/evaluacion/actividad-aprendizaje.js"></script>
   <script src="../assets/js/evaluacion/ra-cards-render.js"></script>
   <script src="../assets/js/evaluacion/ra-cards-presentar.js"></script>
+  <script src="../assets/js/evaluacion/quiz-dinamico-presentar.js"></script>
+  <script src="../assets/js/evaluacion/resultados-eval-aprendiz.js"></script>
   <script src="../assets/js/evaluacion/footer-progreso.js"></script>
 
   <script>

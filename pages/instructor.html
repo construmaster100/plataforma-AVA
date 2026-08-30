@@ -128,18 +128,29 @@
           </ul>
         </li>
 
-        <li id="menu-modulo-4" hidden>
+        <li>
           <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/SENA/manoselect.JPG" alt="">4. Modulo 4</span>
+            <span><img class="icon-left icon-img" src="../assets/img/SENA/pizarra.JPG" alt="">4. Módulo 4</span>
             <span class="arrow">❯</span>
           </button>
           <ul class="submenu">
-            <li class="menu-grupo">4.1 Gestión de usuarios</li>
+            <li><a href="#" data-view="sec-crear-quiz">4.1 Crear Quiz/Evaluación</a></li>
+            <li><a href="#" data-view="sec-resultados-eval-inst">4.2 Resultados de evaluación</a></li>
+          </ul>
+        </li>
+
+        <li id="menu-modulo-5" hidden>
+          <button class="menu-btn" aria-expanded="false">
+            <span><img class="icon-left icon-img" src="../assets/img/SENA/manoselect.JPG" alt="">5. Módulo 5</span>
+            <span class="arrow">❯</span>
+          </button>
+          <ul class="submenu">
+            <li class="menu-grupo">5.1 Gestión de usuarios</li>
             <li><a href="#" class="sub-item" data-view="sec-listar">Listar / consultar usuarios</a></li>
             <li><a href="#" class="sub-item" data-view="sec-crear-usuario">Crear usuario</a></li>
             <li><a href="#" class="sub-item" data-view="sec-buscar-usuario">Buscar usuario</a></li>
-            <li><a href="#" data-view="sec-asignar-instructor">4.2 Autenticación y control de acceso</a></li>
-            <li class="menu-grupo">4.3 Administración de la plataforma</li>
+            <li><a href="#" data-view="sec-asignar-instructor">5.2 Autenticación y control de acceso</a></li>
+            <li class="menu-grupo">5.3 Administración de la plataforma</li>
             <li><a href="#" class="sub-item" data-view="sec-config">Configuración general</a></li>
             <li><a href="#" class="sub-item" data-view="sec-parametros">Parámetros del sistema</a></li>
             <li><a href="#" class="sub-item" data-view="sec-monitor-senaenglish">Monitor en vivo SENAEnglish</a></li>
@@ -266,8 +277,7 @@
       <!-- ══ CREAR EVALUACIÓN ══ -->
       <section class="view-section" id="sec-crear-eval">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/crear.svg" alt="Crear"> Crear nueva evaluación</h1>
-          <p>RF06 — Define nombre, resultado de aprendizaje, fechas y criterios. Guarda como borrador o publica directamente.</p>
+                    <p>RF06 — Define nombre, resultado de aprendizaje, fechas y criterios. Guarda como borrador o publica directamente.</p>
         </div>
         <form onsubmit="return false;">
           <div class="form-grid">
@@ -302,8 +312,7 @@
       <!-- ══ ADMINISTRAR EVALUACIONES ══ -->
       <section class="view-section" id="sec-admin-eval">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/manual.JPG" alt="Guía"> Administrar Evaluaciones</h1>
-          <p>RF06 — Consulta, edita, habilita, cierra y reprograma evaluaciones</p>
+                    <p>RF06 — Consulta, edita, habilita, cierra y reprograma evaluaciones</p>
         </div>
         <p class="campo-label">Mis fichas activas</p>
         <div class="rejilla-aulas">
@@ -345,8 +354,7 @@
       <!-- ══ PLAN FORMATIVO: ASIGNAR Y DESBLOQUEAR ══ -->
       <section class="view-section" id="sec-plan-formativo" data-quien="Instructor">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/crear.svg" alt="Asignar"> Asignar Contenido y Desbloquear Módulos</h1>
-          <p>Lo que habilites aquí es lo que el aprendiz encuentra en «Reportar evidencia de aprendizaje», dentro del Módulo 3 — Evalúa</p>
+                    <p>Lo que habilites aquí es lo que el aprendiz encuentra en «Reportar evidencia de aprendizaje», dentro del Módulo 3 — Evalúa</p>
         </div>
 
         <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
@@ -408,8 +416,7 @@
       <!-- ══ CALIFICAR ══ -->
       <section class="view-section" id="sec-calificar">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Aprobado"> Calificar y Retroalimentar</h1>
-          <p>RF08 — Asigna calificación y registra observaciones para cada aprendiz. Toda corrección queda con trazabilidad.</p>
+                    <p>RF08 — Asigna calificación y registra observaciones para cada aprendiz. Toda corrección queda con trazabilidad.</p>
         </div>
         <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
           <label style="font-size:13px;font-weight:600;color:#444;">Evaluación:</label>
@@ -442,8 +449,7 @@
       <!-- ══ DASHBOARD ACADÉMICO ══ -->
       <section class="view-section" id="sec-dashboard-inst">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/panel.JPG" alt="Indicadores"> Dashboard Académico</h1>
-          <p>RF09 — Indicadores de desempeño individual y grupal · Alertas automáticas por bajo rendimiento</p>
+                    <p>RF09 — Indicadores de desempeño individual y grupal · Alertas automáticas por bajo rendimiento</p>
         </div>
         <div class="dashboard-metrics">
           <div class="metric-card"><div class="metric-icon">👥</div><div class="metric-value">10</div><div class="metric-label">Aprendices activos</div></div>
@@ -468,8 +474,7 @@
       <!-- ══ REPORTES ══ -->
       <section class="view-section" id="sec-reportes">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/documento.svg" alt="Documento"> Generar Reportes Académicos</h1>
-          <p>RF10 — Reportes individuales y grupales exportables en PDF o Excel</p>
+                    <p>RF10 — Reportes individuales y grupales exportables en PDF o Excel</p>
         </div>
         <form onsubmit="return false;">
           <div class="form-grid">
@@ -497,8 +502,7 @@
       <!-- ══ GAA 1 · AA 1 · PROGRAMACIÓN EN PYTHON ══ -->
       <section class="view-section" id="sec-actividad">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/crear.svg" alt="Actividad"> GAA 1 — Guía de aprendizaje 1</h1>
-          <p>AA 1 — Actividad de aprendizaje 1 · Programación en Python · 150 puntos · mínimo por competencia 105 puntos</p>
+                    <p>AA 1 — Actividad de aprendizaje 1 · Programación en Python · 150 puntos · mínimo por competencia 105 puntos</p>
         </div>
 
         <section class="section-table">
@@ -596,7 +600,7 @@
 
       <!-- ══ MATERIALES EN EXCEL ══ -->
       <section class="view-section" id="sec-mat-excel">
-        <div class="sec-header"><h1><img class="ico ico-h1" src="../assets/img/iconos/basedatos.svg" alt="Hoja de cálculo"> Materiales en Excel</h1><p>Hojas de cálculo de seguimiento y consolidación de puntajes</p></div>
+        <div class="sec-header"><p>Hojas de cálculo de seguimiento y consolidación de puntajes</p></div>
         <table class="table align-middle downloads-table">
           <thead><tr><th>Documento</th><th>Uso</th><th>Peso</th><th>Acción</th></tr></thead>
           <tbody>
@@ -610,8 +614,7 @@
       <!-- ══ REPORTAR NOVEDAD ══ -->
       <section class="view-section" id="sec-novedad">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/alerta.svg" alt="Alerta"> Reportar Novedad del Aprendiz</h1>
-          <p>Falta leve, falta grave, inasistencia, incumplimiento o lenguaje/conducta inadecuada. Lo aquí registrado llega al reporte de novedades del administrador y afecta el ranking de puntos del aprendiz.</p>
+                    <p>Falta leve, falta grave, inasistencia, incumplimiento o lenguaje/conducta inadecuada. Lo aquí registrado llega al reporte de novedades del administrador y afecta el ranking de puntos del aprendiz.</p>
         </div>
 
         <form id="nv-form">
@@ -663,8 +666,7 @@
       <!-- ══ ALERTAS ══ -->
       <section class="view-section" id="sec-alertas">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/alerta.svg" alt="Alerta"> Alertas de Desempeño</h1>
-          <p>RF09 — Generadas solas: baja asistencia ponderada, bajo avance o módulo «No aprobado» en el plan de mejora</p>
+                    <p>RF09 — Generadas solas: baja asistencia ponderada, bajo avance o módulo «No aprobado» en el plan de mejora</p>
         </div>
         <table class="table table-hover align-middle data-table">
           <thead><tr><th>Aprendiz</th><th>Causa de alerta</th><th>Detalle</th><th>Nivel</th></tr></thead>
@@ -676,8 +678,7 @@
       <!-- ══ COMPONENTE 3 · panel de entrada: práctica, entregas y evaluación ══ -->
       <section class="view-section" id="sec-modulo3">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/escritorio.JPG" alt="Práctica"> Componente 3 — Contenido Evaluativo y Práctico</h1>
-          <p>El lado de la instructora de lo que el aprendiz ve en su «Módulo 3 — Evalúa». Lo que se publica y califica aquí es lo que allá aparece como ejercicio disponible y como evidencia por reportar.</p>
+                    <p>El lado de la instructora de lo que el aprendiz ve en su «Módulo 3 — Evalúa». Lo que se publica y califica aquí es lo que allá aparece como ejercicio disponible y como evidencia por reportar.</p>
         </div>
 
         <div class="d-flex flex-wrap gap-3 content-cards">
@@ -761,8 +762,7 @@
 
       <section class="view-section" id="sec-ejercicios">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/escritorio.JPG" alt="Práctica"> Gestionar Ejercicios de Programación</h1>
-          <p>RF11 — Crea, edita, publica y cierra ejercicios prácticos en Python</p>
+                    <p>RF11 — Crea, edita, publica y cierra ejercicios prácticos en Python</p>
         </div>
         <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
           <button class="btn btn-action btn-primary" onclick="alert('Formulario de nuevo ejercicio (simulación)')">➕ Nuevo ejercicio</button>
@@ -780,8 +780,7 @@
       <!-- ══ REVISAR ENTREGAS ══ -->
       <section class="view-section" id="sec-revisar">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/buscar.JPG" alt="Buscar"> Revisar Entregas de Código</h1>
-          <p>RF13 — Visualiza el código entregado por cada aprendiz y procede a retroalimentar</p>
+                    <p>RF13 — Visualiza el código entregado por cada aprendiz y procede a retroalimentar</p>
         </div>
         <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
           <label style="font-size:13px;font-weight:600;color:#444;">Ejercicio:</label>
@@ -803,8 +802,7 @@
       <!-- ══ RETROALIMENTAR CÓDIGO ══ -->
       <section class="view-section" id="sec-retro-cod">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/comentario.svg" alt="Retroalimentación"> Retroalimentar Código</h1>
-          <p>RF13 — Registra observaciones técnicas y asigna calificación · El aprendiz recibirá notificación automática</p>
+                    <p>RF13 — Registra observaciones técnicas y asigna calificación · El aprendiz recibirá notificación automática</p>
         </div>
         <div class="form-grid cols-1" style="margin-bottom:16px;">
           <div class="form-group"><label>Aprendiz</label>
@@ -839,8 +837,7 @@ for i in range(1, 11):
       <!-- ══ HISTORIAL VERSIONES ══ -->
       <section class="view-section" id="sec-historial">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/organizacion.JPG" alt="Repositorio"> Historial de Versiones</h1>
-          <p>RF14 — Consulta todas las entregas anteriores de un aprendiz sin pérdida de versiones previas</p>
+                    <p>RF14 — Consulta todas las entregas anteriores de un aprendiz sin pérdida de versiones previas</p>
         </div>
         <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
           <select class="form-select" style="padding:7px 12px;border:1px solid #ccc;border-radius:5px;font-size:14px;">
@@ -865,8 +862,7 @@ for i in range(1, 11):
       <!-- ══ COMPONENTE 2 · caracterización del proceso: entrada → procedimientos → salidas ══ -->
       <section class="view-section" id="sec-caracterizacion-m2">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/pizarra.JPG" alt="Proceso"> Caracterización del Proceso — Seguimiento y Monitoreo</h1>
-          <p>Componente 2. Lo que la instructora recibe, lo que hace y lo que entrega en la ejecución de la formación.</p>
+                    <p>Componente 2. Lo que la instructora recibe, lo que hace y lo que entrega en la ejecución de la formación.</p>
         </div>
 
         <div class="section-table">
@@ -929,8 +925,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-programa-form">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/certificado.JPG" alt="Formación"> Plan Curricular</h1>
-          <p>Documentos base del programa de formación asignado. Se abren en su propio visor o se descargan; no se leen incrustados en la página.</p>
+                    <p>Documentos base del programa de formación asignado. Se abren en su propio visor o se descargan; no se leen incrustados en la página.</p>
         </div>
         <div class="card notif-card">
           <h3>Análisis y Desarrollo de Software (ADSO)</h3>
@@ -960,8 +955,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-ficha-matricula">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/guia.svg" alt="Guía"> Ficha de Aprendices Matriculados</h1>
-          <p>Listado oficial de la ficha, exportable en hoja de cálculo</p>
+                    <p>Listado oficial de la ficha, exportable en hoja de cálculo</p>
         </div>
         <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
           <button class="btn btn-action btn-primary" onclick="alert('Exportando ficha a Excel (simulación)')">📗 Exportar a Excel</button>
@@ -981,8 +975,7 @@ for i in range(1, 11):
       <!-- ══ 1.3 REPORTE DE ASISTENCIA — RESUMEN DE LA FICHA ══ -->
       <section class="view-section" id="sec-asistencia-ins">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/calendario.svg" alt="Asistencia"> Listado y Reporte de Asistencias</h1>
-          <p>Roster de la ficha activa (arriba, en la cabecera), su asistencia agregada y el reporte individual por aprendiz.</p>
+                    <p>Roster de la ficha activa (arriba, en la cabecera), su asistencia agregada y el reporte individual por aprendiz.</p>
         </div>
 
         <div class="card notif-card" id="lya-ficha-info"></div>
@@ -1025,8 +1018,7 @@ for i in range(1, 11):
       <!-- ══ 1.6 REQUISITOS PARA LA FORMACIÓN — AGREGADO DE LA FICHA ══ -->
       <section class="view-section" id="sec-requisitos-ins">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/portafolio.JPG" alt="Requisitos"> Requisitos para la Formación</h1>
-          <p>Cuántos aprendices de la ficha ya marcaron cada requisito.</p>
+                    <p>Cuántos aprendices de la ficha ya marcaron cada requisito.</p>
         </div>
         <table class="table table-hover align-middle data-table">
           <thead><tr><th>Requisito</th><th>Aprendices que lo marcaron</th></tr></thead>
@@ -1051,8 +1043,7 @@ for i in range(1, 11):
       <!-- ══ 1.7 PROGRAMAR SESIÓN ══ -->
       <section class="view-section" id="sec-programar-sesion">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/calendario.svg" alt="Programar"> Programar Sesión</h1>
-          <p>Fecha, hora, ambiente, resultado de aprendizaje, competencia relacionada y lista de chequeo de la próxima sesión.</p>
+                    <p>Fecha, hora, ambiente, resultado de aprendizaje, competencia relacionada y lista de chequeo de la próxima sesión.</p>
         </div>
         <form id="ses-form" class="card notif-card">
           <div class="row g-2">
@@ -1076,8 +1067,7 @@ for i in range(1, 11):
       <!-- ══ 2.1 INICIAR SESIÓN ══ -->
       <section class="view-section" id="sec-iniciar-sesion">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/escritorio.JPG" alt="Iniciar sesión"> Iniciar Sesión</h1>
-          <p>Hora, aula, conexión, equipos y juicio evaluativo por defecto de la sesión que va a empezar.</p>
+                    <p>Hora, aula, conexión, equipos y juicio evaluativo por defecto de la sesión que va a empezar.</p>
         </div>
         <div id="iniciar-sesion-caja"></div>
 
@@ -1092,8 +1082,7 @@ for i in range(1, 11):
       <!-- ══ 2.2 REPORTE DE ASISTENCIA DE LA SESIÓN ══ -->
       <section class="view-section" id="sec-asistencia-sesion">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/grupo.svg" alt="Asistencia sesión"> Reporte de Asistencia — Sesión Activa</h1>
-          <p>Listado de aprendices, confirmación de conexión y autenticación del instructor.</p>
+                    <p>Listado de aprendices, confirmación de conexión y autenticación del instructor.</p>
         </div>
         <div class="card notif-card" id="asis-sesion-estado"></div>
         <table class="table table-hover align-middle data-table mt-3">
@@ -1105,8 +1094,7 @@ for i in range(1, 11):
       <!-- ══ 2.4 GUÍA EN CURSO (SESIÓN ACTIVA) ══ -->
       <section class="view-section" id="sec-guia-sesion">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/guia.svg" alt="Guía de la sesión"> Guía en Curso — Sesión Activa</h1>
-          <p>La guía designada para la sesión que está en curso.</p>
+                    <p>La guía designada para la sesión que está en curso.</p>
         </div>
         <div id="guia-sesion-caja"></div>
       </section>
@@ -1114,8 +1102,7 @@ for i in range(1, 11):
       <!-- ══ 3.1 REPORTE DE ASISTENCIAS — DIARIO/SEMANAL/MENSUAL/INDIVIDUAL ══ -->
       <section class="view-section" id="sec-reporte-asistencias">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/calendario.svg" alt="Reportes"> Reporte de Asistencias</h1>
-          <p>Diario, semanal, mensual, personas con inasistencias o por aprendiz individual.</p>
+                    <p>Diario, semanal, mensual, personas con inasistencias o por aprendiz individual.</p>
         </div>
         <div class="btn-group mb-3" role="group" id="rep-asis-modo">
           <button type="button" class="btn btn-outline-primary active" data-modo="diario">Diario</button>
@@ -1130,8 +1117,7 @@ for i in range(1, 11):
       <!-- ══ 3.2 REPORTE DE EJECUCIÓN DE LA FORMACIÓN ══ -->
       <section class="view-section" id="sec-reporte-ejecucion">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/panel.JPG" alt="Ejecución"> Reporte de Ejecución de la Formación</h1>
-          <p>Reporte de la sesión por aprendiz y tabla de puntos, intentos y última fecha por módulo formativo.</p>
+                    <p>Reporte de la sesión por aprendiz y tabla de puntos, intentos y última fecha por módulo formativo.</p>
         </div>
         <div class="puntajes-bloque">
           <h2 class="puntajes-titulo">Ejecución del programa de formación</h2>
@@ -1154,8 +1140,7 @@ for i in range(1, 11):
       <!-- ══ 3.3 PLAN DE MEJORA ══ -->
       <section class="view-section" id="sec-plan-mejora-ins">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Plan de mejora"> Plan de Mejora</h1>
-          <p>Aprendices que cruzaron el umbral de puntos/intentos de un módulo pasan aquí automáticamente; el instructor revisa cada caso.</p>
+                    <p>Aprendices que cruzaron el umbral de puntos/intentos de un módulo pasan aquí automáticamente; el instructor revisa cada caso.</p>
         </div>
         <div id="plan-mejora-ins-lista"></div>
       </section>
@@ -1163,8 +1148,7 @@ for i in range(1, 11):
       <!-- ══ SEMÁFORO DE EVIDENCIAS ══ -->
       <section class="view-section" id="sec-semaforo">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Semáforo"> Semáforo de Evidencias</h1>
-          <p>Evidencia que el aprendiz adjunta durante la sesión — amarillo en revisión, verde aprobada, rojo rechazada.</p>
+                    <p>Evidencia que el aprendiz adjunta durante la sesión — amarillo en revisión, verde aprobada, rojo rechazada.</p>
         </div>
         <table class="table table-hover align-middle data-table">
           <thead><tr><th>Aprendiz</th><th>Descripción</th><th>Fecha</th><th>Semáforo</th><th>Motivo</th><th>Acción</th></tr></thead>
@@ -1175,8 +1159,7 @@ for i in range(1, 11):
       <!-- ══ RANKING DE PUNTOS (SOLO LECTURA) ══ -->
       <section class="view-section" id="sec-ranking-ins">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Ranking"> Ranking de Puntos</h1>
-          <p>Puntos de actividades + bono por módulo aprobado − penalización por novedad, por ficha.</p>
+                    <p>Puntos de actividades + bono por módulo aprobado − penalización por novedad, por ficha.</p>
         </div>
         <table class="table table-hover align-middle data-table">
           <thead><tr><th>Puesto</th><th>Aprendiz</th><th>Puntos base</th><th>Bono módulos</th><th>Penalizaciones</th><th>Total</th></tr></thead>
@@ -1187,8 +1170,7 @@ for i in range(1, 11):
       <!-- ══ 3.4 PRÁCTICA ══ -->
       <section class="view-section" id="sec-practica-ins">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/escritorio.JPG" alt="Práctica"> Práctica</h1>
-          <p>Vista previa del material que el aprendiz desbloquea para acumular puntos y aportar al plan de mejora.</p>
+                    <p>Vista previa del material que el aprendiz desbloquea para acumular puntos y aportar al plan de mejora.</p>
         </div>
         <div class="grid-tarjetas grid-4" id="practica-ins-tarjetas"></div>
       </section>
@@ -1200,8 +1182,7 @@ for i in range(1, 11):
            postee ahí a futuro, sin cambios adicionales. -->
       <section class="view-section" id="sec-reportes-quiz">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/documento.svg" alt="Reportes"> Reportes de Cuestionarios</h1>
-          <p>Puntaje acumulado por aprendiz en todos los cuestionarios reportados al servidor
+                    <p>Puntaje acumulado por aprendiz en todos los cuestionarios reportados al servidor
              (SENAEnglish y cualquier otra prueba conectada), en vivo desde la API.</p>
         </div>
         <p class="notif-card" id="reportes-quiz-estado">Cargando…</p>
@@ -1222,8 +1203,7 @@ for i in range(1, 11):
            cualquiera, no el suyo. -->
       <section class="view-section" id="sec-ra-cards-instructor">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/panel.JPG" alt="Progreso"> Progreso por RA (cards)</h1>
-          <p>Elige un aprendiz para ver sus resultados de aprendizaje con el mismo formato de cards que él ve al presentar.</p>
+                    <p>Elige un aprendiz para ver sus resultados de aprendizaje con el mismo formato de cards que él ve al presentar.</p>
         </div>
         <div class="d-flex flex-wrap gap-2 mb-3">
           <div class="input-group input-group-sm" style="max-width:220px;" id="rac-ficha-grupo" hidden>
@@ -1248,8 +1228,7 @@ for i in range(1, 11):
            el mismo endpoint que ya usan los quices. -->
       <section class="view-section" id="sec-tabla-score-ra">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/documento.svg" alt="Score"> Asignar Score por RA</h1>
-          <p>Elige un resultado de aprendizaje para ver sus 4 actividades y asignar o corregir el
+                    <p>Elige un resultado de aprendizaje para ver sus 4 actividades y asignar o corregir el
              puntaje de cada aprendiz de la ficha.</p>
         </div>
         <div class="d-flex flex-wrap gap-2 mb-3">
@@ -1282,8 +1261,7 @@ for i in range(1, 11):
            deshabilitados como "sin contenido aún". -->
       <section class="view-section" id="sec-aa-1">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA1 — Actividad de aprendizaje 1</h1>
-          <p>RA-01 · AA1. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA1. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="1">
           <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
@@ -1294,8 +1272,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-aa-2">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA2 — Actividad de aprendizaje 2</h1>
-          <p>RA-01 · AA2. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA2. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="2">
           <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
@@ -1306,8 +1283,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-aa-3">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA3 — Actividad de aprendizaje 3</h1>
-          <p>RA-01 · AA3. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA3. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="3">
           <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
@@ -1318,8 +1294,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-aa-4">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA4 — Actividad de aprendizaje 4</h1>
-          <p>RA-01 · AA4. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA4. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="4">
           <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
@@ -1330,8 +1305,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-aa-5">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/chulo.JPG" alt="Actividad"> AA5 — Actividad de aprendizaje 5</h1>
-          <p>RA-01 · AA5. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA5. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="5">
           <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
@@ -1343,8 +1317,7 @@ for i in range(1, 11):
       <!-- ══ PUNTAJES DE APRENDICES ══ -->
       <section class="view-section" id="sec-resultados-embebidos">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/documento.svg" alt="Resultados"> Resultados de las Actividades</h1>
-          <p>Puntajes que los aprendices obtuvieron en los materiales embebidos del curso, reunidos por ficha</p>
+                    <p>Puntajes que los aprendices obtuvieron en los materiales embebidos del curso, reunidos por ficha</p>
         </div>
 
         <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
@@ -1389,8 +1362,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-lineamientos">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/guia.svg" alt="Guía"> Lineamientos Institucionales del SENA</h1>
-          <p>Normativa y directrices que rigen la ejecución de la formación</p>
+                    <p>Normativa y directrices que rigen la ejecución de la formación</p>
         </div>
         <div class="d-flex flex-wrap gap-3 content-cards">
           <div class="card content-card"><div class="cc-icon">📄</div><span class="badge badge-type badge-pdf">PDF</span><h4>Modelo pedagógico institucional</h4><p>Enfoque por competencias y formación por proyectos</p><a href="#" class="btn btn-sm btn-ver">Ver documento</a></div>
@@ -1401,8 +1373,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-ambientes">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/pizarra.JPG" alt="Ambiente"> Ambientes, Equipos y Materiales Disponibles</h1>
-          <p>Inventario de espacios y recursos asignados a la formación</p>
+                    <p>Inventario de espacios y recursos asignados a la formación</p>
         </div>
         <table class="table table-hover align-middle data-table">
           <thead><tr><th>Ambiente</th><th>Tipo</th><th>Capacidad</th><th>Equipos</th><th>Estado</th></tr></thead>
@@ -1417,8 +1388,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-reglamento">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/guia.svg" alt="Reglamento"> Reglamento del Aprendiz SENA</h1>
-          <p>Deberes, derechos y régimen formativo aplicable a la ficha</p>
+                    <p>Deberes, derechos y régimen formativo aplicable a la ficha</p>
         </div>
         <div class="card notif-card">
           <h3>Acuerdo 007 de 2012 — Reglamento del Aprendiz SENA</h3>
@@ -1436,8 +1406,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-guias">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/manual.JPG" alt="Guía"> Guías de Aprendizaje</h1>
-          <p>Guías por resultado de aprendizaje, con sus actividades y evidencias</p>
+                    <p>Guías por resultado de aprendizaje, con sus actividades y evidencias</p>
         </div>
         <table class="table table-hover align-middle data-table">
           <thead><tr><th>Guía</th><th>Resultado</th><th>Actividades</th><th>Estado</th><th>Acciones</th></tr></thead>
@@ -1452,8 +1421,7 @@ for i in range(1, 11):
       <!-- ══ EJECUCIÓN DE LA FORMACIÓN ══ -->
       <section class="view-section" id="sec-plan-ejecucion">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/calendario.svg" alt="Cronograma"> Planeación Pedagógica de la Ejecución</h1>
-          <p>Distribución de las competencias en el tiempo lectivo y material asociado</p>
+                    <p>Distribución de las competencias en el tiempo lectivo y material asociado</p>
         </div>
         <table class="table table-hover align-middle data-table">
           <thead><tr><th>Trimestre</th><th>Competencia</th><th>Material asociado</th><th>Estado</th></tr></thead>
@@ -1467,8 +1435,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-cronograma">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/calendario.svg" alt="Cronograma"> Cronograma de la Formación</h1>
-          <p>Línea de tiempo de las fases, calendario del mes y detalle de actividades</p>
+                    <p>Línea de tiempo de las fases, calendario del mes y detalle de actividades</p>
         </div>
 
         <div class="bloque-tiempo">
@@ -1516,8 +1483,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-materiales-form">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/portafolio.JPG" alt="Materiales"> Materiales de Formación</h1>
-          <p>Recursos cargados para la ficha, organizados por formato</p>
+                    <p>Recursos cargados para la ficha, organizados por formato</p>
         </div>
         <div class="d-flex flex-wrap gap-3 content-cards">
           <div class="card content-card"><div class="cc-icon">📄</div><span class="badge badge-type badge-pdf">PDF</span><h4>Documentos PDF</h4><p>Guías, lecturas y material normativo</p><a href="#" class="btn btn-sm btn-ver" data-view="sec-mat-pdf">Ver PDF</a></div>
@@ -1527,7 +1493,7 @@ for i in range(1, 11):
       </section>
 
       <section class="view-section" id="sec-mat-pdf">
-        <div class="sec-header"><h1><img class="ico ico-h1" src="../assets/img/iconos/documento.svg" alt="Documento"> Materiales en PDF</h1><p>Documentos de lectura y consulta de la ficha</p></div>
+        <div class="sec-header"><p>Documentos de lectura y consulta de la ficha</p></div>
         <table class="table align-middle downloads-table">
           <thead><tr><th>Documento</th><th>Resultado</th><th>Peso</th><th>Acción</th></tr></thead>
           <tbody>
@@ -1539,7 +1505,7 @@ for i in range(1, 11):
       </section>
 
       <section class="view-section" id="sec-mat-word">
-        <div class="sec-header"><h1><img class="ico ico-h1" src="../assets/img/iconos/editar.svg" alt="Editar"> Materiales en Word</h1><p>Plantillas y formatos editables para las actividades</p></div>
+        <div class="sec-header"><p>Plantillas y formatos editables para las actividades</p></div>
         <table class="table align-middle downloads-table">
           <thead><tr><th>Documento</th><th>Uso</th><th>Peso</th><th>Acción</th></tr></thead>
           <tbody>
@@ -1551,7 +1517,7 @@ for i in range(1, 11):
       </section>
 
       <section class="view-section" id="sec-mat-ppt">
-        <div class="sec-header"><h1><img class="ico ico-h1" src="../assets/img/SENA/panel.JPG" alt="Indicadores"> Presentaciones</h1><p>Diapositivas de apoyo para las sesiones presenciales</p></div>
+        <div class="sec-header"><p>Diapositivas de apoyo para las sesiones presenciales</p></div>
         <table class="table align-middle downloads-table">
           <thead><tr><th>Presentación</th><th>Sesión</th><th>Diapositivas</th><th>Acción</th></tr></thead>
           <tbody>
@@ -1564,8 +1530,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-ambiente-sede">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/ubicacion.svg" alt="Ubicación"> Ambiente de Formación</h1>
-          <p>Sede donde se ejecuta la formación presencial de la ficha</p>
+                    <p>Sede donde se ejecuta la formación presencial de la ficha</p>
         </div>
         <div class="card notif-card">
           <h3>SENA CEGAFE — ITEDRIS</h3>
@@ -1585,8 +1550,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-herramientas">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/herramientas.JPG" alt="Herramientas"> Herramientas de Formación</h1>
-          <p>Software y equipamiento disponible para el desarrollo de las actividades</p>
+                    <p>Software y equipamiento disponible para el desarrollo de las actividades</p>
         </div>
         <div class="d-flex flex-wrap gap-3 content-cards">
           <div class="card content-card"><div class="cc-icon">🖥️</div><h4>Equipos de cómputo</h4><p>Inventario y estado de los equipos de la sala</p><a href="#" class="btn btn-sm btn-ver" data-view="sec-equipos">Ver inventario</a></div>
@@ -1597,8 +1561,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-equipos">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/escritorio.JPG" alt="Equipos"> Equipos de Cómputo Disponibles</h1>
-          <p>Inventario de la sala de sistemas asignada a la ficha</p>
+                    <p>Inventario de la sala de sistemas asignada a la ficha</p>
         </div>
         <div class="dashboard-metrics">
           <div class="metric-card"><div class="metric-icon chip-verde">🖥️</div><div class="metric-value">30</div><div class="metric-label">Equipos totales</div></div>
@@ -1619,8 +1582,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-registrar-equipo">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/crear.svg" alt="Crear"> Registrar Equipo</h1>
-          <p>Incorpora un equipo nuevo al inventario del ambiente de formación</p>
+                    <p>Incorpora un equipo nuevo al inventario del ambiente de formación</p>
         </div>
         <form id="form-equipo" novalidate>
           <div class="form-grid">
@@ -1643,8 +1605,7 @@ for i in range(1, 11):
       <!-- ══ SEGUIMIENTO DE FICHA ══ -->
       <section class="view-section" id="sec-fichas">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/organizacion.JPG" alt="Carpeta"> Fichas Disponibles</h1>
-          <p>Selecciona una ficha para ver los aprendices matriculados, su avance y su estado</p>
+                    <p>Selecciona una ficha para ver los aprendices matriculados, su avance y su estado</p>
         </div>
 
         <h2 class="bloque-titulo">Asistencia ponderada por ficha</h2>
@@ -1695,8 +1656,7 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-grafica-avance">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/panel.JPG" alt="Avance"> Gráfica de Avance de Aprendices</h1>
-          <p>RF09 — Distribución del avance de la ficha 3293836 por rango de cumplimiento</p>
+                    <p>RF09 — Distribución del avance de la ficha 3293836 por rango de cumplimiento</p>
         </div>
         <section class="section-table">
           <h2>Avance individual</h2>
@@ -1715,7 +1675,7 @@ for i in range(1, 11):
 
       <!-- ══ NOTIFICACIONES ══ -->
       <section class="view-section" id="sec-notif-1">
-        <div class="sec-header"><h1><img class="ico ico-h1" src="../assets/img/iconos/notificacion.svg" alt="Notificaciones"> Alerta de desempeño</h1></div>
+        <div class="sec-header"></div>
         <div class="card notif-card alert">
           <h3>2 aprendices en riesgo académico</h3>
           <p><strong>Aprendiz 1</strong>: 2 evaluaciones reprobadas en Módulo 2.<br>
@@ -1725,7 +1685,7 @@ for i in range(1, 11):
         <button class="btn btn-action btn-primary" onclick="showSection('sec-alertas')">Ver todas las alertas</button>
       </section>
       <section class="view-section" id="sec-notif-2">
-        <div class="sec-header"><h1><img class="ico ico-h1" src="../assets/img/iconos/notificacion.svg" alt="Notificaciones"> Nueva entrega de código</h1></div>
+        <div class="sec-header"></div>
         <div class="card notif-card">
           <h3>Nueva entrega — Ejercicio Python 2</h3>
           <p><strong>Aprendiz 1</strong> ha subido el archivo <em>ejercicio2.py</em> como evidencia del Ejercicio Python 2. Está pendiente de revisión.</p>
@@ -1734,7 +1694,7 @@ for i in range(1, 11):
         <button class="btn btn-action btn-primary" onclick="showSection('sec-revisar')">Ir a revisar entrega</button>
       </section>
       <section class="view-section" id="sec-notif-3">
-        <div class="sec-header"><h1><img class="ico ico-h1" src="../assets/img/iconos/notificacion.svg" alt="Notificaciones"> Evaluación próxima a cerrar</h1></div>
+        <div class="sec-header"></div>
         <div class="card notif-card alert">
           <h3>Evaluación Módulo 1 cierra en 1 día</h3>
           <p>La evaluación <strong>Evaluación Módulo 1 — Fundamentos</strong> cierra el <strong>2026-06-25</strong>. Aún hay 2 aprendices que no han enviado sus respuestas.</p>
@@ -1743,7 +1703,7 @@ for i in range(1, 11):
         <button class="btn btn-action btn-secondary" onclick="showSection('sec-admin-eval')">Ver evaluaciones</button>
       </section>
       <section class="view-section" id="sec-notif-4">
-        <div class="sec-header"><h1><img class="ico ico-h1" src="../assets/img/iconos/notificacion.svg" alt="Notificaciones"> Reporte académico listo</h1></div>
+        <div class="sec-header"></div>
         <div class="card notif-card">
           <h3>Reporte grupal Junio 2026 generado</h3>
           <p>El reporte académico grupal del período <strong>01/06/2026 – 23/06/2026</strong> está listo para descarga en formato PDF.</p>
@@ -1755,8 +1715,7 @@ for i in range(1, 11):
       <!-- ══ CURSO DE LA FICHA ══ -->
       <section class="view-section" id="sec-curso-ficha">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/portafolio.JPG" alt="Curso"> Curso de mi Ficha</h1>
-          <p>Materiales y resultados de aprendizaje que el administrador cargó para la ficha seleccionada</p>
+                    <p>Materiales y resultados de aprendizaje que el administrador cargó para la ficha seleccionada</p>
         </div>
 
         <div class="notif-card card" id="curso-ficha-datos"></div>
@@ -1789,8 +1748,7 @@ for i in range(1, 11):
       <!-- ══ DIRECTORIO DE LA FICHA ══ -->
       <section class="view-section" id="sec-directorio">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/grupo.svg" alt="Directorio"> Directorio de la Ficha 3293836</h1>
-          <p>Nómina de aprendices matriculados, tomada del Directorio ADSO</p>
+                    <p>Nómina de aprendices matriculados, tomada del Directorio ADSO</p>
         </div>
 
         <div class="notif-card alert card aviso-datos">
@@ -1814,8 +1772,7 @@ for i in range(1, 11):
       <!-- ══ FICHA DE APRENDIZAJE ══ -->
       <section class="view-section" id="sec-ficha-aprendizaje">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/panel.JPG" alt="Avance"> Ficha de Aprendizaje — Resultados</h1>
-          <p>Calificación de resultados. Consulte el avance de sus 30 aprendices, apruebe resultados de aprendizaje y edite la calificación de cada uno.</p>
+                    <p>Calificación de resultados. Consulte el avance de sus 30 aprendices, apruebe resultados de aprendizaje y edite la calificación de cada uno.</p>
         </div>
         <div class="sec-actions">
           <a class="btn btn-action btn-secondary" target="_blank" rel="noopener"
@@ -1828,8 +1785,7 @@ for i in range(1, 11):
       <!-- ══ REPOSITORIO DE LA FICHA ══ -->
       <section class="view-section" id="sec-repositorio">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/organizacion.JPG" alt="Repositorio"> Repositorio de la Ficha 3293836</h1>
-          <p>Análisis y Desarrollo de Software — documentos de la formación organizados por fase</p>
+                    <p>Análisis y Desarrollo de Software — documentos de la formación organizados por fase</p>
         </div>
 
         <div class="repo-barra">
@@ -1855,8 +1811,7 @@ for i in range(1, 11):
       <!-- ══ CONTENIDOS DE LA FICHA (mismo sistema del aprendiz) ══ -->
       <section class="view-section" id="sec-estructura-repo">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/organizacion.JPG" alt="Estructura"> Estructura de Carpetas — ADSO 3293836</h1>
-          <p>RF03 — El árbol del menú reproduce la organización del repositorio de la ficha. Al elegir una carpeta, esta pantalla lista su índice: primero las subcarpetas, después los archivos.</p>
+                    <p>RF03 — El árbol del menú reproduce la organización del repositorio de la ficha. Al elegir una carpeta, esta pantalla lista su índice: primero las subcarpetas, después los archivos.</p>
         </div>
 
         <nav class="estructura-ruta" id="estructura-ruta" aria-label="Ruta de la carpeta"></nav>
@@ -1875,8 +1830,7 @@ for i in range(1, 11):
       </section>
       <section class="view-section" id="sec-guias-gaa">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/guia.svg" alt="Guías"> Guías de Aprendizaje (GAA)</h1>
-          <p>RF03 — Listado de las guías de aprendizaje de la ficha 3293836, en el orden del proyecto formativo. Cada guía abre su documento; la lista de chequeo es el instrumento con el que se verifica su entrega.</p>
+                    <p>RF03 — Listado de las guías de aprendizaje de la ficha 3293836, en el orden del proyecto formativo. Cada guía abre su documento; la lista de chequeo es el instrumento con el que se verifica su entrega.</p>
         </div>
 
         <div class="section-table" style="margin-bottom:20px;">
@@ -1911,8 +1865,7 @@ for i in range(1, 11):
       </section>
       <section class="view-section" id="sec-indice-material">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/contenidos.svg" alt="Índice"> Índice del Material — Fases de Análisis y Planeación</h1>
-          <p>RF03 — El sistema debe presentar, por nombre, el índice del material dispuesto para cada guía de aprendizaje de la ficha 3293836. Es un listado de consulta: dice qué material existe y de qué tipo es, sin abrirlo ni descargarlo.</p>
+                    <p>RF03 — El sistema debe presentar, por nombre, el índice del material dispuesto para cada guía de aprendizaje de la ficha 3293836. Es un listado de consulta: dice qué material existe y de qué tipo es, sin abrirlo ni descargarlo.</p>
         </div>
 
         <div class="section-table" style="margin-bottom:20px;">
@@ -2223,8 +2176,7 @@ for i in range(1, 11):
       <!-- ══ MÓDULO 1: mismo contenido que el panel del aprendiz ══ -->
       <section class="view-section" id="sec-contenido-curso">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/manual.JPG" alt="Manual"> Módulo 1 — Consulta</h1>
-          <p>Estructura del programa organizada según el repositorio de la ficha ADSO 3293836: fases, guías, planes de trabajo, materiales, evidencias y listas de chequeo</p>
+                    <p>Estructura del programa organizada según el repositorio de la ficha ADSO 3293836: fases, guías, planes de trabajo, materiales, evidencias y listas de chequeo</p>
         </div>
 
         <div class="curso-wrap" id="curso-wrap">
@@ -3205,8 +3157,7 @@ for i in range(1, 11):
       </section>
       <section class="view-section" id="sec-materiales">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/contenidos.svg" alt="Contenidos"> Materiales Formativos</h1>
-          <p>RF03 — Consulta documentos, guías, videos y recursos interactivos del programa</p>
+                    <p>RF03 — Consulta documentos, guías, videos y recursos interactivos del programa</p>
         </div>
 
         <div class="section-table" style="margin-bottom:20px;">
@@ -3278,8 +3229,7 @@ for i in range(1, 11):
       </section>
       <section class="view-section" id="sec-caracterizacion">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/guia.svg" alt="Material"> Caracterización de Procesos — Material Disponible</h1>
-          <p>Fase de Análisis · Caracterización de procesos de la empresa. Índice del material que la instructora tiene dispuesto para esta unidad. Este listado es solo de consulta: indica qué existe y de qué tipo es.</p>
+                    <p>Fase de Análisis · Caracterización de procesos de la empresa. Índice del material que la instructora tiene dispuesto para esta unidad. Este listado es solo de consulta: indica qué existe y de qué tipo es.</p>
         </div>
 
         <div class="section-table" style="margin-bottom:20px;">
@@ -3384,8 +3334,7 @@ for i in range(1, 11):
       </section>
       <section class="view-section" id="sec-buscar">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/buscar.JPG" alt="Buscar"> Buscar y Filtrar Contenidos</h1>
-          <p>RF04 — Localiza rápidamente recursos por tema, tipo o unidad de aprendizaje</p>
+                    <p>RF04 — Localiza rápidamente recursos por tema, tipo o unidad de aprendizaje</p>
         </div>
         <div class="search-bar" style="margin-bottom:14px;">
           <input class="form-control" type="text" id="search-input" placeholder="Ej: casos de uso, Python, bases de datos...">
@@ -3405,8 +3354,7 @@ for i in range(1, 11):
       </section>
       <section class="view-section" id="sec-descargar">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/descargar.svg" alt="Descargar"> Descargar Material de Apoyo</h1>
-          <p>RF05 — Descarga los documentos en sus formatos originales directamente a tu dispositivo</p>
+                    <p>RF05 — Descarga los documentos en sus formatos originales directamente a tu dispositivo</p>
         </div>
         <table class="table align-middle downloads-table">
           <thead><tr><th>Documento</th><th>Descripción</th><th>Formato</th><th>Acción</th></tr></thead>
@@ -3421,8 +3369,7 @@ for i in range(1, 11):
       <!-- ══ MÓDULOS FORMATIVOS DE CUATRO PARTES ══ -->
       <section class="view-section" id="sec-modulos-formativos" data-quien="Instructor">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/crear.svg" alt="M&oacute;dulos"> M&oacute;dulos Formativos</h1>
-          <p>Un m&oacute;dulo son cuatro partes &mdash; Contenido, Pr&aacute;ctica, Evaluaci&oacute;n y Evidencia &mdash; con su ficha, su instructor y el resultado de aprendizaje que valida.</p>
+                    <p>Un m&oacute;dulo son cuatro partes &mdash; Contenido, Pr&aacute;ctica, Evaluaci&oacute;n y Evidencia &mdash; con su ficha, su instructor y el resultado de aprendizaje que valida.</p>
         </div>
 
         <div class="section-table" style="margin-bottom:20px;">
@@ -3456,18 +3403,112 @@ for i in range(1, 11):
         <div id="mf-lista"></div>
       </section>
 
-      <!-- ══ MODULO 4 — ROL ADMINISTRADOR (funciones extra de instructor) ══
+      <!-- ══ MÓDULO 4 · CREAR QUIZ/EVALUACIÓN ══
+           Banco de preguntas nuevo (Mongo, server/routes/quizzes.js),
+           única fuente del puntaje ponderado — ver
+           assets/js/evaluacion/quiz-crear-instructor.js. -->
+      <section class="view-section" id="sec-crear-quiz">
+        <div class="sec-header">
+                    <p>Los RA se crean progresivamente (RA1, RA2, RA3...). Cada RAA admite hasta 4 módulos: Quiz de 10
+             preguntas o Evaluación de 30, con preguntas Verdadero/Falso o de 4 opciones con una correcta.</p>
+        </div>
+
+        <div class="card" style="width:100%;margin-bottom:16px;padding:14px;">
+          <div class="d-flex flex-wrap align-items-end gap-2">
+            <div class="form-group" style="min-width:220px;"><label>Puntaje objetivo de esta ficha (100% del curso)</label>
+              <input class="form-control" type="number" id="qc-objetivo-ficha" min="1" value="1000">
+            </div>
+            <button type="button" class="btn btn-action btn-secondary" id="qc-btn-guardar-objetivo">Guardar puntaje objetivo</button>
+            <span class="bloque-nota" id="qc-objetivo-aviso" hidden></span>
+          </div>
+        </div>
+
+        <form id="qc-form" onsubmit="return false;">
+          <div class="form-grid">
+            <div class="form-group"><label>Ficha</label>
+              <select class="form-select" id="qc-ficha-selector"></select>
+            </div>
+            <div class="form-group"><label>RA</label>
+              <input class="form-control" type="number" id="qc-ra" min="1" value="1">
+            </div>
+            <div class="form-group"><label>AA (1-5)</label>
+              <input class="form-control" type="number" id="qc-aa" min="1" max="5" value="1">
+            </div>
+            <div class="form-group"><label>Módulo (1-4)</label>
+              <select class="form-select" id="qc-modulo">
+                <option value="1">Módulo 1</option>
+                <option value="2">Módulo 2</option>
+                <option value="3">Módulo 3</option>
+                <option value="4">Módulo 4</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Tipo</label>
+              <select class="form-select" id="qc-tipo">
+                <option value="quiz">Quiz — 10 preguntas</option>
+                <option value="evaluacion">Evaluación — 30 preguntas</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Límite de tiempo (min)</label>
+              <input class="form-control" type="number" id="qc-tiempo" min="0" value="0" title="0 = sin límite">
+            </div>
+            <div class="form-group"><label>Intentos permitidos</label>
+              <input class="form-control" type="number" id="qc-intentos" min="0" value="0" title="0 = ilimitados">
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
+            <button type="button" class="btn btn-action btn-secondary" id="qc-btn-cargar">Cargar existente</button>
+            <button type="button" class="btn btn-action btn-outline-danger" id="qc-btn-eliminar">Eliminar este módulo</button>
+            <span class="bloque-nota" id="qc-aviso" hidden></span>
+          </div>
+        </form>
+
+        <div class="d-flex flex-wrap gap-2 align-items-center mt-3 mb-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" id="qc-btn-expandir-todas">Expandir todas</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" id="qc-btn-colapsar-todas">Colapsar todas</button>
+        </div>
+        <div id="qc-preguntas-contenedor" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+        <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
+          <button type="button" class="btn btn-action btn-primary" id="qc-btn-guardar">Guardar Quiz</button>
+        </div>
+
+        <hr>
+        <h3>Módulos ya creados</h3>
+        <p class="small text-muted" id="qc-lista-estado">Cargando…</p>
+        <table class="table table-hover align-middle data-table">
+          <thead><tr><th>Ficha</th><th>RAA</th><th>Módulo</th><th>Tipo</th><th>Preguntas</th><th>Puntaje máx.</th><th>Tiempo</th><th>Intentos</th><th>Actualizado</th><th></th></tr></thead>
+          <tbody id="qc-lista-tbody"></tbody>
+        </table>
+      </section>
+
+      <!-- ══ MÓDULO 4 · RESULTADOS DE EVALUACIÓN (instructor) ══
+           Tabla consolidada por aprendiz — ver
+           assets/js/evaluacion/resultados-eval-instructor.js. -->
+      <section class="view-section" id="sec-resultados-eval-inst">
+        <div class="sec-header">
+                    <p>Puntaje ponderado de cada aprendiz sobre el puntaje objetivo asignado a su ficha (ver 4.1 · "Puntaje
+             objetivo de esta ficha"), calculado solo a partir de los módulos creados en 4.1 Crear Quiz/Evaluación.</p>
+        </div>
+        <p class="small text-muted" id="rei-estado">Cargando…</p>
+        <table class="table table-hover align-middle data-table">
+          <thead><tr><th>Aprendiz</th><th>Cédula</th><th>Puntaje / Objetivo</th><th>%</th><th></th></tr></thead>
+          <tbody id="rei-tbody"></tbody>
+        </table>
+        <div id="rei-detalle" class="notif-card" hidden></div>
+      </section>
+
+      <!-- ══ MODULO 5 — ROL ADMINISTRADOR (funciones extra de instructor) ══
            Portado de administrador (2).html: la página real de admin que
            quedó huérfana (administrador.html vigente era solo el monitor
            de SENAEnglish, 136 líneas, vs. las 1245 de esta). El admin ya
            no es una página aparte: es un rol especializado de instructor
-           con estas casillas extra (Módulo 4 en el sidebar). ══ -->
+           con estas casillas extra (Módulo 5 en el sidebar — antes era el
+           4, se corrió al 5 para dejarle el 4 al Quiz/Evaluación nuevo). ══ -->
 
-      <!-- ── 4.1 Gestión de usuarios: consultar ficha o aprendiz (JS real en sofia_plus.js) ── -->
+      <!-- ── 5.1 Gestión de usuarios: consultar ficha o aprendiz (JS real en sofia_plus.js) ── -->
       <section class="view-section" id="sec-listar">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/grupo.svg" alt="Usuarios"> Gestión de Usuarios</h1>
-          <p>Consulta de las fichas a cargo y de los aprendices matriculados en ellas</p>
+                    <p>Consulta de las fichas a cargo y de los aprendices matriculados en ellas</p>
         </div>
 
         <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
@@ -3490,8 +3531,7 @@ for i in range(1, 11):
       <!-- ── 4.1 Crear usuario (maqueta) ── -->
       <section class="view-section" id="sec-crear-usuario">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/crear.svg" alt="Crear"> Crear nuevo usuario</h1>
-          <p>RF01 — Complete todos los campos obligatorios (*). La cuenta quedará registrada con auditoría.</p>
+                    <p>RF01 — Complete todos los campos obligatorios (*). La cuenta quedará registrada con auditoría.</p>
         </div>
         <form onsubmit="return false;">
           <div class="form-grid">
@@ -3531,8 +3571,7 @@ for i in range(1, 11):
       <!-- ── 4.1 Buscar usuario (maqueta) ── -->
       <section class="view-section" id="sec-buscar-usuario">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/buscar.JPG" alt="Buscar"> Buscar Usuario</h1>
-          <p>RF01 — Filtra por nombre, correo, rol o estado</p>
+                    <p>RF01 — Filtra por nombre, correo, rol o estado</p>
         </div>
         <div class="search-bar" style="margin-bottom:16px;">
           <input class="form-control" type="text" placeholder="Buscar por nombre, correo o número de documento...">
@@ -3558,8 +3597,7 @@ for i in range(1, 11):
       <!-- ── 4.2 Autenticación y control de acceso: asignar instructor + clave (JS real en sofia_plus.js) ── -->
       <section class="view-section" id="sec-asignar-instructor">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/pizarra.JPG" alt="Instructor"> Autenticación y Control de Acceso</h1>
-          <p>Asigna cada ficha a un instructor titular con su clave de ingreso; una asignación nueva releva a la anterior</p>
+                    <p>Asigna cada ficha a un instructor titular con su clave de ingreso; una asignación nueva releva a la anterior</p>
         </div>
 
         <form id="form-instructor" novalidate>
@@ -3599,8 +3637,7 @@ for i in range(1, 11):
       <!-- ── 4.3 Configuración General (maqueta) ── -->
       <section class="view-section" id="sec-config">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/configuracion.svg" alt="Configuración"> Configuración General</h1>
-          <p>Parámetros globales del sistema SGMA-ADSO</p>
+                    <p>Parámetros globales del sistema SGMA-ADSO</p>
         </div>
         <form onsubmit="return false;">
           <div class="form-grid">
@@ -3623,8 +3660,7 @@ for i in range(1, 11):
       <!-- ── 4.3 Parámetros del sistema + ingreso de usuarios en tiempo real (JS real en sofia_plus.js) ── -->
       <section class="view-section" id="sec-parametros">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/SENA/herramientas.JPG" alt="Mantenimiento"> Parámetros del Sistema</h1>
-          <p>Variables de configuración interna del SGMA-ADSO</p>
+                    <p>Variables de configuración interna del SGMA-ADSO</p>
         </div>
         <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
           <button class="btn btn-action btn-primary" onclick="alert('Nuevo parámetro (simulación)')">➕ Agregar parámetro</button>
@@ -3659,8 +3695,7 @@ for i in range(1, 11):
            de instructor.html — mismo patrón que sec-ficha-aprendizaje. ── -->
       <section class="view-section" id="sec-monitor-senaenglish">
         <div class="sec-header">
-          <h1><img class="ico ico-h1" src="../assets/img/iconos/grupo.svg" alt="Monitor"> Monitor en Vivo — SENAEnglish</h1>
-          <p>Participantes conectados, ranking e historial de la evaluación de inglés en tiempo real.</p>
+                    <p>Participantes conectados, ranking e historial de la evaluación de inglés en tiempo real.</p>
         </div>
         <div class="sec-actions">
           <a class="btn btn-action btn-secondary" target="_blank" rel="noopener"
@@ -3755,11 +3790,13 @@ for i in range(1, 11):
   <script src="../assets/js/evaluacion/ra-cards-render.js"></script>
   <script src="../assets/js/evaluacion/ra-cards-instructor.js"></script>
   <script src="../assets/js/evaluacion/actividad-aprendizaje.js"></script>
+  <script src="../assets/js/evaluacion/quiz-crear-instructor.js"></script>
+  <script src="../assets/js/evaluacion/resultados-eval-instructor.js"></script>
 
   <script>
     if (new URLSearchParams(window.location.search).get('admin') === '1') {
-      const menuModulo4 = document.getElementById('menu-modulo-4');
-      if (menuModulo4) menuModulo4.hidden = false;
+      const menuModulo5 = document.getElementById('menu-modulo-5');
+      if (menuModulo5) menuModulo5.hidden = false;
 
       /* Crear ficha de aprendizaje virtual: exclusiva del instructor
          administrador, no de un instructor cualquiera (ver 1.2). */

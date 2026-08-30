@@ -13,9 +13,6 @@
 
 const API_BASE_RA = '/api';
 const PORCENTAJE_APROBACION_RA = 70;
-// ADSO tiene 72 RA; English Coding solo tiene 5 (pages/Fichas Tecnicos y
-// tecnologos/English coding/RA1..RA5) — el tope se ajusta por ficha.
-const TOTAL_RA_POR_FICHA = { adso: 72, english: 5 };
 const NOMBRE_FICHA_RA = { adso: 'Análisis y Desarrollo de Software', english: 'English Coding' };
 
 /* Las únicas actividades con secciones propias hoy, dentro de la ficha
@@ -102,7 +99,7 @@ async function cargarProgresoRA() {
       fetch(API_BASE_RA + '/acceso/' + encodeURIComponent(cedula)).then(r => r.json()),
     ]);
   } catch (e) {
-    resumen.textContent = 'No se pudo conectar con el servidor de reportes (npm run start:adso).';
+    resumen.textContent = 'No se pudo conectar con el servidor de reportes.';
     return;
   }
 
@@ -111,7 +108,10 @@ async function cargarProgresoRA() {
   const desbloqueados = (acceso.unlocked || []).slice().sort((a, b) => a - b);
 
   // Agrupado por ficha+RA+AA: cada AA trae la lista de sus M (hasta 4).
+  // Los RA de cada ficha se derivan del catálogo real (progresivos:
+  // RA1, RA2, RA3...) — no hay un total fijo por ficha.
   const porFichaYRA = new Map();
+  const raIdsPorFicha = new Map();
   catalogo.forEach(a => {
     if (!fichas.includes(a.ficha)) return;
     const clave = a.ficha + '-' + a.raId;
@@ -119,6 +119,9 @@ async function cargarProgresoRA() {
     const porAA = porFichaYRA.get(clave);
     if (!porAA.has(a.actividadIndex)) porAA.set(a.actividadIndex, []);
     porAA.get(a.actividadIndex).push(a);
+
+    if (!raIdsPorFicha.has(a.ficha)) raIdsPorFicha.set(a.ficha, new Set());
+    raIdsPorFicha.get(a.ficha).add(a.raId);
   });
 
   /* Igual que footer-progreso.js: el % general solo cuenta las RA
@@ -133,7 +136,8 @@ async function cargarProgresoRA() {
   tbody.innerHTML = '';
 
   fichas.forEach(ficha => {
-    const totalRA = TOTAL_RA_POR_FICHA[ficha] || 72;
+    const raIdsFicha = raIdsPorFicha.get(ficha);
+    const totalRA = raIdsFicha && raIdsFicha.size ? Math.max(...raIdsFicha) : 0;
     const desbloqueadosDeEstaFicha = desbloqueados.filter(ra => ra <= totalRA);
     let aprobadasEnFicha = 0;
 
