@@ -157,6 +157,7 @@ async function agregarRARapidoQC() {
   aviso.style.color = '#278238';
 
   const ficha = document.getElementById('qcr-ficha-selector').value || 'adso';
+  const intentosPermitidos = Number(document.getElementById('qcr-intentos').value) || 0;
   const planes = [1, 2, 3, 4].map(m => ({
     modulo: m,
     n: Number(document.getElementById(`qcr-m${m}-n`).value),
@@ -165,6 +166,11 @@ async function agregarRARapidoQC() {
 
   if (planes.some(p => !Number.isInteger(p.n) || p.n < 1 || !Number.isInteger(p.puntos) || p.puntos < 1)) {
     aviso.textContent = 'Cada módulo necesita un número de preguntas y unos puntos totales válidos (enteros ≥ 1).';
+    aviso.style.color = '#c0392b';
+    return;
+  }
+  if (intentosPermitidos < 0) {
+    aviso.textContent = 'Los intentos permitidos no pueden ser negativos (0 = ilimitados).';
     aviso.style.color = '#c0392b';
     return;
   }
@@ -179,7 +185,7 @@ async function agregarRARapidoQC() {
         body: JSON.stringify({
           ficha, raId, aa: 1, modulo: plan.modulo, tipo: 'evaluacion',
           preguntas: preguntasEjemploQC(plan.modulo, plan.n, plan.puntos),
-          limiteTiempoMinutos: 0, intentosPermitidos: 0,
+          limiteTiempoMinutos: 0, intentosPermitidos,
           creadoPor: doc || 'instructor',
         }),
       });

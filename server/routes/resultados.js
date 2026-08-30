@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const Aprendiz = require("../models/Aprendiz");
 const Resultado = require("../models/Resultado");
+const Quiz = require("../models/Quiz");
+
+// Reconoce el cuestionarioId que arma server/routes/quizzes.js
+// (`${ficha}-ra-${raId}-aa-${aa}-mod-${modulo}`) para poder mirar, solo en
+// ese caso, si ese módulo tiene un tope de intentos configurado.
+const PATRON_CUESTIONARIO_QUIZ = /^(.+)-ra-(\d+)-aa-(\d+)-mod-(\d+)$/;
 
 // Guarda el resultado de un cuestionario resuelto dentro de un módulo.
 // Crea el aprendiz si todavía no existía (mismo criterio que el ingreso).
@@ -19,6 +25,29 @@ router.post("/", async (req, res) => {
       { nombre, cedula },
       { new: true, upsert: true, runValidators: true }
     );
+
+    // El tope de intentos que fija el instructor (server/routes/quizzes.js)
+    // antes solo se respetaba en el navegador (quiz-dinamico-presentar.js) —
+    // cualquiera que llamara a esta API directo podía saltárselo y seguir
+    // sumando al score. Ahora, si el cuestionario corresponde a un módulo de
+    // ese banco de preguntas con un tope configurado, se hace cumplir aquí
+    // también, sea cual sea el cliente que reporte el resultado.
+    const coincidencia = String(cuestionario).match(PATRON_CUESTIONARIO_QUIZ);
+    if (coincidencia) {
+      const [, ficha, raId, aa, moduloQuiz] = coincidencia;
+      const quiz = await Quiz.findOne(
+        { ficha, raId: Number(raId), aa: Number(aa), modulo: Number(moduloQuiz) },
+        "intentosPermitidos"
+      ).lean();
+      if (quiz && quiz.intentosPermitidos > 0) {
+        const intentosUsados = await Resultado.countDocuments({ aprendiz: aprendiz._id, cuestionario });
+        if (intentosUsados >= quiz.intentosPermitidos) {
+          return res.status(403).json({
+            error: `Ya usaste tus ${quiz.intentosPermitidos} intento(s) permitido(s) para este módulo.`,
+          });
+        }
+      }
+    }
 
     const resultado = await Resultado.create({
       aprendiz: aprendiz._id,

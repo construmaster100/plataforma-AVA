@@ -3429,9 +3429,11 @@ for i in range(1, 11):
             <div class="d-flex align-items-center gap-2">
               <label class="mb-0 small text-muted" for="qcr-ficha-selector">Ficha</label>
               <select class="form-select form-select-sm" id="qcr-ficha-selector" style="width:auto;"></select>
+              <label class="mb-0 small text-muted" for="qcr-intentos" title="0 = ilimitados">Intentos permitidos</label>
+              <input class="form-control form-control-sm" type="number" id="qcr-intentos" min="0" value="0" style="width:80px;" title="0 = ilimitados">
             </div>
           </div>
-          <p class="bloque-nota">Con preguntas de ejemplo — luego edítalas una por una en el formulario de abajo. Misma tarjeta que ve el aprendiz al presentar, aquí enfocada en crear.</p>
+          <p class="bloque-nota">Con preguntas de ejemplo — luego edítalas una por una en el formulario de abajo. Misma tarjeta que ve el aprendiz al presentar, aquí enfocada en crear. Solo el instructor fija los intentos; el servidor los hace cumplir, no solo el navegador.</p>
 
           <div class="d-flex flex-wrap gap-2">
             <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
