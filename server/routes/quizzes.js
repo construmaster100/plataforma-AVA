@@ -89,11 +89,14 @@ router.get("/puntaje/:cedula", async (req, res) => {
 
     const aprendiz = await Aprendiz.findOne({ cedula }).lean();
     const historial = aprendiz
-      ? await Resultado.find({ aprendiz: aprendiz._id }).sort({ createdAt: -1 }).lean()
+      ? await Resultado.find({ aprendiz: aprendiz._id }).lean()
       : [];
-    const ultimoPorCuestionario = new Map();
+    // Se queda con el MEJOR puntaje de cada cuestionario, no el más reciente:
+    // más intentos solo pueden ayudar, nunca bajar el puntaje ya ganado.
+    const mejorPorCuestionario = new Map();
     historial.forEach((r) => {
-      if (!ultimoPorCuestionario.has(r.cuestionario)) ultimoPorCuestionario.set(r.cuestionario, r);
+      const previo = mejorPorCuestionario.get(r.cuestionario);
+      if (!previo || r.puntaje > previo.puntaje) mejorPorCuestionario.set(r.cuestionario, r);
     });
 
     const porRAA = new Map();
@@ -123,10 +126,10 @@ router.get("/puntaje/:cedula", async (req, res) => {
       const modulosDetalle = raa.modulos.map((m) => {
         const max = m.puntajeMaximo;
         maxRAA += max;
-        const ultimo = ultimoPorCuestionario.get(cuestionarioId(raa.ficha, raa.raId, raa.aa, m.modulo));
-        const aciertos = ultimo ? ultimo.puntaje : 0;
+        const mejor = mejorPorCuestionario.get(cuestionarioId(raa.ficha, raa.raId, raa.aa, m.modulo));
+        const aciertos = mejor ? mejor.puntaje : 0;
         aciertosRAA += aciertos;
-        return { modulo: m.modulo, tipo: m.tipo, maxPuntaje: max, aciertos, presentado: Boolean(ultimo) };
+        return { modulo: m.modulo, tipo: m.tipo, maxPuntaje: max, aciertos, presentado: Boolean(mejor) };
       });
 
       const fraccion = maxRAA > 0 ? aciertosRAA / maxRAA : 0;
