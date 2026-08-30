@@ -52,9 +52,11 @@ function pintarCardRAAQD(raId, aa, quizzesRAA, ultimos, params) {
   });
   const conContenido = estados.filter(Boolean);
   const aprobados = conContenido.filter(e => e.aprobado).length;
+  const raCompleta = conContenido.length > 0 && aprobados === conContenido.length;
 
   const card = document.createElement('div');
   card.className = 'card content-card';
+  card.dataset.completo = raCompleta ? '1' : '0';
   card.style.cssText = 'margin-bottom:18px;padding:18px;width:100%;background:#f4f4f4;';
 
   const encabezado = document.createElement('div');
@@ -299,6 +301,21 @@ async function cargarQuizDinamicoPresentar() {
   estado.textContent = raaListados
     ? `${raaListados} RAA desbloqueado(s) disponibles para presentar.`
     : 'Todavía no hay RAA con módulos creados y desbloqueados para ti.';
+
+  const bloqueProgreso = document.getElementById('qd-progreso-general');
+  if (bloqueProgreso) {
+    if (!raaListados) {
+      bloqueProgreso.hidden = true;
+    } else {
+      bloqueProgreso.hidden = false;
+      const completados = contenedor.querySelectorAll('[data-completo="1"]').length;
+      const porcentaje = Math.round((completados / raaListados) * 100);
+      document.getElementById('qd-progreso-general-texto').textContent = `${completados} / ${raaListados} RAA completados`;
+      const bar = document.getElementById('qd-progreso-general-bar');
+      bar.style.width = porcentaje + '%';
+      bar.setAttribute('aria-valuenow', String(porcentaje));
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
