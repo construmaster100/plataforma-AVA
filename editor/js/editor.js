@@ -80,6 +80,10 @@ async function aclDescargar() {
   URL.revokeObjectURL(url);
 }
 
+function aclRefrescarTodos() {
+  Object.values(window.aclEditores).forEach(editor => editor && editor.refresh());
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   window.aclEditores.html = aclCrearEditor('html');
   window.aclEditores.css = aclCrearEditor('css');
@@ -92,4 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('acl-btn-reset').addEventListener('click', aclReset);
   document.getElementById('acl-btn-download').addEventListener('click', aclDescargar);
+
+  // Si este documento se cargó dentro de un iframe que todavía no tenía
+  // su tamaño final asignado (ej: la sección padre pasando de display:none
+  // a block justo en este instante), CodeMirror calculó su alto/ancho
+  // sobre un contenedor de 0x0. Un par de refrescos, ya con el layout
+  // asentado, corrige eso sin depender de que el padre avise nada.
+  window.addEventListener('load', aclRefrescarTodos);
+  setTimeout(aclRefrescarTodos, 300);
+  window.addEventListener('resize', aclRefrescarTodos);
 });
