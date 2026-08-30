@@ -62,23 +62,23 @@ function poblarFiltrosCM() {
 /* ── Visores por tipo de material ── */
 
 function visorVideoCM(item) {
-  return '<video controls style="width:100%;max-height:50vh;border-radius:8px;background:#000;">' +
+  return '<video controls style="width:100%;max-height:70vh;border-radius:8px;background:#000;">' +
     '<source src="' + item.url + '">Tu navegador no soporta video HTML5.</video>';
 }
 function alternarZoomImagenCM(img) {
   const ampliada = img.dataset.ampliada === '1';
   img.dataset.ampliada = ampliada ? '0' : '1';
-  img.style.maxHeight = ampliada ? '50vh' : '85vh';
+  img.style.maxHeight = ampliada ? '65vh' : '90vh';
   img.style.cursor = ampliada ? 'zoom-in' : 'zoom-out';
 }
 function visorImagenCM(item) {
   return '<img src="' + item.url + '" alt="' + item.nombre + '" data-ampliada="0" ' +
-    'style="max-width:100%;max-height:50vh;border-radius:8px;cursor:zoom-in;display:block;margin:0 auto;transition:max-height .2s ease;" ' +
+    'style="max-width:100%;max-height:65vh;border-radius:8px;cursor:zoom-in;display:block;margin:0 auto;transition:max-height .2s ease;" ' +
     'onclick="alternarZoomImagenCM(this)">';
 }
 function visorDocumentoCM(item) {
   return '<iframe src="' + item.url + '" title="' + item.nombre + '" ' +
-    'style="width:100%;height:50vh;border:1px solid #ddd;border-radius:8px;background:#fff;"></iframe>';
+    'style="width:100%;height:70vh;border:1px solid #ddd;border-radius:8px;background:#fff;"></iframe>';
 }
 function visorIframeVideoCM(item) {
   return '<div style="position:relative;padding-bottom:56.25%;height:0;">' +
@@ -157,8 +157,10 @@ function pintarMaterialActual(item) {
   }
 
   acciones.innerHTML = item.descargable !== false
-    ? '<a class="btn btn-action btn-secondary" href="' + item.url + '" download target="_blank" rel="noopener">⬇ Descargar</a>'
-    : '<span class="small text-muted">Descarga no permitida para este material.</span>';
+    ? '<div class="d-grid gap-2 col-md-6 mx-auto mt-3">' +
+        '<a class="btn btn-lg btn-success" href="' + item.url + '" download target="_blank" rel="noopener">⬇ Descargar material</a>' +
+      '</div>'
+    : '<p class="small text-muted text-center mt-3">Descarga no permitida para este material.</p>';
 
   if (esInstructorCM()) {
     document.getElementById('cm-form-ra').value = item.ra;

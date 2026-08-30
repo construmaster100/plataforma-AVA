@@ -73,17 +73,22 @@ function pintarChequeoActual(item) {
     '<h3 class="mb-1">' + item.nombre + '</h3>' +
     '<p class="small text-muted mb-2">' + item.ra + ' · ' + item.ga + '</p>' +
     '<iframe src="' + item.url + '" title="' + item.nombre + '" ' +
-      'style="width:100%;height:45vh;border:1px solid #ddd;border-radius:8px;background:#fff;"></iframe>';
+      'style="width:100%;height:60vh;border:1px solid #ddd;border-radius:8px;background:#fff;"></iframe>';
 
-  let accionesHtml = '<a class="btn btn-action btn-secondary" href="' + item.url + '" download target="_blank" rel="noopener">⬇ Descargar</a>';
+  let accionesHtml =
+    '<div class="d-grid gap-2 col-md-6 mx-auto mt-3">' +
+      '<a class="btn btn-lg btn-success" href="' + item.url + '" download target="_blank" rel="noopener">⬇ Descargar lista</a>' +
+    '</div>';
 
   if (!esInstructorCC()) {
     const entrega = getEntregaChequeo(item.id);
     accionesHtml +=
-      '<div class="mt-3">' +
+      '<div class="col-md-6 mx-auto mt-4">' +
         '<label class="form-label small">Cargar lista diligenciada (máx. 4 MB)</label>' +
-        '<input type="file" class="form-control form-control-sm" id="cc-form-entrega" style="max-width:320px;">' +
-        '<button type="button" class="btn btn-sm btn-action btn-primary mt-2" id="cc-btn-entregar">📤 Entregar</button>' +
+        '<div class="input-group">' +
+          '<input type="file" class="form-control" id="cc-form-entrega">' +
+          '<button type="button" class="btn btn-primary" id="cc-btn-entregar">📤 Entregar</button>' +
+        '</div>' +
         '<p class="small text-muted mt-1" id="cc-entrega-estado">' +
           (entrega ? 'Entregada el ' + new Date(entrega.fecha).toLocaleString() + ' (' + entrega.nombreArchivo + ')' : 'Todavía no la has entregado.') +
         '</p>' +

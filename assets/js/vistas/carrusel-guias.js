@@ -78,9 +78,11 @@ function pintarGuiaActual(item) {
     '<h3 class="mb-1">' + item.nombre + '</h3>' +
     '<p class="small text-muted mb-2">' + item.ra + ' · ' + item.ga + '</p>' +
     '<iframe src="' + item.url + '" title="' + item.nombre + '" ' +
-      'style="width:100%;height:50vh;border:1px solid #ddd;border-radius:8px;background:#fff;"></iframe>';
+      'style="width:100%;height:70vh;border:1px solid #ddd;border-radius:8px;background:#fff;"></iframe>';
   acciones.innerHTML =
-    '<a class="btn btn-action btn-secondary" href="' + item.url + '" download target="_blank" rel="noopener">⬇ Descargar</a>';
+    '<div class="d-grid gap-2 col-md-6 mx-auto mt-3">' +
+      '<a class="btn btn-lg btn-success" href="' + item.url + '" download target="_blank" rel="noopener">⬇ Descargar guía</a>' +
+    '</div>';
 
   if (esInstructorCG()) {
     document.getElementById('cg-form-ra').value = item.ra;
