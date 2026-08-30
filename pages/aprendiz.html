@@ -2981,9 +2981,8 @@
         <div class="sec-header">
           <p>Practica HTML, CSS y JavaScript con visualización inmediata del resultado. Editor independiente: lo que escribas aquí no se guarda en tu cuenta, solo en esta pestaña — usa "Download" para llevarte tu código.</p>
         </div>
-        <iframe class="marco-ra" title="AVA Code Lab" loading="lazy"
-                style="width:100%;height:78vh;border:0;border-radius:12px;"
-                src="../editor/index.html"></iframe>
+        <iframe class="marco-ra" id="code-lab-frame" title="AVA Code Lab"
+                style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
       </section>
 
       <!-- ══ DASHBOARD ACADÉMICO ══ -->
@@ -5050,6 +5049,20 @@
       const el = document.getElementById(id);
       if (el) el.style.display = 'block';
     }
+
+    /* AVA Code Lab (5.1): el iframe no trae src de fábrica — si se
+       carga con la sección oculta (display:none), CodeMirror calcula
+       su tamaño sobre un contenedor de 0x0 y el editor queda roto.
+       Se le pone el src recién cuando el usuario abre la sección de
+       verdad. */
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('[data-view="sec-code-lab"]').forEach(enlace => {
+        enlace.addEventListener('click', () => {
+          const frame = document.getElementById('code-lab-frame');
+          if (frame && !frame.getAttribute('src')) frame.src = '../editor/index.html';
+        });
+      });
+    });
 
     /* ── Submenú desplegable de Contenido del curso ──
        Cada entrada salta a su bloque de la vista y lo abre; las que
