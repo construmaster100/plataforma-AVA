@@ -180,12 +180,11 @@ router.post("/", async (req, res) => {
     if (Number(modulo) < 1 || Number(modulo) > 4) {
       return res.status(400).json({ error: "modulo debe estar entre 1 y 4" });
     }
-    const requeridas = PREGUNTAS_REQUERIDAS_POR_TIPO[tipo];
-    if (!requeridas) {
-      return res.status(400).json({ error: 'tipo debe ser "quiz" (10 preguntas) o "evaluacion" (30 preguntas)' });
+    if (!PREGUNTAS_REQUERIDAS_POR_TIPO[tipo]) {
+      return res.status(400).json({ error: 'tipo debe ser "quiz" o "evaluacion"' });
     }
-    if (preguntas.length !== requeridas) {
-      return res.status(400).json({ error: `${tipo} debe tener exactamente ${requeridas} preguntas` });
+    if (preguntas.length < 1) {
+      return res.status(400).json({ error: "debe incluir al menos una pregunta" });
     }
     if (limiteTiempoMinutos < 0 || intentosPermitidos < 0) {
       return res.status(400).json({ error: "limiteTiempoMinutos e intentosPermitidos no pueden ser negativos" });

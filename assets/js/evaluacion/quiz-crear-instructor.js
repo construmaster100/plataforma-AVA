@@ -116,15 +116,85 @@ function generarFilasPreguntas(n, presets) {
 function poblarSelectorFichaQC() {
   const doc = new URLSearchParams(window.location.search).get('doc');
   const fichas = typeof fichasDeInstructor === 'function' ? fichasDeInstructor(doc) : ['adso'];
-  const selector = document.getElementById('qc-ficha-selector');
-  if (selector.options.length) return;
   const nombres = { adso: 'Análisis y Desarrollo de Software', english: 'English Coding' };
-  fichas.forEach(f => {
-    const opt = document.createElement('option');
-    opt.value = f;
-    opt.textContent = nombres[f] || f;
-    selector.appendChild(opt);
+  ['qc-ficha-selector', 'qcr-ficha-selector'].forEach(id => {
+    const selector = document.getElementById(id);
+    if (!selector || selector.options.length) return;
+    fichas.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value = f;
+      opt.textContent = nombres[f] || f;
+      selector.appendChild(opt);
+    });
   });
+}
+
+/* ── Agregar RA rápido: crea los 4 módulos de un RA nuevo de una vez, con
+   preguntas de ejemplo (a editar después una por una arriba) — mismo
+   patrón que seed-ejemplo-modulo4.js, pero desde el propio panel. ── */
+function preguntasEjemploQC(modulo, n, puntosTotal) {
+  const base = Math.floor(puntosTotal / n);
+  const resto = puntosTotal - base * n;
+  return Array.from({ length: n }, (_, i) => ({
+    texto: `[Ejemplo] Pregunta ${i + 1} del Módulo ${modulo} — reemplázala con contenido real`,
+    tipo: 'opciones',
+    opciones: ['Opción A (ejemplo)', 'Opción B (ejemplo)', 'Opción C (ejemplo)', 'Opción D (ejemplo)'],
+    respuestaCorrecta: 0,
+    puntos: base + (i === n - 1 ? resto : 0),
+  }));
+}
+
+async function proximoRaIdQC(ficha) {
+  const lista = await (await fetch(API_BASE_QC + '/quizzes')).json();
+  const idsFicha = lista.filter(q => q.ficha === ficha).map(q => q.raId);
+  return idsFicha.length ? Math.max(...idsFicha) + 1 : 1;
+}
+
+async function agregarRARapidoQC() {
+  const aviso = document.getElementById('qcr-aviso');
+  aviso.hidden = false;
+  aviso.textContent = 'Creando…';
+  aviso.style.color = '#278238';
+
+  const ficha = document.getElementById('qcr-ficha-selector').value || 'adso';
+  const planes = [1, 2, 3, 4].map(m => ({
+    modulo: m,
+    n: Number(document.getElementById(`qcr-m${m}-n`).value),
+    puntos: Number(document.getElementById(`qcr-m${m}-pts`).value),
+  }));
+
+  if (planes.some(p => !Number.isInteger(p.n) || p.n < 1 || !Number.isInteger(p.puntos) || p.puntos < 1)) {
+    aviso.textContent = 'Cada módulo necesita un número de preguntas y unos puntos totales válidos (enteros ≥ 1).';
+    aviso.style.color = '#c0392b';
+    return;
+  }
+
+  try {
+    const raId = await proximoRaIdQC(ficha);
+    const doc = new URLSearchParams(window.location.search).get('doc');
+    for (const plan of planes) {
+      const resp = await fetch(API_BASE_QC + '/quizzes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ficha, raId, aa: 1, modulo: plan.modulo, tipo: 'evaluacion',
+          preguntas: preguntasEjemploQC(plan.modulo, plan.n, plan.puntos),
+          limiteTiempoMinutos: 0, intentosPermitidos: 0,
+          creadoPor: doc || 'instructor',
+        }),
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(`Módulo ${plan.modulo}: ${err.error || 'no se pudo crear'}`);
+      }
+    }
+    aviso.textContent = `RA-${String(raId).padStart(2, '0')} creado con sus 4 módulos (con preguntas de ejemplo — edítalas abajo).`;
+    aviso.style.color = '#278238';
+    cargarListaQC();
+  } catch (e) {
+    aviso.textContent = 'No se pudo crear el RA: ' + e.message;
+    aviso.style.color = '#c0392b';
+  }
 }
 
 async function cargarObjetivoFichaQC() {
@@ -298,6 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('qc-ficha-selector').addEventListener('change', cargarObjetivoFichaQC);
   document.getElementById('qc-btn-guardar-objetivo').addEventListener('click', guardarObjetivoFichaQC);
+  document.getElementById('qcr-btn-crear').addEventListener('click', agregarRARapidoQC);
 
   document.getElementById('qc-btn-cargar').addEventListener('click', cargarExistenteQC);
   document.getElementById('qc-btn-guardar').addEventListener('click', guardarQuizQC);
