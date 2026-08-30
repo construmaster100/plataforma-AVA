@@ -1,8 +1,17 @@
 /* ==========================================================================
    Script de una sola vez: crea 2 RA de ejemplo (4 módulos cada uno) para la
-   ficha "adso" y reporta resultados ya obtenidos por dos aprendices reales
-   de la nómina (Miguel Arturo Castro Pacheco y Mauro Alexandro Cative
-   Garcia), para tener un ejemplo funcionando de punta a punta en Módulo 4.
+   ficha "adso" y reporta resultados ya obtenidos por tres casos de prueba
+   (dos aprendices reales de la nómina y una cuenta de prueba sintética),
+   para tener un ejemplo funcionando de punta a punta en Módulo 4.
+
+   Casos de prueba:
+     · usuario1                      — cédula 12341234 (cuenta sintética,
+       fuera de la nómina real: no aparece en "4.2 Resultados de evaluación"
+       del instructor, que solo recorre REGISTRO_FICHA1 — sí es consultable
+       directo por /api/quizzes/puntaje/12341234 y en aprendiz.html con
+       ?doc=12341234 en la URL).
+     · Miguel Arturo Castro Pacheco  — cédula 1049634950 (nómina real)
+     · Mauro Alexandro Cative Garcia — cédula 1002687505 (nómina real)
 
    No pisa contenido existente: detecta el último RA con módulos creados
    en "adso" y usa los dos siguientes números libres. Sí fija (o sobrescribe)
@@ -24,6 +33,7 @@ const FICHA = 'adso';
 const AA = 1;
 
 const APRENDICES = [
+  { cedula: '12341234', nombre: 'usuario1' },
   { cedula: '1049634950', nombre: 'Miguel Arturo Castro Pacheco' },
   { cedula: '1002687505', nombre: 'Mauro Alexandro Cative Garcia' },
 ];
@@ -74,18 +84,19 @@ async function reportar(cedula, nombre, raId, modulo, aciertos, puntos) {
   return puntaje;
 }
 
-// [tipo, puntosPorPregunta, aciertos Miguel de 10 (o 30 en M4), aciertos Mauro]
+// [tipo, puntosPorPregunta, aciertos usuario1, aciertos Miguel, aciertos Mauro]
+// (de 10 preguntas en quiz, de 30 en evaluación — módulo 4)
 const PLAN_RA_A = [
-  ['quiz', 2, 9, 6],
-  ['quiz', 1, 10, 7],
-  ['quiz', 3, 8, 5],
-  ['evaluacion', 1, 25, 18],
+  ['quiz', 2, 8, 9, 6],
+  ['quiz', 1, 6, 10, 7],
+  ['quiz', 3, 9, 8, 5],
+  ['evaluacion', 1, 20, 25, 18],
 ];
 const PLAN_RA_B = [
-  ['quiz', 1, 10, 9],
-  ['quiz', 2, 9, 4],
-  ['quiz', 1, 7, 10],
-  ['quiz', 2, 10, 6],
+  ['quiz', 1, 7, 10, 9],
+  ['quiz', 2, 8, 9, 4],
+  ['quiz', 1, 5, 7, 10],
+  ['quiz', 2, 9, 10, 6],
 ];
 
 async function crearRA(raId, plan) {
@@ -101,10 +112,14 @@ async function crearRA(raId, plan) {
 
   for (let i = 0; i < 4; i++) {
     const modulo = i + 1;
-    const [, puntos, aciertosMiguel, aciertosMauro] = plan[i];
-    const pMiguel = await reportar(APRENDICES[0].cedula, APRENDICES[0].nombre, raId, modulo, aciertosMiguel, puntos);
-    const pMauro = await reportar(APRENDICES[1].cedula, APRENDICES[1].nombre, raId, modulo, aciertosMauro, puntos);
-    console.log(`  Módulo ${modulo}: Miguel ${pMiguel} pts · Mauro ${pMauro} pts`);
+    const [, puntos, ...aciertosPorAprendiz] = plan[i];
+    const resultados = [];
+    for (let j = 0; j < APRENDICES.length; j++) {
+      const a = APRENDICES[j];
+      const pts = await reportar(a.cedula, a.nombre, raId, modulo, aciertosPorAprendiz[j], puntos);
+      resultados.push(`${a.nombre.split(' ')[0]} ${pts} pts`);
+    }
+    console.log(`  Módulo ${modulo}: ${resultados.join(' · ')}`);
   }
 }
 
@@ -132,5 +147,6 @@ const PUNTAJE_OBJETIVO_EJEMPLO = 500;
 
   console.log('\n=== Listo ===');
   console.log(`Revisa "4.2 Resultados de evaluación" en instructor.html (busca a Miguel Arturo Castro Pacheco`);
-  console.log(`y Mauro Alexandro Cative Garcia) y en aprendiz.html entrando con cada cédula.`);
+  console.log(`y Mauro Alexandro Cative Garcia — usuario1 no aparece ahí por no ser de la nómina real,`);
+  console.log(`pero sí responde GET ${API}/quizzes/puntaje/12341234) y en aprendiz.html con ?doc=<cédula>.`);
 })().catch(e => { console.error('FALLÓ:', e.message); process.exit(1); });
