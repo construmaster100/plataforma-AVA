@@ -11,15 +11,20 @@
        Cada mensaje ajeno entra además como notificación
        («Mensaje de Aprendiz 1», «Mensaje de la instructora»).
 
-   Sobre el «tiempo real»: no hay servidor. Lo que sí
-   funciona de verdad es entre pestañas del mismo navegador,
-   gracias al evento «storage» de localStorage: si abres el
-   panel del aprendiz en una pestaña y el de la instructora
-   en otra, lo que escriba una le llega a la otra al
-   instante. Entre equipos distintos haría falta un backend.
+   Sobre el «tiempo real»: ya no depende solo del navegador. Lo que
+   escribes se guarda primero en localStorage (por eso entre pestañas
+   del mismo navegador sigue siendo instantáneo, vía el evento
+   «storage»), y en paralelo se manda a POST /api/mensajes
+   (server/routes/mensajes.js), que sí persiste entre equipos
+   distintos. Si el correo real del destinatario se conoce (hoy solo
+   para aprendices, vía DIRECTORIO — ver assets/js/estado/aprendices.js,
+   cargado solo en instructor.html), el servidor además dispara una
+   notificación por email real. Es best-effort: si el servidor no
+   responde, el mensaje ya quedó guardado en localStorage igual.
 
    Depende de:
      · ficha.js → leerAlmacen, guardarAlmacen
+     · aprendices.js → DIRECTORIO (opcional, solo en instructor.html)
 ══════════════════════════════════════════ */
 
 const CLAVE_CORREOS = 'sgma_correos';
@@ -39,6 +44,33 @@ function yoSoy() {
   if (rol === 'Instructora') return { rol: rol, nombre: 'Zulma Salas' };
   if (rol === 'Administrador') return { rol: rol, nombre: 'Administrador' };
   return { rol: rol, nombre: rol };
+}
+
+/* El correo real de un aprendiz por su nombre, si el directorio está
+   cargado (solo instructor.html — ver el aviso de datos personales en
+   aprendices.js). Sin eso, no hay forma de saber a quién notificarle. */
+function correoDeAprendizPorNombre(nombreCompleto) {
+  if (typeof DIRECTORIO === 'undefined' || !nombreCompleto) return '';
+  const encontrado = DIRECTORIO.aprendices.find(a =>
+    (a.nombres + ' ' + a.apellidos) === nombreCompleto ||
+    (a.apellidos + ', ' + a.nombres) === nombreCompleto
+  );
+  return encontrado ? (encontrado.correoInstitucional || encontrado.correoPersonal || '') : '';
+}
+
+/* Sincroniza con el servidor en paralelo a localStorage — nunca
+   bloquea ni revienta la bandeja si el backend no responde. */
+function sincronizarMensajeConServidor(mensaje, correoDestino) {
+  fetch('/api/mensajes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      de: mensaje.de, deRol: mensaje.deRol,
+      para: mensaje.para, paraRol: mensaje.paraRol,
+      asunto: mensaje.asunto, cuerpo: mensaje.cuerpo,
+      correoDestino: correoDestino || undefined
+    })
+  }).catch(() => {});
 }
 
 /* ── Correos ── */
@@ -74,16 +106,21 @@ function enviarCorreo(paraRol, para, asunto, cuerpo) {
   const yo = yoSoy();
   const lista = getCorreos();
 
-  lista.push({
+  const nuevo = {
     id: 'c' + Date.now(),
     de: yo.nombre, deRol: yo.rol,
     para: para || paraRol, paraRol: paraRol,
     asunto: asunto, cuerpo: cuerpo,
     fecha: new Date().toISOString(), leido: false
-  });
+  };
 
+  lista.push(nuevo);
   setCorreos(lista);
-  return lista[lista.length - 1];
+
+  const correoDestino = paraRol === 'Aprendiz' ? correoDeAprendizPorNombre(para) : '';
+  sincronizarMensajeConServidor(nuevo, correoDestino);
+
+  return nuevo;
 }
 
 function marcarCorreoLeido(id) {

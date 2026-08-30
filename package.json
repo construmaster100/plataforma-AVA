@@ -25,9 +25,13 @@
   "homepage": "https://github.com/construmaster100/AVAsena#readme",
   "dependencies": {
     "cors": "^2.8.6",
+    "docx": "^9.5.1",
     "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
     "express": "^5.2.1",
     "mongoose": "^9.9.2",
+    "nodemailer": "^7.0.9",
+    "pdfkit": "^0.15.2",
     "socket.io": "^4.8.3"
   },
   "devDependencies": {

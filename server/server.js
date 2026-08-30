@@ -20,10 +20,11 @@ app.use("/api/resultados", require("./routes/resultados"));
 app.use("/api/actividades", require("./routes/actividades"));
 app.use("/api/acceso", require("./routes/acceso"));
 app.use("/api/quizzes", require("./routes/quizzes"));
+app.use("/api/mensajes", require("./routes/mensajes"));
+app.use("/api/reportes", require("./routes/reportes"));
 
 connectDB().then(() => {
     app.listen(PORT, () => {
         console.log(`Servidor AVAsena ejecutándose en http://localhost:${PORT}`);
     });
 });
-

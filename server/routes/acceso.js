@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const AccesoRA = require("../models/AccesoRA");
+const { enviarCorreo } = require("../services/mailer");
 
 const RA_ABIERTOS_POR_DEFECTO = [1, 2, 3, 4, 5];
 // No es un total de RA declarado (los RA se crean progresivamente, sin
@@ -32,10 +33,13 @@ router.get("/:cedula", async (req, res) => {
   }
 });
 
-// El instructor habilita un RA puntual para un aprendiz.
+// El instructor habilita un RA puntual para un aprendiz. Si el cliente
+// manda correoDestino (RF05-4: notificación de evaluación disponible),
+// además avisa por correo real — best-effort, no bloquea el otorgamiento
+// del acceso si el envío falla.
 router.post("/", async (req, res) => {
   try {
-    const { cedula, raId } = req.body;
+    const { cedula, raId, correoDestino, nombreAprendiz } = req.body;
     if (!cedula || !raId) {
       return res.status(400).json({ error: "cedula y raId son obligatorios" });
     }
@@ -44,6 +48,18 @@ router.post("/", async (req, res) => {
       { habilitadoPor: "instructor" },
       { new: true, upsert: true, runValidators: true }
     );
+
+    if (correoDestino) {
+      enviarCorreo({
+        to: correoDestino,
+        subject: `RA-${String(raId).padStart(2, "0")} disponible — SGMA-ADSO`,
+        html:
+          `<p>Hola${nombreAprendiz ? " " + nombreAprendiz : ""},</p>` +
+          `<p>Tu instructora habilitó el Resultado de Aprendizaje <strong>RA-${String(raId).padStart(2, "0")}</strong>. ` +
+          `Ya puedes presentarlo en la plataforma SGMA-ADSO.</p>`,
+      }).catch(() => {});
+    }
+
     res.status(201).json(acceso);
   } catch (err) {
     res.status(500).json({ error: err.message });

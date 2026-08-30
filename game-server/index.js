@@ -33,6 +33,12 @@ app.use("/api/resultados", require("../server/routes/resultados"));
 app.use("/api/actividades", require("../server/routes/actividades"));
 app.use("/api/acceso", require("../server/routes/acceso"));
 app.use("/api/quizzes", require("../server/routes/quizzes"));
+// Mensajería con persistencia real (antes solo localStorage) y
+// notificación por correo cuando se indica destinatario.
+app.use("/api/mensajes", require("../server/routes/mensajes"));
+// Portafolio del instructor (juicios de evaluación + asistencia) en
+// Excel, PDF o Word — ver server/services/portafolio.js.
+app.use("/api/reportes", require("../server/routes/reportes"));
 
 io.on("connection", (socket) => {
   socket.on("observar", (_payload, cb) => {
