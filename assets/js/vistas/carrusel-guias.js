@@ -16,8 +16,34 @@
 const CLAVE_CARRUSEL_GUIAS = 'sgma_carrusel_guias';
 let carruselGuiasCtrl = null;
 
+/* Semilla: las 17 guías reales de la ficha 3293836 que antes vivían en
+   la tabla estática de sec-guias-gaa (17 filas con enlaces reales a
+   PDF), portadas aquí para no perderlas al sustituir esa sección por
+   este carrusel. Solo se usa mientras el catálogo esté vacío — en
+   cuanto el instructor carga o edita algo, sgma_carrusel_guias manda. */
+const GUIAS_SEMILLA_CG = [
+  { id: 'gaa-1', ra: 'Inducción', ga: 'GAA 1', nombre: "Inducción de aprendices 2025", url: "../docs/Fichas/ADSO 3293836/0. Diseño curricular técnologo/4.1.Guía Inducción Aprendices 2025 v 1.pdf" },
+  { id: 'gaa-2', ra: 'Análisis', ga: 'GAA 2', nombre: "Caracterización de procesos de la empresa", url: "../docs/Fichas/ADSO 3293836/2.Fase Análisis/2. Caracterización de procesos empresa/GFPI-F-135 Caracterización de procesos empresa.pdf" },
+  { id: 'gaa-3', ra: 'Análisis', ga: 'GAA 3', nombre: "Recolectar información del software a construir", url: "../docs/Fichas/ADSO 3293836/2.Fase Análisis/3.Recoleciòn de información para definición de requisitos/Guia Recolectar Información del Software a Construir .pdf" },
+  { id: 'gaa-4', ra: 'Análisis', ga: 'GAA 4', nombre: "Especificación y validación de requisitos", url: "../docs/Fichas/ADSO 3293836/2.Fase Análisis/4. Especificación y validación de requisitos/Guìa especificaciòn y validaciòn de requisitos .pdf" },
+  { id: 'gaa-5', ra: 'Análisis', ga: 'GAA 5', nombre: "TIC Ofimática", url: "../docs/Fichas/ADSO 3293836/2.Fase Análisis/5.TIC Ofimática/Guía TIC Ofimática.pdf" },
+  { id: 'gaa-6', ra: 'Análisis', ga: 'GAA 6', nombre: "Desarrollo de procesos lógicos", url: "../docs/Fichas/ADSO 3293836/2.Fase Análisis/GA6. Lógica Programación/Guía Desarrollo Procesos Lógicos.pdf" },
+  { id: 'gaa-7', ra: 'Análisis', ga: 'GAA 7', nombre: "Modelado de datos", url: "../docs/Fichas/ADSO 3293836/2.Fase Análisis/GA7. Base Datos - Modelado Datos/Guía Modelado de Datos.pdf" },
+  { id: 'gaa-8', ra: 'Análisis', ga: 'GAA 8', nombre: "Validar artefactos de análisis con listas de chequeo", url: "../docs/Fichas/ADSO 3293836/2.Fase Análisis/GA8. Validar Artefactos de Análisis con Listas de Chequeo/Guía Validar Artefactos de Análisis con Listas de Chequeo.pdf" },
+  { id: 'gaa-9', ra: 'Análisis', ga: 'GAA 8A', nombre: "Validar propuesta técnica", url: "../docs/Fichas/ADSO 3293836/2.Fase Análisis/GA8A.Guía Validar Propuesta Técnica/Guía Validar Propuesta Técnica.pdf" },
+  { id: 'gaa-10', ra: 'Análisis', ga: 'GAA 9', nombre: "Matemáticas", url: "../docs/Fichas/ADSO 3293836/2.Fase Análisis/GA9. Matemáticas/Guía Matemáticas.pdf" },
+  { id: 'gaa-11', ra: 'Planeación', ga: 'GAA 10', nombre: "Estructurar el modelo de datos del software", url: "../docs/Fichas/ADSO 3293836/3.Fase Planeación/GA10. Estructurar el modelo de datos del software/Guía estructurar el modelo de datos del software.pdf" },
+  { id: 'gaa-12', ra: 'Planeación', ga: 'GAA 11', nombre: "Física", url: "../docs/Fichas/ADSO 3293836/3.Fase Planeación/GA11. Física/Guia física.pdf" },
+  { id: 'gaa-13', ra: 'Planeación', ga: 'GAA 12', nombre: "Elaborar los artefactos de diseño del software", url: "../docs/Fichas/ADSO 3293836/3.Fase Planeación/GA12. Elaborar los artefactos de diseño del software/Guía Elaborar los artefactos de diseño del software.pdf" },
+  { id: 'gaa-14', ra: 'Construcción', ga: 'GAA 13', nombre: "Construcción del software front-end: HTML, CSS y JavaScript", url: "../docs/Fichas/ADSO 3293836/4. construccion de software/Guía Construcción del Software FrondEnd -HTML CSS JavaScrip.pdf" },
+  { id: 'gaa-15', ra: 'Diseño', ga: 'GAA 14', nombre: "Diseño de interfaces gráficas de usuario: stand-alone, web y móviles", url: "../docs/Fichas/ADSO 3293836/5. Diseño interfaces graficas/Guía. Diseño interfaces gráficas usuario aplicaciones stand-alone, web y móviles.pdf" },
+  { id: 'gaa-16', ra: 'Diseño', ga: 'GAA 15', nombre: "Verificar los entregables de la fase de diseño del software", url: "../docs/Fichas/ADSO 3293836/6.Diseños de software/Guìa Verificar los entregables de la fase de diseño del software.pdf" },
+  { id: 'gaa-17', ra: 'Investigación', ga: 'GAA 16', nombre: "Investigación", url: "../docs/Fichas/ADSO 3293836/7. investigacion/Guìa Investigación.pdf" }
+];
+
 function getGuiasCarrusel() {
   const lista = leerAlmacen(CLAVE_CARRUSEL_GUIAS, null);
+  if (lista === null) return GUIAS_SEMILLA_CG.slice();
   return Array.isArray(lista) ? lista : [];
 }
 function setGuiasCarrusel(lista) { return guardarAlmacen(CLAVE_CARRUSEL_GUIAS, lista); }
