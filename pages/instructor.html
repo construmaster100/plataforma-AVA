@@ -3423,23 +3423,48 @@ for i in range(1, 11):
           </div>
         </div>
 
-        <div class="card w-100 mb-3 p-3">
-          <h3 style="margin-top:0;">Agregar RA rápido</h3>
-          <p class="bloque-nota">Crea un RA nuevo con sus 4 módulos de una vez, con preguntas de ejemplo — luego edítalas una por una en el formulario de abajo.</p>
-          <div class="form-group" style="max-width:280px;"><label>Ficha</label>
-            <select class="form-select" id="qcr-ficha-selector"></select>
+        <div class="card content-card mb-3" style="padding:18px;background:#f4f4f4;">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
+            <h3 style="margin:0;">➕ RA nuevo</h3>
+            <div class="d-flex align-items-center gap-2">
+              <label class="mb-0 small text-muted" for="qcr-ficha-selector">Ficha</label>
+              <select class="form-select form-select-sm" id="qcr-ficha-selector" style="width:auto;"></select>
+            </div>
           </div>
-          <div class="form-grid" style="margin-top:10px;">
-            <div class="form-group"><label>Módulo 1 — # preguntas</label><input class="form-control" type="number" id="qcr-m1-n" min="1" value="10"></div>
-            <div class="form-group"><label>Módulo 1 — puntos totales</label><input class="form-control" type="number" id="qcr-m1-pts" min="1" value="20"></div>
-            <div class="form-group"><label>Módulo 2 — # preguntas</label><input class="form-control" type="number" id="qcr-m2-n" min="1" value="10"></div>
-            <div class="form-group"><label>Módulo 2 — puntos totales</label><input class="form-control" type="number" id="qcr-m2-pts" min="1" value="10"></div>
-            <div class="form-group"><label>Módulo 3 — # preguntas</label><input class="form-control" type="number" id="qcr-m3-n" min="1" value="10"></div>
-            <div class="form-group"><label>Módulo 3 — puntos totales</label><input class="form-control" type="number" id="qcr-m3-pts" min="1" value="30"></div>
-            <div class="form-group"><label>Módulo 4 — # preguntas</label><input class="form-control" type="number" id="qcr-m4-n" min="1" value="10"></div>
-            <div class="form-group"><label>Módulo 4 — puntos totales</label><input class="form-control" type="number" id="qcr-m4-pts" min="1" value="50"></div>
+          <p class="bloque-nota">Con preguntas de ejemplo — luego edítalas una por una en el formulario de abajo. Misma tarjeta que ve el aprendiz al presentar, aquí enfocada en crear.</p>
+
+          <div class="d-flex flex-wrap gap-2">
+            <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
+              <div class="text-center fw-bold mb-2">Módulo 1</div>
+              <label class="small text-muted mb-1">Preguntas</label>
+              <input class="form-control form-control-sm mb-2" type="number" id="qcr-m1-n" min="1" value="10">
+              <label class="small text-muted mb-1">Puntos totales</label>
+              <input class="form-control form-control-sm" type="number" id="qcr-m1-pts" min="1" value="20">
+            </div>
+            <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
+              <div class="text-center fw-bold mb-2">Módulo 2</div>
+              <label class="small text-muted mb-1">Preguntas</label>
+              <input class="form-control form-control-sm mb-2" type="number" id="qcr-m2-n" min="1" value="10">
+              <label class="small text-muted mb-1">Puntos totales</label>
+              <input class="form-control form-control-sm" type="number" id="qcr-m2-pts" min="1" value="10">
+            </div>
+            <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
+              <div class="text-center fw-bold mb-2">Módulo 3</div>
+              <label class="small text-muted mb-1">Preguntas</label>
+              <input class="form-control form-control-sm mb-2" type="number" id="qcr-m3-n" min="1" value="10">
+              <label class="small text-muted mb-1">Puntos totales</label>
+              <input class="form-control form-control-sm" type="number" id="qcr-m3-pts" min="1" value="30">
+            </div>
+            <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
+              <div class="text-center fw-bold mb-2">Módulo 4</div>
+              <label class="small text-muted mb-1">Preguntas</label>
+              <input class="form-control form-control-sm mb-2" type="number" id="qcr-m4-n" min="1" value="10">
+              <label class="small text-muted mb-1">Puntos totales</label>
+              <input class="form-control form-control-sm" type="number" id="qcr-m4-pts" min="1" value="50">
+            </div>
           </div>
-          <div class="d-flex flex-wrap gap-2 align-items-center form-footer" style="margin-top:10px;">
+
+          <div class="d-flex flex-wrap gap-2 align-items-center form-footer mt-3">
             <button type="button" class="btn btn-action btn-primary" id="qcr-btn-crear">➕ Agregar RA</button>
             <span class="bloque-nota" id="qcr-aviso" hidden></span>
           </div>
