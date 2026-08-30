@@ -152,6 +152,7 @@ async function abrirFormularioQD(quizEntry, params) {
 
   const form = document.getElementById('qdr-form');
   form.dataset.contexto = JSON.stringify({ cId, cedula, nombre, puntajeMaximo, total: quiz.preguntas.length, preguntas: quiz.preguntas });
+  actualizarProgresoQD();
 
   const zonaTiempo = document.getElementById('qdr-tiempo');
   if (temporizadorQDR) { clearInterval(temporizadorQDR); temporizadorQDR = null; }
@@ -181,11 +182,38 @@ async function abrirFormularioQD(quizEntry, params) {
   window.scrollTo({ top: 0 });
 }
 
+/* Puntaje EN VIVO: como la respuesta correcta ya viaja en el propio
+   quiz (igual que hacía pages/quiz-dinamico.html), cada radio marcado
+   se califica al instante y la barra avanza según puntos, no según
+   preguntas contestadas — un acierto de 5 pts pesa más que uno de 1 pt. */
+function actualizarProgresoQD() {
+  const form = document.getElementById('qdr-form');
+  if (!form || !form.dataset.contexto) return;
+  const { puntajeMaximo, total, preguntas } = JSON.parse(form.dataset.contexto);
+
+  let puntajeObtenido = 0;
+  let respondidas = 0;
+  for (let i = 0; i < total; i++) {
+    const marcada = form.querySelector(`input[name="qdr-q${i}"]:checked`);
+    if (!marcada) continue;
+    respondidas += 1;
+    if (Number(marcada.value) === preguntas[i].respuestaCorrecta) puntajeObtenido += preguntas[i].puntos;
+  }
+
+  const porcentaje = puntajeMaximo ? Math.round((puntajeObtenido / puntajeMaximo) * 100) : 0;
+  document.getElementById('qdr-progreso-texto').textContent =
+    `Puntaje: ${puntajeObtenido} / ${puntajeMaximo} · ${respondidas} / ${total} respondidas`;
+  const barra = document.getElementById('qdr-progreso-bar');
+  barra.style.width = porcentaje + '%';
+  barra.setAttribute('aria-valuenow', String(porcentaje));
+  return puntajeObtenido;
+}
+
 async function enviarFormularioQD(porTiempoAgotado) {
   const form = document.getElementById('qdr-form');
   const msg = document.getElementById('qdr-msg');
   const contexto = JSON.parse(form.dataset.contexto || '{}');
-  const { cId, cedula, nombre, puntajeMaximo, total, preguntas } = contexto;
+  const { cId, cedula, nombre, puntajeMaximo, total } = contexto;
 
   if (!porTiempoAgotado) {
     for (let i = 0; i < total; i++) {
@@ -198,13 +226,7 @@ async function enviarFormularioQD(porTiempoAgotado) {
   }
   if (temporizadorQDR) { clearInterval(temporizadorQDR); temporizadorQDR = null; }
 
-  let puntosGanados = 0;
-  for (let i = 0; i < total; i++) {
-    const marcada = form.querySelector(`input[name="qdr-q${i}"]:checked`);
-    if (marcada && Number(marcada.value) === preguntas[i].respuestaCorrecta) {
-      puntosGanados += preguntas[i].puntos;
-    }
-  }
+  const puntosGanados = actualizarProgresoQD() || 0;
 
   if (cedula) {
     try {
@@ -217,13 +239,16 @@ async function enviarFormularioQD(porTiempoAgotado) {
   }
 
   const porcentaje = puntajeMaximo ? Math.round((puntosGanados / puntajeMaximo) * 10000) / 100 : 0;
-  alert(
-    (porcentaje >= 70 ? 'APROBADO ✅' : 'SIN APROBAR ⚠️') +
-    '\nPuntaje: ' + puntosGanados + ' / ' + puntajeMaximo + ' (' + porcentaje.toFixed(2) + '%)'
-  );
+  const aprobado = porcentaje >= 70;
+  msg.className = 'login-msg ' + (aprobado ? 'exito' : 'error');
+  msg.textContent = (aprobado ? 'APROBADO ✅ · ' : 'SIN APROBAR ⚠️ · ') +
+    'Puntaje: ' + puntosGanados + ' / ' + puntajeMaximo + ' (' + porcentaje.toFixed(2) + '%)';
+  form.querySelectorAll('input, button').forEach(el => { el.disabled = true; });
 
-  irAListaQD();
-  cargarQuizDinamicoPresentar();
+  setTimeout(() => {
+    irAListaQD();
+    cargarQuizDinamicoPresentar();
+  }, 2000);
 }
 
 async function cargarQuizDinamicoPresentar() {
@@ -290,4 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => { if (temporizadorQDR) { clearInterval(temporizadorQDR); temporizadorQDR = null; } });
     });
   }
+  const preguntasQDR = document.getElementById('qdr-preguntas');
+  if (preguntasQDR) preguntasQDR.addEventListener('change', actualizarProgresoQD);
 });
