@@ -368,7 +368,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('qc-ficha-selector').addEventListener('change', cargarObjetivoFichaQC);
   document.getElementById('qc-btn-guardar-objetivo').addEventListener('click', guardarObjetivoFichaQC);
-  document.getElementById('qcr-btn-crear').addEventListener('click', agregarRARapidoQC);
+  const qcrBtnCrear = document.getElementById('qcr-btn-crear');
+  if (qcrBtnCrear) qcrBtnCrear.addEventListener('click', agregarRARapidoQC);
 
   document.getElementById('qc-btn-cargar').addEventListener('click', cargarExistenteQC);
   document.getElementById('qc-btn-guardar').addEventListener('click', guardarQuizQC);

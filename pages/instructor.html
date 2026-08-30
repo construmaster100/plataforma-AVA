@@ -3423,6 +3423,28 @@ for i in range(1, 11):
           </div>
         </div>
 
+        <div class="card w-100 mb-3 p-3">
+          <h3 style="margin-top:0;">Agregar RA rápido</h3>
+          <p class="bloque-nota">Crea un RA nuevo con sus 4 módulos de una vez, con preguntas de ejemplo — luego edítalas una por una en el formulario de abajo.</p>
+          <div class="form-group" style="max-width:280px;"><label>Ficha</label>
+            <select class="form-select" id="qcr-ficha-selector"></select>
+          </div>
+          <div class="form-grid" style="margin-top:10px;">
+            <div class="form-group"><label>Módulo 1 — # preguntas</label><input class="form-control" type="number" id="qcr-m1-n" min="1" value="10"></div>
+            <div class="form-group"><label>Módulo 1 — puntos totales</label><input class="form-control" type="number" id="qcr-m1-pts" min="1" value="20"></div>
+            <div class="form-group"><label>Módulo 2 — # preguntas</label><input class="form-control" type="number" id="qcr-m2-n" min="1" value="10"></div>
+            <div class="form-group"><label>Módulo 2 — puntos totales</label><input class="form-control" type="number" id="qcr-m2-pts" min="1" value="10"></div>
+            <div class="form-group"><label>Módulo 3 — # preguntas</label><input class="form-control" type="number" id="qcr-m3-n" min="1" value="10"></div>
+            <div class="form-group"><label>Módulo 3 — puntos totales</label><input class="form-control" type="number" id="qcr-m3-pts" min="1" value="30"></div>
+            <div class="form-group"><label>Módulo 4 — # preguntas</label><input class="form-control" type="number" id="qcr-m4-n" min="1" value="10"></div>
+            <div class="form-group"><label>Módulo 4 — puntos totales</label><input class="form-control" type="number" id="qcr-m4-pts" min="1" value="50"></div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 align-items-center form-footer" style="margin-top:10px;">
+            <button type="button" class="btn btn-action btn-primary" id="qcr-btn-crear">➕ Agregar RA</button>
+            <span class="bloque-nota" id="qcr-aviso" hidden></span>
+          </div>
+        </div>
+
         <form id="qc-form" onsubmit="return false;">
           <div class="form-grid">
             <div class="form-group"><label>Ficha</label>
