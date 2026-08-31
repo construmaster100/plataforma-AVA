@@ -104,9 +104,9 @@
             <span class="arrow">❯</span>
           </button>
           <ul class="submenu">
-            <li><a href="#" data-view="sec-ejercicios-ap">3.1 Desarrollo de ejercicios prácticos</a></li>
-            <li><a href="#" data-view="sec-evidencias">3.2 Entrega de evidencias de código</a></li>
-            <li><a href="#" data-view="sec-reporte-inst">3.3 Consulta de retroalimentación</a></li>
+            <li><a href="#" data-view="sec-carrusel-evidencias">3.1 Entrega de evidencias</a></li>
+            <li><a href="#" data-view="sec-resultados-eval">3.2 Resultados</a></li>
+            <li><a href="#" data-view="sec-puntajes">3.3 Dashboard</a></li>
             <li><a href="#" data-view="sec-repositorio">3.4 Gestión de repositorios de evidencias</a></li>
             <li><a href="#" data-view="sec-cronograma">3.5 Seguimiento de entregas</a></li>
             <li><a href="#" data-view="sec-historial-ver">3.6 Historial de versiones de evidencias</a></li>
@@ -2983,36 +2983,6 @@
 
       <!-- ══ DASHBOARD ACADÉMICO ══ -->
 
-      <!-- ══ EJERCICIOS ══ -->
-      <section class="view-section" id="sec-ejercicios-ap">
-        <div class="sec-header">
-                    <p>RF12 — Consulta los ejercicios disponibles y entrega tus evidencias de código</p>
-        </div>
-        <div class="d-flex flex-wrap gap-3 content-cards">
-          <div class="card content-card" style="width:220px;">
-            <div class="cc-icon">💻</div>
-            <span class="badge badge-type badge-code">Python</span>
-            <h4>Ejercicio 1 — Variables y tipos</h4>
-            <p>Entrega: 2026-06-20 · <span class="badge status-badge status-active" style="font-size:10px;">Entregado</span></p>
-            <a href="#" class="btn btn-sm btn-ver" onclick="showSection('sec-historial-ver');return false;">Ver versiones</a>
-          </div>
-          <div class="card content-card" style="width:220px;">
-            <div class="cc-icon">💻</div>
-            <span class="badge badge-type badge-code">Python</span>
-            <h4>Ejercicio 2 — Estructuras de control</h4>
-            <p>Entrega: 2026-06-30 · <span class="badge status-badge status-inactive" style="font-size:10px;">Pendiente revisión</span></p>
-            <a href="#" class="btn btn-sm btn-ver" onclick="showSection('sec-evidencias');return false;">Entregar evidencia</a>
-          </div>
-          <div class="card content-card" style="width:220px;">
-            <div class="cc-icon">🔒</div>
-            <span class="badge badge-type badge-code">Python</span>
-            <h4>Ejercicio 3 — Funciones</h4>
-            <p>Disponible próximamente</p>
-            <a href="#" class="btn btn-sm btn-ver" style="background:#eee;color:#aaa;cursor:not-allowed;">No disponible</a>
-          </div>
-        </div>
-      </section>
-
       <!-- ══ ENTREGAR EVIDENCIAS ══ -->
       <section class="view-section" id="sec-evidencias">
         <div class="sec-header">
@@ -3542,30 +3512,6 @@
         </div>
       </section>
 
-      <!-- ══ REPORTE ANTE EL INSTRUCTOR ══ -->
-      <section class="view-section" id="sec-reporte-inst">
-        <div class="sec-header">
-                    <p>RF10 — Consulta el reporte consolidado que remite tu instructor y solicita revisión</p>
-        </div>
-        <div class="card notif-card">
-          <h3>Reporte académico — Corte 2 · Ficha 3293836</h3>
-          <p><strong>Instructora:</strong> Zulma Salas · <strong>Emitido:</strong> 2026-06-22</p>
-          <p><strong>Concepto:</strong> Avance satisfactorio en análisis y construcción. Se recomienda reforzar estructuras de datos antes del siguiente corte.</p>
-          <p class="notif-meta">📅 Próximo corte: 2026-07-15</p>
-        </div>
-        <table class="table table-hover align-middle data-table">
-          <thead><tr><th>Competencia</th><th>Evidencias entregadas</th><th>Juicio de evaluación</th><th>Fecha</th></tr></thead>
-          <tbody>
-            <tr><td>Analizar requisitos</td><td>4 de 4</td><td><span class="badge status-badge status-active">Aprobado</span></td><td>2026-06-15</td></tr>
-            <tr><td>Construir el sistema</td><td>3 de 4</td><td><span class="badge status-badge status-closed">En proceso</span></td><td>—</td></tr>
-            <tr><td>Estructura de datos</td><td>1 de 3</td><td><span class="badge status-badge status-inactive">Por mejorar</span></td><td>—</td></tr>
-          </tbody>
-        </table>
-        <div class="d-flex flex-wrap gap-2 form-footer">
-          <button class="btn btn-action btn-primary" onclick="alert('Solicitud de revisión enviada a la instructora (simulación)')">📤 Solicitar revisión</button>
-          <button class="btn btn-action btn-secondary" data-view="sec-puntajes">Ver mi dashboard</button>
-        </div>
-      </section>
 
       <section class="view-section" id="sec-ejer-bd">
         <div class="sec-header">
@@ -4890,6 +4836,43 @@
         </div>
       </section>
 
+      <!-- ══ MÓDULO 3 · 3.1 ENTREGA DE EVIDENCIAS (carrusel) ══
+           Una evidencia solicitada por RA/GA (ver assets/js/vistas/carrusel-evidencias.js);
+           el aprendiz la entrega como archivo y ve aquí mismo el estado que la
+           instructora le asigne desde 3.4 · Aprobar resultados. -->
+      <section class="view-section" id="sec-carrusel-evidencias">
+        <div class="sec-header">
+          <p>Consulta las evidencias solicitadas por tu instructor y entrégalas por RA/GA.</p>
+        </div>
+
+        <div class="card content-card mb-3 p-3" id="carrusel-evidencias-instructor" style="width:100%;" hidden>
+          <h3 style="margin-top:0;">Solicitar evidencia</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>RA</label><input class="form-control" id="ce-form-ra" placeholder="Ej: RA-01"></div>
+            <div class="form-group"><label>GA</label><input class="form-control" id="ce-form-ga" placeholder="Ej: GA1"></div>
+            <div class="form-group span-2"><label>Nombre de la evidencia</label><input class="form-control" id="ce-form-nombre" placeholder="Ej: Evidencia — Consultas SQL"></div>
+            <div class="form-group span-2"><label>URL de instrucciones (opcional)</label><input class="form-control" id="ce-form-url" placeholder="https://... o ruta relativa"></div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
+            <button type="button" class="btn btn-action btn-primary" id="ce-btn-guardar">➕ Solicitar / guardar evidencia</button>
+            <button type="button" class="btn btn-action btn-secondary" id="ce-btn-nueva">🆕 Nueva</button>
+            <button type="button" class="btn btn-action btn-outline-danger" id="ce-btn-eliminar">🗑 Eliminar la actual</button>
+            <span class="bloque-nota" id="ce-aviso" hidden></span>
+          </div>
+        </div>
+
+        <div class="card content-card p-3" id="carrusel-evidencias-contenedor" style="min-height:80vh;width:100%;">
+          <div class="row g-2 align-items-center mb-3">
+            <div class="col-6 col-md-2 order-1"><button type="button" class="btn btn-outline-secondary w-100" id="ce-btn-anterior">‹ Anterior</button></div>
+            <div class="col-12 col-md-6 order-3 order-md-2"><select class="form-select" id="ce-lista"></select></div>
+            <div class="col-6 col-md-2 order-2 order-md-3"><button type="button" class="btn btn-outline-secondary w-100" id="ce-btn-siguiente">Siguiente ›</button></div>
+            <div class="col-12 col-md-2 order-4 text-center"><span class="badge bg-primary fs-6 w-100 py-2" id="ce-contador">0 de 0</span></div>
+          </div>
+          <div id="ce-visor" class="mb-2"></div>
+          <div class="d-flex flex-wrap gap-2 align-items-start" id="ce-acciones"></div>
+        </div>
+      </section>
+
     </main>
   </div>
 
@@ -4979,6 +4962,7 @@
   <script src="../assets/js/vistas/carrusel-guias.js"></script>
   <script src="../assets/js/vistas/carrusel-chequeo.js"></script>
   <script src="../assets/js/vistas/carrusel-material.js"></script>
+  <script src="../assets/js/vistas/carrusel-evidencias.js"></script>
 
   <script>
     function showSection(id) {

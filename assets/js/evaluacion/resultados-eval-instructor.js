@@ -60,6 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('[data-view="sec-resultados-eval-inst"]').forEach(a => a.addEventListener('click', cargarResultadosEvalInstructor));
 
+  const selFicha = document.getElementById('rei-ficha');
+  const btnConsultar = document.getElementById('rei-btn-consultar');
+  if (selFicha) selFicha.addEventListener('change', cargarResultadosEvalInstructor);
+  if (btnConsultar) btnConsultar.addEventListener('click', cargarResultadosEvalInstructor);
+
   document.getElementById('rei-tbody').addEventListener('click', e => {
     const btn = e.target.closest('.rei-btn-detalle');
     if (btn) mostrarDetalleREI(btn.dataset.cedula);

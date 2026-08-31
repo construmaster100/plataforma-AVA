@@ -103,9 +103,10 @@
             <span class="arrow">❯</span>
           </button>
           <ul class="submenu">
-            <li><a href="#" data-view="sec-ejercicios">3.1 Gestión de ejercicios de programación</a></li>
-            <li><a href="#" data-view="sec-revisar">3.2 Revisión de código</a></li>
-            <li><a href="#" data-view="sec-retro-cod">3.3 Retroalimentación sobre código</a></li>
+            <li><a href="#" data-view="sec-carrusel-evidencias">3.1 Entrega de evidencias</a></li>
+            <li><a href="#" data-view="sec-resultados-eval-inst">3.2 Resultados</a></li>
+            <li><a href="#" data-view="sec-resultados-embebidos">3.3 Dashboard</a></li>
+            <li><a href="#" data-view="sec-aprobar-resultados">3.4 Aprobar resultados</a></li>
             <li><a href="#" data-view="sec-repositorio">3.4 Gestión de repositorios de evidencias</a></li>
             <li><a href="#" data-view="sec-semaforo">3.5 Seguimiento de entregas</a></li>
             <li><a href="#" data-view="sec-historial">3.6 Historial de versiones de evidencias</a></li>
@@ -3376,8 +3377,14 @@ for i in range(1, 11):
            assets/js/evaluacion/resultados-eval-instructor.js. -->
       <section class="view-section" id="sec-resultados-eval-inst">
         <div class="sec-header">
-                    <p>Puntaje ponderado de cada aprendiz sobre el puntaje objetivo asignado a su ficha (ver 4.1 · "Puntaje
-             objetivo de esta ficha"), calculado solo a partir de los módulos creados en 4.1 Crear Quiz/Evaluación.</p>
+                    <p>Puntaje ponderado de cada aprendiz sobre el puntaje objetivo asignado a su ficha (ver 2.1 · "Puntaje
+             objetivo de esta ficha"), calculado solo a partir de los módulos creados en 2.1 Crear Quiz/Evaluación.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
+          <select class="form-select" id="rei-ficha" style="max-width:280px;">
+            <option value="3293836">Ficha 3293836 — en curso</option>
+          </select>
+          <button type="button" class="btn btn-action btn-secondary" id="rei-btn-consultar">Consultar ficha</button>
         </div>
         <p class="small text-muted" id="rei-estado">Cargando…</p>
         <table class="table table-hover align-middle data-table">
@@ -3726,6 +3733,72 @@ for i in range(1, 11):
         </div>
       </section>
 
+      <!-- ══ MÓDULO 3 · 3.1 ENTREGA DE EVIDENCIAS (carrusel) ══
+           Una evidencia solicitada por RA/GA (ver assets/js/vistas/carrusel-evidencias.js);
+           el aprendiz la entrega como archivo y la instructora la aprueba o
+           rechaza desde 3.4 · Aprobar resultados (ver sec-aprobar-resultados). -->
+      <section class="view-section" id="sec-carrusel-evidencias">
+        <div class="sec-header">
+          <p>Solicita evidencias por RA/GA y consulta lo que los aprendices han entregado.</p>
+        </div>
+
+        <div class="card content-card mb-3 p-3" id="carrusel-evidencias-instructor" style="width:100%;" hidden>
+          <h3 style="margin-top:0;">Solicitar evidencia</h3>
+          <div class="form-grid">
+            <div class="form-group"><label>RA</label><input class="form-control" id="ce-form-ra" placeholder="Ej: RA-01"></div>
+            <div class="form-group"><label>GA</label><input class="form-control" id="ce-form-ga" placeholder="Ej: GA1"></div>
+            <div class="form-group span-2"><label>Nombre de la evidencia</label><input class="form-control" id="ce-form-nombre" placeholder="Ej: Evidencia — Consultas SQL"></div>
+            <div class="form-group span-2"><label>URL de instrucciones (opcional)</label><input class="form-control" id="ce-form-url" placeholder="https://... o ruta relativa"></div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
+            <button type="button" class="btn btn-action btn-primary" id="ce-btn-guardar">➕ Solicitar / guardar evidencia</button>
+            <button type="button" class="btn btn-action btn-secondary" id="ce-btn-nueva">🆕 Nueva</button>
+            <button type="button" class="btn btn-action btn-outline-danger" id="ce-btn-eliminar">🗑 Eliminar la actual</button>
+            <span class="bloque-nota" id="ce-aviso" hidden></span>
+          </div>
+        </div>
+
+        <div class="card content-card p-3" id="carrusel-evidencias-contenedor" style="min-height:80vh;width:100%;">
+          <div class="row g-2 align-items-center mb-3">
+            <div class="col-6 col-md-2 order-1"><button type="button" class="btn btn-outline-secondary w-100" id="ce-btn-anterior">‹ Anterior</button></div>
+            <div class="col-12 col-md-6 order-3 order-md-2"><select class="form-select" id="ce-lista"></select></div>
+            <div class="col-6 col-md-2 order-2 order-md-3"><button type="button" class="btn btn-outline-secondary w-100" id="ce-btn-siguiente">Siguiente ›</button></div>
+            <div class="col-12 col-md-2 order-4 text-center"><span class="badge bg-primary fs-6 w-100 py-2" id="ce-contador">0 de 0</span></div>
+          </div>
+          <div id="ce-visor" class="mb-2"></div>
+          <div class="d-flex flex-wrap gap-2 align-items-start" id="ce-acciones"></div>
+        </div>
+      </section>
+
+      <!-- ══ MÓDULO 3 · 3.4 APROBAR RESULTADOS ══
+           La instructora elige un RA (y su GA vinculada) y aprueba o rechaza
+           la evidencia que cada aprendiz entregó para esa guía puntual (ver
+           assets/js/vistas/aprobar-resultados.js). Usa el mismo catálogo de
+           3.1 · Entrega de evidencias. -->
+      <section class="view-section" id="sec-aprobar-resultados">
+        <div class="sec-header">
+          <p>Selecciona un RA — y opcionalmente su GA — para revisar y aprobar las evidencias que los aprendices entregaron.</p>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
+          <select class="form-select" id="ar-ra" style="max-width:220px;"><option value="">Selecciona un RA…</option></select>
+          <select class="form-select" id="ar-ga" style="max-width:220px;" disabled><option value="">Todas las GA</option></select>
+          <button type="button" class="btn btn-action btn-secondary" id="ar-refrescar">Actualizar</button>
+        </div>
+
+        <div class="section-table">
+          <div class="tabla-header">
+            <h2>Entregas para revisar</h2>
+            <span class="repo-conteo" id="ar-conteo">—</span>
+          </div>
+          <table class="table table-hover align-middle data-table">
+            <thead><tr><th>Aprendiz</th><th>GA</th><th>Evidencia</th><th>Archivo</th><th>Fecha</th><th>Estado</th><th>Acción</th></tr></thead>
+            <tbody id="ar-tbody"></tbody>
+          </table>
+          <p class="bloque-nota" id="ar-vacio">Selecciona un RA para ver las entregas de sus aprendices.</p>
+        </div>
+      </section>
+
     </main>
   </div>
 
@@ -3817,6 +3890,8 @@ for i in range(1, 11):
   <script src="../assets/js/vistas/carrusel-guias.js"></script>
   <script src="../assets/js/vistas/carrusel-chequeo.js"></script>
   <script src="../assets/js/vistas/carrusel-material.js"></script>
+  <script src="../assets/js/vistas/carrusel-evidencias.js"></script>
+  <script src="../assets/js/vistas/aprobar-resultados.js"></script>
 
   <script>
     if (new URLSearchParams(window.location.search).get('admin') === '1') {
