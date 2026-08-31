@@ -125,21 +125,9 @@
             <li><a href="#" data-view="sec-carrusel-evidencias">3.1 Entrega de evidencias</a></li>
             <li><a href="#" data-view="sec-resultados-eval">3.2 Resultados</a></li>
             <li><a href="#" data-view="sec-puntajes">3.3 Dashboard</a></li>
-            <li><a href="#" data-view="sec-repositorio">3.4 Gestión de repositorios de evidencias</a></li>
-            <li><a href="#" data-view="sec-cronograma">3.5 Seguimiento de entregas</a></li>
-            <li><a href="#" data-view="sec-historial-ver">3.6 Historial de versiones de evidencias</a></li>
           </ul>
         </li>
 
-        <li>
-          <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/iconos/consola.svg" alt="">5. Módulo 5</span>
-            <span class="arrow">❯</span>
-          </button>
-          <ul class="submenu">
-            <li><a href="#" data-view="sec-code-lab">5.1 AVA Code Lab</a></li>
-          </ul>
-        </li>
 
       </ul>
       </div>
@@ -2975,22 +2963,9 @@
         </table>
       </section>
 
-      <!-- ══ MÓDULO 5 · AVA CODE LAB ══
-           Editor HTML/CSS/JS con vista en vivo, aislado por completo en
-           editor/index.html (sin CSS/JS globales de este sitio). Se
-           incrusta solo por iframe — ver editor/README si se agrega. -->
-      <section class="view-section" id="sec-code-lab">
-        <div class="sec-header">
-          <p>Practica HTML, CSS y JavaScript con visualización inmediata del resultado. Editor independiente: lo que escribas aquí no se guarda en tu cuenta, solo en esta pestaña — usa "Download" para llevarte tu código.</p>
-        </div>
-        <iframe class="marco-ra" id="code-lab-frame" title="AVA Code Lab"
-                style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
-      </section>
-
       <!-- ══ 2.3 LABORATORIO DE LÓGICA ══
            Página independiente, aislada por completo en logica/index.html
-           (sin CSS/JS globales de este sitio). Se incrusta solo por iframe,
-           igual que el AVA Code Lab de 5.1. -->
+           (sin CSS/JS globales de este sitio). Se incrusta solo por iframe. -->
       <section class="view-section" id="sec-logica-lab">
         <div class="sec-header">
           <p>Copia el código del ejemplo en el panel «Tu código» y compruébalo: si coincide, el resultado muestra «Hola mundo»; si no coincide, muestra «ERROR».</p>
@@ -3032,26 +3007,6 @@
       </section>
 
       <!-- ══ HISTORIAL VERSIONES ══ -->
-      <section class="view-section" id="sec-historial-ver">
-        <div class="sec-header">
-                    <p>RF14 — Todas tus entregas quedan guardadas. Puedes descargar cualquier versión anterior.</p>
-        </div>
-        <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
-          <select class="form-select" style="padding:7px 12px;border:1px solid #ccc;border-radius:5px;font-size:14px;">
-            <option>Ejercicio Python 2</option><option>Ejercicio Python 1</option>
-          </select>
-          <button class="btn btn-action btn-secondary">Ver historial</button>
-        </div>
-        <table class="table table-hover align-middle data-table">
-          <thead><tr><th>Versión</th><th>Fecha</th><th>Hora</th><th>Archivos</th><th>Estado</th><th>Descargar</th></tr></thead>
-          <tbody>
-            <tr><td>v3 (actual)</td><td>2026-06-22</td><td>11:05</td><td>ejercicio2.py</td><td><span class="badge status-badge status-inactive">En revisión</span></td><td><a href="#" class="btn btn-sm btn-table">⬇ Descargar</a></td></tr>
-            <tr><td>v2</td><td>2026-06-21</td><td>16:40</td><td>ejercicio2.py</td><td><span class="badge status-badge status-closed">Reemplazada</span></td><td><a href="#" class="btn btn-sm btn-table">⬇ Descargar</a></td></tr>
-            <tr><td>v1</td><td>2026-06-20</td><td>09:10</td><td>ejercicio2.py</td><td><span class="badge status-badge status-closed">Reemplazada</span></td><td><a href="#" class="btn btn-sm btn-table">⬇ Descargar</a></td></tr>
-          </tbody>
-        </table>
-      </section>
-
       <!-- ══ RETROALIMENTACIÓN ══ -->
       <section class="view-section" id="sec-retro-ap">
         <div class="sec-header">
@@ -4638,78 +4593,6 @@
       </section>
 
       <!-- ══ CRONOGRAMA ══ -->
-      <section class="view-section" id="sec-cronograma">
-        <div class="sec-header">
-                    <p>Línea de tiempo de las fases, calendario del mes y detalle de actividades</p>
-        </div>
-
-        <div class="bloque-tiempo">
-          <div class="tabla-header"><h2>Línea de tiempo</h2></div>
-          <div class="linea-tiempo" id="linea-tiempo"></div>
-        </div>
-
-        <div class="rejilla-cronograma">
-          <div class="bloque-tiempo">
-            <div class="tabla-header">
-              <h2 id="cal-titulo">Calendario</h2>
-              <span class="cal-navegacion">
-                <button type="button" class="btn btn-sm btn-table" id="cal-antes">‹</button>
-                <button type="button" class="btn btn-sm btn-table" id="cal-hoy-btn">Hoy</button>
-                <button type="button" class="btn btn-sm btn-table" id="cal-despues">›</button>
-              </span>
-            </div>
-            <div class="calendario" id="calendario"></div>
-            <div class="cal-leyenda">
-              <span><i class="cal-punto punto-sesion"></i> Sesión</span>
-              <span><i class="cal-punto punto-entrega"></i> Entrega</span>
-              <span><i class="cal-punto punto-evaluacion"></i> Evaluación</span>
-              <span><i class="cal-punto punto-cierre"></i> Cierre</span>
-            </div>
-          </div>
-
-          <div class="bloque-tiempo">
-            <div class="tabla-header">
-              <h2>Actividades</h2>
-              <span class="repo-conteo" id="crono-conteo"></span>
-            </div>
-            <div class="tabla-rejilla" id="crono-tabla">
-              <div class="tr-cabecera">Fecha</div>
-              <div class="tr-cabecera">Actividad</div>
-              <div class="tr-cabecera">Tipo</div>
-              <div class="tr-cabecera">Hora</div>
-              <div class="tr-cabecera">Lugar</div>
-              <div class="tr-cabecera">Materiales</div>
-              <div class="tr-cabecera">Requisitos</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ══ REPOSITORIO DE LA FICHA ══ -->
-      <section class="view-section" id="sec-repositorio">
-        <div class="sec-header">
-                    <p>Análisis y Desarrollo de Software — documentos de la formación organizados por fase</p>
-        </div>
-
-        <div class="repo-barra">
-          <input class="form-control" id="repo-buscar" type="search" placeholder="Buscar documento por nombre…">
-          <select class="form-select" id="repo-tipo">
-            <option value="">Todos los formatos</option>
-            <option value="pdf">PDF</option>
-            <option value="xlsx">Excel</option>
-            <option value="docx">Word</option>
-            <option value="pptx">PowerPoint</option>
-            <option value="html">Material interactivo</option>
-            <option value="mp4">Video</option>
-            <option value="zip">Comprimido</option>
-          </select>
-          <span class="repo-conteo" id="repo-conteo"></span>
-        </div>
-
-        <div id="repo-arbol"></div>
-        <p id="repo-vacio" class="sugerencia" hidden>Ningún documento coincide con la búsqueda.</p>
-      </section>
-
       <!-- ══ FOOTER DE PROGRESO (solo en Inicio) ══
            Barra de avance de la ficha activa (ADSO=72 RA, English
            Coding=5 RA, ver assets/js/evaluacion/footer-progreso.js) más
@@ -4990,22 +4873,10 @@
       if (el) el.style.display = 'block';
     }
 
-    /* AVA Code Lab (5.1): el iframe no trae src de fábrica — si se
-       carga con la sección oculta (display:none), CodeMirror calcula
-       su tamaño sobre un contenedor de 0x0 y el editor queda roto.
-       Se le pone el src recién cuando el usuario abre la sección de
-       verdad. */
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('[data-view="sec-code-lab"]').forEach(enlace => {
-        enlace.addEventListener('click', () => {
-          const frame = document.getElementById('code-lab-frame');
-          if (frame && !frame.getAttribute('src')) frame.src = '../editor/index.html';
-        });
-      });
-    });
-
-    /* Laboratorio de Lógica (2.3): mismo criterio de carga diferida que
-       el AVA Code Lab — el iframe no trae src de fábrica. */
+    /* Laboratorio de Lógica (2.3): el iframe no trae src de fábrica — si
+       se carga con la sección oculta (display:none), el contenido se
+       arma sobre un contenedor de 0x0. Se le pone el src recién cuando
+       el usuario abre la sección de verdad. */
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('[data-view="sec-logica-lab"]').forEach(enlace => {
         enlace.addEventListener('click', () => {
