@@ -736,9 +736,61 @@
           </tbody>
         </table>
 
-        <!-- ══ 3.7 · Fusión con la Vista previa de práctica (antes sec-practica-ins) ══
-             Genera tarjetas desde EMBEBIDOS — ver
-             assets/js/vistas/practica-instructor-vista.js. -->
+        <!-- ══ 3.7 · RA de uso general (ver assets/js/evaluacion/quiz-crear-general.js) ══
+             Mismo modelo que 2.1 · RA nuevo (RA con 4 VAA), pero sin ficha:
+             ficha se fija internamente a "general" — cualquier aprendiz de
+             cualquier ficha lo puede presentar y sumar a su score (GET
+             /api/quizzes/puntaje/:cedula ya agrega sobre TODAS las fichas
+             encontradas en el banco de preguntas, sin filtrar por la ficha
+             real del aprendiz). -->
+        <hr class="my-4">
+        <div class="card content-card mb-3" style="padding:18px;background:#f4f4f4;width:100%;">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
+            <h3 style="margin:0;">➕ RA general nuevo</h3>
+            <div class="d-flex align-items-center gap-2">
+              <label class="mb-0 small text-muted" for="qcg-intentos" title="0 = ilimitados">Intentos permitidos</label>
+              <input class="form-control form-control-sm" type="number" id="qcg-intentos" min="0" value="0" style="width:80px;" title="0 = ilimitados">
+            </div>
+          </div>
+          <p class="bloque-nota">De uso generalizado — no pertenece a la ficha curricular de ningún programa: cualquier aprendiz lo presenta y suma a su score, igual que los ejercicios de práctica de esta pestaña. Con preguntas de ejemplo — mismo patrón que 2.1 · RA nuevo.</p>
+
+          <div class="d-flex flex-wrap gap-2">
+            <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
+              <div class="text-center fw-bold mb-2">VAA1</div>
+              <label class="small text-muted mb-1">Preguntas</label>
+              <input class="form-control form-control-sm mb-2" type="number" id="qcg-m1-n" min="1" value="10">
+              <label class="small text-muted mb-1">Puntos totales</label>
+              <input class="form-control form-control-sm" type="number" id="qcg-m1-pts" min="1" value="20">
+            </div>
+            <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
+              <div class="text-center fw-bold mb-2">VAA2</div>
+              <label class="small text-muted mb-1">Preguntas</label>
+              <input class="form-control form-control-sm mb-2" type="number" id="qcg-m2-n" min="1" value="10">
+              <label class="small text-muted mb-1">Puntos totales</label>
+              <input class="form-control form-control-sm" type="number" id="qcg-m2-pts" min="1" value="10">
+            </div>
+            <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
+              <div class="text-center fw-bold mb-2">VAA3</div>
+              <label class="small text-muted mb-1">Preguntas</label>
+              <input class="form-control form-control-sm mb-2" type="number" id="qcg-m3-n" min="1" value="10">
+              <label class="small text-muted mb-1">Puntos totales</label>
+              <input class="form-control form-control-sm" type="number" id="qcg-m3-pts" min="1" value="30">
+            </div>
+            <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
+              <div class="text-center fw-bold mb-2">VAA4</div>
+              <label class="small text-muted mb-1">Preguntas</label>
+              <input class="form-control form-control-sm mb-2" type="number" id="qcg-m4-n" min="1" value="10">
+              <label class="small text-muted mb-1">Puntos totales</label>
+              <input class="form-control form-control-sm" type="number" id="qcg-m4-pts" min="1" value="50">
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 align-items-center form-footer mt-3">
+            <button type="button" class="btn btn-action btn-primary" id="qcg-btn-crear">➕ Agregar RA general</button>
+            <span class="bloque-nota" id="qcg-aviso" hidden></span>
+          </div>
+        </div>
+
         <hr class="my-4">
         <h2 class="bloque-titulo">Vista previa de práctica</h2>
         <p class="bloque-nota" style="margin-bottom:14px;">El material que el aprendiz desbloquea para acumular puntos y aportar al plan de mejora.</p>
@@ -3170,16 +3222,6 @@ for i in range(1, 11):
              preguntas o Evaluación de 30, con preguntas Verdadero/Falso o de 4 opciones con una correcta.</p>
         </div>
 
-        <div class="card w-100 mb-3 p-3">
-          <div class="d-flex flex-wrap align-items-end gap-2">
-            <div class="form-group" style="min-width:220px;"><label>Puntaje objetivo de esta ficha (100% del curso)</label>
-              <input class="form-control" type="number" id="qc-objetivo-ficha" min="1" value="1000">
-            </div>
-            <button type="button" class="btn btn-action btn-secondary" id="qc-btn-guardar-objetivo">Guardar puntaje objetivo</button>
-            <span class="bloque-nota" id="qc-objetivo-aviso" hidden></span>
-          </div>
-        </div>
-
         <div class="card content-card mb-3" style="padding:18px;background:#f4f4f4;width:100%;">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
             <h3 style="margin:0;">➕ RA nuevo</h3>
@@ -3228,63 +3270,6 @@ for i in range(1, 11):
             <span class="bloque-nota" id="qcr-aviso" hidden></span>
           </div>
         </div>
-
-        <form id="qc-form" onsubmit="return false;">
-          <div class="form-grid">
-            <div class="form-group"><label>Ficha</label>
-              <select class="form-select" id="qc-ficha-selector"></select>
-            </div>
-            <div class="form-group"><label>RA</label>
-              <input class="form-control" type="number" id="qc-ra" min="1" value="1">
-            </div>
-            <div class="form-group"><label>AA (1-5)</label>
-              <input class="form-control" type="number" id="qc-aa" min="1" max="5" value="1">
-            </div>
-            <div class="form-group"><label>VAA (1-4)</label>
-              <select class="form-select" id="qc-modulo">
-                <option value="1">VAA1</option>
-                <option value="2">VAA2</option>
-                <option value="3">VAA3</option>
-                <option value="4">VAA4</option>
-              </select>
-            </div>
-            <div class="form-group"><label>Tipo</label>
-              <select class="form-select" id="qc-tipo">
-                <option value="quiz">Quiz — 10 preguntas</option>
-                <option value="evaluacion">Evaluación — 30 preguntas</option>
-              </select>
-            </div>
-            <div class="form-group"><label>Límite de tiempo (min)</label>
-              <input class="form-control" type="number" id="qc-tiempo" min="0" value="0" title="0 = sin límite">
-            </div>
-            <div class="form-group"><label>Intentos permitidos</label>
-              <input class="form-control" type="number" id="qc-intentos" min="0" value="0" title="0 = ilimitados">
-            </div>
-          </div>
-          <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
-            <button type="button" class="btn btn-action btn-secondary" id="qc-btn-cargar">Cargar existente</button>
-            <button type="button" class="btn btn-action btn-outline-danger" id="qc-btn-eliminar">Eliminar esta VAA</button>
-            <span class="bloque-nota" id="qc-aviso" hidden></span>
-          </div>
-        </form>
-
-        <div class="d-flex flex-wrap gap-2 align-items-center mt-3 mb-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary" id="qc-btn-expandir-todas">Expandir todas</button>
-          <button type="button" class="btn btn-sm btn-outline-secondary" id="qc-btn-colapsar-todas">Colapsar todas</button>
-        </div>
-        <div id="qc-preguntas-contenedor" class="d-flex flex-column gap-2"></div>
-
-        <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
-          <button type="button" class="btn btn-action btn-primary" id="qc-btn-guardar">Guardar Quiz</button>
-        </div>
-
-        <hr>
-        <h3>VAA ya creadas</h3>
-        <p class="small text-muted" id="qc-lista-estado">Cargando…</p>
-        <table class="table table-hover align-middle data-table">
-          <thead><tr><th>Ficha</th><th>RAA</th><th>VAA</th><th>Tipo</th><th>Preguntas</th><th>Puntaje máx.</th><th>Tiempo</th><th>Intentos</th><th>Actualizado</th><th></th></tr></thead>
-          <tbody id="qc-lista-tbody"></tbody>
-        </table>
       </section>
 
       <!-- ══ MÓDULO 4 · RESULTADOS DE EVALUACIÓN (instructor) ══
@@ -3817,6 +3802,7 @@ for i in range(1, 11):
   <script src="../assets/js/evaluacion/ra-cards-instructor.js"></script>
   <script src="../assets/js/evaluacion/actividad-aprendizaje.js"></script>
   <script src="../assets/js/evaluacion/quiz-crear-instructor.js"></script>
+  <script src="../assets/js/evaluacion/quiz-crear-general.js"></script>
   <script src="../assets/js/evaluacion/resultados-eval-instructor.js"></script>
   <script src="../assets/js/vistas/carrusel-generico.js"></script>
   <script src="../assets/js/vistas/carrusel-guias.js"></script>

@@ -283,7 +283,13 @@ async function cargarQuizDinamicoPresentar() {
 
   const ultimos = ultimosPorCuestionarioCards(resultados.historial);
   const desbloqueados = new Set(acceso.unlocked || []);
-  const fichas = typeof fichasDeAprendiz === 'function' ? fichasDeAprendiz(cedula) : ['adso'];
+  // "general" (3.7 · RA general nuevo, ver quiz-crear-general.js) no es una
+  // ficha curricular real — se agrega para todo aprendiz, sin importar la
+  // suya, porque ese contenido es de uso generalizado.
+  const fichas = [
+    ...(typeof fichasDeAprendiz === 'function' ? fichasDeAprendiz(cedula) : ['adso']),
+    'general',
+  ];
 
   contenedor.replaceChildren();
   let raaListados = 0;
