@@ -104,13 +104,9 @@
           </button>
           <ul class="submenu">
             <li><a href="#" data-view="sec-carrusel-evidencias">3.1 Entrega de evidencias</a></li>
-            <li><a href="#" data-view="sec-resultados-eval-inst">3.2 Resultados</a></li>
-            <li><a href="#" data-view="sec-resultados-embebidos">3.3 Dashboard</a></li>
-            <li><a href="#" data-view="sec-repositorio">3.4 Gestión de repositorios de evidencias</a></li>
+            <li><a href="#" data-view="sec-resultados-eval-inst">3.2 Resultados y Dashboard</a></li>
             <li><a href="#" data-view="sec-semaforo">3.5 Aprobar resultados / Seguimiento de entregas</a></li>
-            <li><a href="#" data-view="sec-historial">3.6 Historial de versiones de evidencias</a></li>
-            <li><a href="#" data-view="sec-practica-ins">3.7 Evaluación de ejercicios prácticos</a></li>
-            <li><a href="#" data-view="sec-ejercicios">3.8 Gestión de ejercicios de programación</a></li>
+            <li><a href="#" data-view="sec-ejercicios">3.7 Evaluación y gestión de ejercicios prácticos</a></li>
           </ul>
         </li>
 
@@ -663,7 +659,6 @@
             <p>Revisar lo que llega, dejar retroalimentación y consultar el historial de versiones de cada entrega.</p>
             <a href="#" class="btn btn-sm btn-ver" data-view="sec-revisar">Revisar entregas</a>
             <a href="#" class="btn btn-sm btn-ver" data-view="sec-retro-cod">Retroalimentar</a>
-            <a href="#" class="btn btn-sm btn-ver" data-view="sec-historial">Historial</a>
           </div>
 
           <div class="card content-card">
@@ -706,7 +701,7 @@
                 <td><span class="badge status-badge status-active">Enlazado</span></td>
               </tr>
               <tr>
-                <td><a href="#" data-view="sec-resultados-embebidos">Consulta los resultados de las actividades</a></td>
+                <td><a href="#" data-view="sec-resultados-eval-inst">Consulta los resultados de las actividades</a></td>
                 <td>Sus puntajes se acumulan al resolver cada actividad embebida</td>
                 <td><span class="badge status-badge status-active">Enlazado</span></td>
               </tr>
@@ -740,6 +735,14 @@
             <tr><td>Ejercicio Python 3 — Funciones</td><td><span class="badge badge-type badge-code">Python</span></td><td>—</td><td><span class="badge status-badge status-inactive">Borrador</span></td><td>0 / 10</td><td><a href="#" class="btn btn-sm btn-table">Editar</a><a href="#" class="btn btn-sm btn-table btn-success">Publicar</a></td></tr>
           </tbody>
         </table>
+
+        <!-- ══ 3.7 · Fusión con la Vista previa de práctica (antes sec-practica-ins) ══
+             Genera tarjetas desde EMBEBIDOS — ver
+             assets/js/vistas/practica-instructor-vista.js. -->
+        <hr class="my-4">
+        <h2 class="bloque-titulo">Vista previa de práctica</h2>
+        <p class="bloque-nota" style="margin-bottom:14px;">El material que el aprendiz desbloquea para acumular puntos y aportar al plan de mejora.</p>
+        <div class="grid-tarjetas grid-4" id="practica-ins-tarjetas"></div>
       </section>
 
       <!-- ══ REVISAR ENTREGAS ══ -->
@@ -797,30 +800,6 @@ for i in range(1, 11):
           <button class="btn btn-action btn-primary" onclick="alert('Retroalimentación guardada y notificación enviada al aprendiz (simulación)')">💾 Guardar y notificar aprendiz</button>
           <button class="btn btn-action btn-secondary" onclick="showSection('sec-revisar')">Cancelar</button>
         </div>
-      </section>
-
-      <!-- ══ HISTORIAL VERSIONES ══ -->
-      <section class="view-section" id="sec-historial">
-        <div class="sec-header">
-                    <p>RF14 — Consulta todas las entregas anteriores de un aprendiz sin pérdida de versiones previas</p>
-        </div>
-        <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
-          <select class="form-select" style="padding:7px 12px;border:1px solid #ccc;border-radius:5px;font-size:14px;">
-            <option>Aprendiz 1</option><option>Aprendiz 3</option>
-          </select>
-          <select class="form-select" style="padding:7px 12px;border:1px solid #ccc;border-radius:5px;font-size:14px;">
-            <option>Ejercicio Python 2</option><option>Ejercicio Python 1</option>
-          </select>
-          <button class="btn btn-action btn-secondary">Ver historial</button>
-        </div>
-        <table class="table table-hover align-middle data-table">
-          <thead><tr><th>Versión</th><th>Fecha</th><th>Hora</th><th>Archivos</th><th>Estado</th><th>Descargar</th></tr></thead>
-          <tbody>
-            <tr><td>v3 (última)</td><td>2026-06-22</td><td>11:05</td><td>ejercicio2.py</td><td><span class="badge status-badge status-inactive">Pendiente revisión</span></td><td><a href="#" class="btn btn-sm btn-table">⬇ Descargar</a></td></tr>
-            <tr><td>v2</td><td>2026-06-21</td><td>16:40</td><td>ejercicio2.py</td><td><span class="badge status-badge status-closed">Reemplazada</span></td><td><a href="#" class="btn btn-sm btn-table">⬇ Descargar</a></td></tr>
-            <tr><td>v1</td><td>2026-06-20</td><td>09:10</td><td>ejercicio2.py</td><td><span class="badge status-badge status-closed">Reemplazada</span></td><td><a href="#" class="btn btn-sm btn-table">⬇ Descargar</a></td></tr>
-          </tbody>
-        </table>
       </section>
 
       <!-- ══ PLANEACIÓN PEDAGÓGICA ══ -->
@@ -1146,14 +1125,6 @@ for i in range(1, 11):
         </table>
       </section>
 
-      <!-- ══ 3.4 PRÁCTICA ══ -->
-      <section class="view-section" id="sec-practica-ins">
-        <div class="sec-header">
-                    <p>Vista previa del material que el aprendiz desbloquea para acumular puntos y aportar al plan de mejora.</p>
-        </div>
-        <div class="grid-tarjetas grid-4" id="practica-ins-tarjetas"></div>
-      </section>
-
       <!-- ══ 2.6 ACTIVIDAD DE APRENDIZAJE (AA1..AA5 de RA-01) ══
            Misma vista que aprendiz.html: cada AA trae sus cuatro M
            (M1..M4) como pestañas sobre un único iframe, para que la
@@ -1218,51 +1189,6 @@ for i in range(1, 11):
       </section>
 
       <!-- ══ PUNTAJES DE APRENDICES ══ -->
-      <section class="view-section" id="sec-resultados-embebidos">
-        <div class="sec-header">
-                    <p>Puntajes que los aprendices obtuvieron en los materiales embebidos del curso, reunidos por ficha</p>
-        </div>
-
-        <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
-          <select class="form-select" id="rf-ficha" style="max-width:280px;"></select>
-          <select class="form-select" id="rf-rol" style="max-width:220px;">
-            <option value="">Todos los roles</option>
-            <option value="Aprendiz">Solo aprendices</option>
-            <option value="Sin identificar">Sin identificar</option>
-          </select>
-          <select class="form-select" id="rf-aprendiz" style="max-width:260px;">
-            <option value="">Todos los aprendices</option>
-          </select>
-          <button type="button" class="btn btn-action btn-secondary" id="rf-refrescar">Actualizar</button>
-        </div>
-
-        <div class="dashboard-metrics" id="rf-resumen"></div>
-
-        <div class="section-table" style="margin-bottom:20px;">
-          <div class="tabla-header">
-            <h2>Consolidado por participante</h2>
-            <span class="repo-conteo" id="rf-conteo">—</span>
-          </div>
-          <p class="bloque-nota">Toca una fila para ver solo sus actividades en el detalle de abajo; tócala de nuevo para volver a verlas todas.</p>
-          <table class="table table-hover align-middle data-table">
-            <thead><tr><th>Participante</th><th>Rol</th><th>Ficha</th><th>Cupo</th><th>Actividades</th><th>Promedio</th><th>Intentos</th><th>Última actividad</th></tr></thead>
-            <tbody id="rf-tbody"></tbody>
-          </table>
-          <p class="bloque-nota" id="rf-vacio" hidden>Todavía no hay puntajes registrados en este navegador.</p>
-        </div>
-
-        <div class="section-table">
-          <div class="tabla-header">
-            <h2>Detalle por actividad</h2>
-            <span class="repo-conteo" id="rf-detalle-quien">—</span>
-          </div>
-          <table class="table table-hover align-middle data-table">
-            <thead><tr><th>Participante</th><th>Actividad</th><th>Módulo</th><th>Mejor puntaje</th><th>Último</th><th>Intentos</th><th>Fecha</th></tr></thead>
-            <tbody id="rf-detalle"></tbody>
-          </table>
-        </div>
-      </section>
-
       <section class="view-section" id="sec-lineamientos">
         <div class="sec-header">
                     <p>Normativa y directrices que rigen la ejecución de la formación</p>
@@ -1669,31 +1595,6 @@ for i in range(1, 11):
         </div>
         <iframe class="marco-ra" title="Resultados de aprendizaje ADSO" loading="lazy"
                 src="resultadosdeaprendizajeADSO.html?rol=instructor&amp;embed=1"></iframe>
-      </section>
-
-      <!-- ══ REPOSITORIO DE LA FICHA ══ -->
-      <section class="view-section" id="sec-repositorio">
-        <div class="sec-header">
-                    <p>Análisis y Desarrollo de Software — documentos de la formación organizados por fase</p>
-        </div>
-
-        <div class="repo-barra">
-          <input class="form-control" id="repo-buscar" type="search" placeholder="Buscar documento por nombre…">
-          <select class="form-select" id="repo-tipo">
-            <option value="">Todos los formatos</option>
-            <option value="pdf">PDF</option>
-            <option value="xlsx">Excel</option>
-            <option value="docx">Word</option>
-            <option value="pptx">PowerPoint</option>
-            <option value="html">Material interactivo</option>
-            <option value="mp4">Video</option>
-            <option value="zip">Comprimido</option>
-          </select>
-          <span class="repo-conteo" id="repo-conteo"></span>
-        </div>
-
-        <div id="repo-arbol"></div>
-        <p id="repo-vacio" class="sugerencia" hidden>Ningún documento coincide con la búsqueda.</p>
       </section>
 
 
@@ -3407,6 +3308,52 @@ for i in range(1, 11):
         </table>
         <p class="small text-muted mb-0">Score: acumulado directo (suma cada reporte, sin ponderar) — distinto del puntaje/objetivo de la izquierda.</p>
         <div id="rei-detalle" class="notif-card" hidden></div>
+
+        <!-- ══ 3.2 · Fusión con el Dashboard (antes sec-resultados-embebidos) ══
+             Puntajes de materiales embebidos, reunidos por ficha — ver
+             assets/js/vistas/resultados-ficha.js. -->
+        <hr class="my-4">
+        <h2 class="bloque-titulo">Dashboard de materiales embebidos</h2>
+        <p class="bloque-nota" style="margin-bottom:14px;">Puntajes que los aprendices obtuvieron en los materiales embebidos del curso, reunidos por ficha.</p>
+
+        <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
+          <select class="form-select" id="rf-ficha" style="max-width:280px;"></select>
+          <select class="form-select" id="rf-rol" style="max-width:220px;">
+            <option value="">Todos los roles</option>
+            <option value="Aprendiz">Solo aprendices</option>
+            <option value="Sin identificar">Sin identificar</option>
+          </select>
+          <select class="form-select" id="rf-aprendiz" style="max-width:260px;">
+            <option value="">Todos los aprendices</option>
+          </select>
+          <button type="button" class="btn btn-action btn-secondary" id="rf-refrescar">Actualizar</button>
+        </div>
+
+        <div class="dashboard-metrics" id="rf-resumen"></div>
+
+        <div class="section-table" style="margin-bottom:20px;">
+          <div class="tabla-header">
+            <h2>Consolidado por participante</h2>
+            <span class="repo-conteo" id="rf-conteo">—</span>
+          </div>
+          <p class="bloque-nota">Toca una fila para ver solo sus actividades en el detalle de abajo; tócala de nuevo para volver a verlas todas.</p>
+          <table class="table table-hover align-middle data-table">
+            <thead><tr><th>Participante</th><th>Rol</th><th>Ficha</th><th>Cupo</th><th>Actividades</th><th>Promedio</th><th>Intentos</th><th>Última actividad</th></tr></thead>
+            <tbody id="rf-tbody"></tbody>
+          </table>
+          <p class="bloque-nota" id="rf-vacio" hidden>Todavía no hay puntajes registrados en este navegador.</p>
+        </div>
+
+        <div class="section-table">
+          <div class="tabla-header">
+            <h2>Detalle por actividad</h2>
+            <span class="repo-conteo" id="rf-detalle-quien">—</span>
+          </div>
+          <table class="table table-hover align-middle data-table">
+            <thead><tr><th>Participante</th><th>Actividad</th><th>Módulo</th><th>Mejor puntaje</th><th>Último</th><th>Intentos</th><th>Fecha</th></tr></thead>
+            <tbody id="rf-detalle"></tbody>
+          </table>
+        </div>
       </section>
 
       <!-- ══ MODULO 5 — ROL ADMINISTRADOR (funciones extra de instructor) ══
