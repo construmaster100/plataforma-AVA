@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio de Lógica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10121a;
+    --bg-raise: #171a24;
+    --panel: #1b1e29;
+    --panel-header: #20242f;
+    --border: #2b3040;
+    --text: #e7e8f0;
+    --text-dim: #8b8fa6;
+    --text-faint: #565b70;
+
+    --ex: #f2a65a;
+    --ex-glow: #f2a65a26;
+    --in: #63e6be;
+    --in-glow: #63e6be26;
+    --out: #7cb8ff;
+    --out-glow: #7cb8ff26;
+    --ok: #63e6be;
+    --err: #ff8080;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1100px 600px at 12% -10%, #1b2036 0%, transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, #1a1f2e 0%, transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Sora', system-ui, sans-serif;
+    min-height:100vh;
+    padding:22px 20px 40px;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;}
+
+  header{margin-bottom:22px;}
+  .eyebrow-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .dot3{display:flex;gap:5px;}
+  .dot3 span{width:8px;height:8px;border-radius:50%;display:block;}
+  .dot3 span:nth-child(1){background:var(--ex);}
+  .dot3 span:nth-child(2){background:var(--in);}
+  .dot3 span:nth-child(3){background:var(--out);}
+  .eyebrow-row span.txt{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--text-faint);letter-spacing:.02em;}
+
+  header p{
+    color:var(--text-dim);
+    max-width:65ch;
+    line-height:1.6;
+    margin:0;
+    font-size:14.5px;
+  }
+
+  .board{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:16px;
+    margin-top:20px;
+    align-items:start;
+  }
+  @media (max-width:940px){
+    .board{grid-template-columns:1fr;}
+  }
+
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    min-height:340px;
+  }
+  .panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px 16px;
+    background:var(--panel-header);
+    border-bottom:1px solid var(--border);
+  }
+  .panel-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .num{
+    width:20px;height:20px;
+    border-radius:5px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;
+    font-weight:700;
+    flex:none;
+  }
+  .panel--ex .num{background:var(--ex-glow);color:var(--ex);}
+  .panel--in .num{background:var(--in-glow);color:var(--in);}
+  .panel--out .num{background:var(--out-glow);color:var(--out);}
+  .panel--ex .panel-title{color:var(--ex);}
+  .panel--in .panel-title{color:var(--in);}
+  .panel--out .panel-title{color:var(--out);}
+
+  .panel-sub{
+    font-size:11.5px;
+    color:var(--text-faint);
+    font-family:'Sora',sans-serif;
+  }
+
+  .code-area{
+    flex:1;
+    overflow:auto;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    line-height:1.65;
+  }
+
+  pre.example-code{
+    margin:0;
+    padding:16px;
+    white-space:pre;
+    color:var(--text);
+    min-height:100%;
+  }
+  .tok-str{color:#b7e39a;}
+  .tok-fn{color:var(--out);}
+
+  textarea.input-code{
+    width:100%;
+    height:100%;
+    min-height:260px;
+    resize:vertical;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:var(--text);
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    line-height:1.65;
+    padding:16px;
+    tab-size:2;
+  }
+  textarea.input-code::placeholder{color:var(--text-faint);}
+
+  .panel-foot{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 12px;
+    border-top:1px solid var(--border);
+    background:var(--panel-header);
+  }
+  button.act{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    font-weight:600;
+    border:1px solid transparent;
+    border-radius:6px;
+    padding:8px 13px;
+    cursor:pointer;
+    transition:transform .1s ease, opacity .15s ease;
+  }
+  button.act:active{transform:scale(.97);}
+  .btn-check{background:var(--in);color:#0b1410;}
+  .btn-check:hover{opacity:.9;}
+  .btn-reset{background:transparent;color:var(--text-dim);border-color:var(--border);}
+  .btn-reset:hover{color:var(--text);border-color:#3a4056;}
+
+  .result-area{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    text-align:center;
+  }
+  .result-msg{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    font-size:26px;
+  }
+  .result-msg.is-wait{font-size:14px;font-weight:500;color:var(--text-faint);font-style:italic;}
+  .result-msg.is-ok{color:var(--ok);}
+  .result-msg.is-err{color:var(--err);}
+
+  footer{
+    margin-top:26px;
+    color:var(--text-faint);
+    font-size:12.5px;
+    font-family:'JetBrains Mono',monospace;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow-row">
+      <div class="dot3"><span></span><span></span><span></span></div>
+      <span class="txt">ejemplo → tu código → resultado</span>
+    </div>
+    <p>Copia el código del ejemplo en el panel «Tu código» y compruébalo. Si coincide, el resultado muestra «Hola mundo»; si no coincide, muestra «ERROR».</p>
+  </header>
+
+  <div class="board">
+
+    <section class="panel panel--ex">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">1</span> Ejemplo</div>
+        <div class="panel-sub">JavaScript</div>
+      </div>
+      <div class="code-area">
+        <pre class="example-code" id="exampleCode"></pre>
+      </div>
+    </section>
+
+    <section class="panel panel--in">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">2</span> Tu código</div>
+        <div class="panel-sub">Copia y pega aquí</div>
+      </div>
+      <div class="code-area">
+        <textarea class="input-code" id="userCode" spellcheck="false" placeholder="Copia aquí el código del ejemplo..."></textarea>
+      </div>
+      <div class="panel-foot">
+        <button class="act btn-check" id="checkBtn">✓ Comprobar</button>
+        <button class="act btn-reset" id="resetBtn">↺ Reiniciar</button>
+      </div>
+    </section>
+
+    <section class="panel panel--out">
+      <div class="panel-head">
+        <div class="panel-title"><span class="num">3</span> Resultado</div>
+        <div class="panel-sub" id="outStatus">en espera</div>
+      </div>
+      <div class="result-area" id="resultArea">
+        <div class="result-msg is-wait">Presiona «Comprobar» para validar tu código.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>node --logic-lab // los errores también son parte del aprendizaje</footer>
+</div>
+
+<script>
+const EJEMPLO = `console.log("Hola mundo");`;
+
+const exampleCode = document.getElementById('exampleCode');
+const userCode = document.getElementById('userCode');
+const resultArea = document.getElementById('resultArea');
+const outStatus = document.getElementById('outStatus');
+
+function highlight(code){
+  return code
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/("(?:[^"\\]|\\.)*")/g, '<span class="tok-str">$1</span>')
+    .replace(/\b(console\.log)\b/g, '<span class="tok-fn">$1</span>');
+}
+
+function normalizeCode(code){
+  return code
+    .replace(/\/\/.*$/gm, '')
+    .replace(/\s+/g, '')
+    .trim();
+}
+
+function mostrarEspera(){
+  resultArea.innerHTML = '<div class="result-msg is-wait">Presiona «Comprobar» para validar tu código.</div>';
+  outStatus.textContent = 'en espera';
+}
+
+function comprobar(){
+  const coincide = normalizeCode(userCode.value) === normalizeCode(EJEMPLO);
+  if (coincide){
+    resultArea.innerHTML = '<div class="result-msg is-ok">Hola mundo</div>';
+    outStatus.textContent = '¡correcto!';
+  } else {
+    resultArea.innerHTML = '<div class="result-msg is-err">ERROR</div>';
+    outStatus.textContent = 'no coincide';
+  }
+}
+
+function reiniciar(){
+  userCode.value = '';
+  mostrarEspera();
+}
+
+exampleCode.innerHTML = highlight(EJEMPLO);
+document.getElementById('checkBtn').addEventListener('click', comprobar);
+document.getElementById('resetBtn').addEventListener('click', reiniciar);
+</script>
+</body>
+</html>

@@ -94,6 +94,7 @@
           <ul class="submenu">
             <li><a href="#" data-view="sec-quiz-dinamico">2.1 Presentar Quiz/Evaluación</a></li>
             <li><a href="#" data-view="sec-resultados-eval">2.2 Resultados de evaluación</a></li>
+            <li><a href="#" data-view="sec-logica-lab">2.3 Laboratorio de Lógica</a></li>
           </ul>
         </li>
 
@@ -2968,6 +2969,18 @@
                 style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
       </section>
 
+      <!-- ══ 2.3 LABORATORIO DE LÓGICA ══
+           Página independiente, aislada por completo en logica/index.html
+           (sin CSS/JS globales de este sitio). Se incrusta solo por iframe,
+           igual que el AVA Code Lab de 5.1. -->
+      <section class="view-section" id="sec-logica-lab">
+        <div class="sec-header">
+          <p>Copia el código del ejemplo en el panel «Tu código» y compruébalo: si coincide, el resultado muestra «Hola mundo»; si no coincide, muestra «ERROR».</p>
+        </div>
+        <iframe class="marco-ra" id="logica-lab-frame" title="Laboratorio de Lógica"
+                style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
+      </section>
+
       <!-- ══ DASHBOARD ACADÉMICO ══ -->
 
       <!-- ══ EJERCICIOS ══ -->
@@ -4984,6 +4997,17 @@
         enlace.addEventListener('click', () => {
           const frame = document.getElementById('code-lab-frame');
           if (frame && !frame.getAttribute('src')) frame.src = '../editor/index.html';
+        });
+      });
+    });
+
+    /* Laboratorio de Lógica (2.3): mismo criterio de carga diferida que
+       el AVA Code Lab — el iframe no trae src de fábrica. */
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('[data-view="sec-logica-lab"]').forEach(enlace => {
+        enlace.addEventListener('click', () => {
+          const frame = document.getElementById('logica-lab-frame');
+          if (frame && !frame.getAttribute('src')) frame.src = '../logica/index.html';
         });
       });
     });
