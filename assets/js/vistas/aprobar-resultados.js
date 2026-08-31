@@ -1,10 +1,17 @@
 /* ══════════════════════════════════════════
-   SGMA-ADSO — 3.4 Aprobar resultados (instructor)
+   SGMA-ADSO — 3.5 sec-semaforo: aprobar resultados / seguimiento de entregas (instructor)
 
    La instructora elige un RA y su GA vinculada (mismo catálogo que
    carrusel-evidencias.js, 3.1) y revisa las entregas de todos los
    aprendices para esa evidencia puntual: aprobar o rechazar (con
    comentario). El aprendiz ve ese mismo estado reflejado en su 3.1.
+
+   Pinta sobre sec-semaforo — que antes mostraba un semáforo de
+   evidencia por sesión (assets/js/estado/evidencias.js +
+   assets/js/vistas/evidencias-vista.js), un sistema distinto que
+   nunca llegó a tener quien le escribiera datos (adjuntarEvidencia()
+   no se llama desde ningún lado). Ese archivo se deja intacto por si
+   se retoma, pero ya no pinta nada en esta pantalla.
 
    Solo existe en pages/instructor.html. Depende de:
      · ficha.js               → leerAlmacen, guardarAlmacen
@@ -105,7 +112,7 @@ function iniciarAprobarResultados() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-view="sec-aprobar-resultados"]').forEach(a =>
+  document.querySelectorAll('[data-view="sec-semaforo"]').forEach(a =>
     a.addEventListener('click', iniciarAprobarResultados));
 
   const selRA = document.getElementById('ar-ra');

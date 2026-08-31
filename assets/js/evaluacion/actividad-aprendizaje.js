@@ -51,7 +51,7 @@ function construirBotonesAA(caja, catalogo, ultimos) {
 
     if (!material) {
       boton.classList.add('btn-outline-secondary');
-      boton.textContent = `M${m} — sin contenido aún`;
+      boton.textContent = `VAA${m} — sin contenido aún`;
       boton.disabled = true;
       botones.appendChild(boton);
       return;
@@ -60,7 +60,7 @@ function construirBotonesAA(caja, catalogo, ultimos) {
     conContenido += 1;
     const { texto, clase } = estadoAA(ultimos.get(material.cuestionarioId));
     boton.classList.add(clase || 'btn-outline-secondary');
-    boton.textContent = `M${m} · ${texto}`;
+    boton.textContent = `VAA${m} · ${texto}`;
     boton.addEventListener('click', () => {
       botones.querySelectorAll('.aa-tab-btn').forEach(b => b.classList.remove('active'));
       boton.classList.add('active');
@@ -70,7 +70,7 @@ function construirBotonesAA(caja, catalogo, ultimos) {
     if (!primero) primero = { boton, material };
   });
 
-  estado.textContent = `RA-01 · AA${aaId} · ${conContenido} de 4 módulos con contenido.`;
+  estado.textContent = `RA-01 · AA${aaId} · ${conContenido} de 4 VAA con contenido.`;
 
   if (primero) {
     primero.boton.classList.add('active');
@@ -82,7 +82,7 @@ function construirBotonesAA(caja, catalogo, ultimos) {
 
 async function iniciarAA(caja) {
   const estado = caja.querySelector('.aa-tabs-estado');
-  estado.textContent = 'Cargando módulos…';
+  estado.textContent = 'Cargando VAA…';
 
   const cedula = new URLSearchParams(window.location.search).get('doc');
   let catalogo, datos;

@@ -136,7 +136,7 @@ function preguntasEjemploQC(modulo, n, puntosTotal) {
   const base = Math.floor(puntosTotal / n);
   const resto = puntosTotal - base * n;
   return Array.from({ length: n }, (_, i) => ({
-    texto: `[Ejemplo] Pregunta ${i + 1} del Módulo ${modulo} — reemplázala con contenido real`,
+    texto: `[Ejemplo] Pregunta ${i + 1} de VAA${modulo} — reemplázala con contenido real`,
     tipo: 'opciones',
     opciones: ['Opción A (ejemplo)', 'Opción B (ejemplo)', 'Opción C (ejemplo)', 'Opción D (ejemplo)'],
     respuestaCorrecta: 0,
@@ -165,7 +165,7 @@ async function agregarRARapidoQC() {
   }));
 
   if (planes.some(p => !Number.isInteger(p.n) || p.n < 1 || !Number.isInteger(p.puntos) || p.puntos < 1)) {
-    aviso.textContent = 'Cada módulo necesita un número de preguntas y unos puntos totales válidos (enteros ≥ 1).';
+    aviso.textContent = 'Cada VAA necesita un número de preguntas y unos puntos totales válidos (enteros ≥ 1).';
     aviso.style.color = '#c0392b';
     return;
   }
@@ -191,10 +191,10 @@ async function agregarRARapidoQC() {
       });
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
-        throw new Error(`Módulo ${plan.modulo}: ${err.error || 'no se pudo crear'}`);
+        throw new Error(`VAA${plan.modulo}: ${err.error || 'no se pudo crear'}`);
       }
     }
-    aviso.textContent = `RA-${String(raId).padStart(2, '0')} creado con sus 4 módulos (con preguntas de ejemplo — edítalas abajo).`;
+    aviso.textContent = `RA-${String(raId).padStart(2, '0')} creado con sus 4 VAA (con preguntas de ejemplo — edítalas abajo).`;
     aviso.style.color = '#278238';
     cargarListaQC();
   } catch (e) {
@@ -253,7 +253,7 @@ async function cargarExistenteQC() {
   try {
     const resp = await fetch(`${API_BASE_QC}/quizzes/${ficha}/${raId}/${aa}/${modulo}`);
     if (resp.status === 404) {
-      avisoQC('No existe todavía este módulo — se generó un formulario vacío.', false);
+      avisoQC('No existe todavía esta VAA — se generó un formulario vacío.', false);
       generarFilasPreguntas(PREGUNTAS_REQUERIDAS_QC[document.getElementById('qc-tipo').value], []);
       return;
     }
@@ -262,9 +262,9 @@ async function cargarExistenteQC() {
     document.getElementById('qc-tiempo').value = quiz.limiteTiempoMinutos || 0;
     document.getElementById('qc-intentos').value = quiz.intentosPermitidos || 0;
     generarFilasPreguntas(quiz.preguntas.length, quiz.preguntas);
-    avisoQC('Módulo cargado para editar.', false);
+    avisoQC('VAA cargada para editar.', false);
   } catch (e) {
-    avisoQC('No se pudo cargar el módulo.', true);
+    avisoQC('No se pudo cargar la VAA.', true);
   }
 }
 
@@ -320,10 +320,10 @@ async function guardarQuizQC() {
 
 async function eliminarModuloQC() {
   const { ficha, raId, aa, modulo } = leerFormularioQC();
-  if (!confirm(`¿Eliminar el módulo ${modulo} de RA-${raId} AA${aa} (${ficha})?`)) return;
+  if (!confirm(`¿Eliminar VAA${modulo} de RA-${raId} AA${aa} (${ficha})?`)) return;
   try {
     await fetch(`${API_BASE_QC}/quizzes/${ficha}/${raId}/${aa}/${modulo}`, { method: 'DELETE' });
-    avisoQC('Módulo eliminado.', false);
+    avisoQC('VAA eliminada.', false);
     generarFilasPreguntas(PREGUNTAS_REQUERIDAS_QC[document.getElementById('qc-tipo').value], []);
     cargarListaQC();
   } catch (e) {
@@ -344,12 +344,12 @@ async function cargarListaQC() {
     return;
   }
   lista.sort((a, b) => a.ficha.localeCompare(b.ficha) || a.raId - b.raId || a.aa - b.aa || a.modulo - b.modulo);
-  estado.textContent = `${lista.length} módulo(s) creado(s).`;
+  estado.textContent = `${lista.length} VAA creada(s).`;
   tbody.innerHTML = lista.map(q => `
     <tr>
       <td>${q.ficha}</td>
       <td>RA-${String(q.raId).padStart(2, '0')} · AA${q.aa}</td>
-      <td>${q.modulo}</td>
+      <td>VAA${q.modulo}</td>
       <td>${q.tipo === 'quiz' ? 'Quiz (10)' : 'Evaluación (30)'}</td>
       <td>${q.nPreguntas}</td>
       <td>${q.maxPuntaje}</td>

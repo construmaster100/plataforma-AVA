@@ -22,15 +22,17 @@ function cuestionarioIdQD(ficha, raId, aa, modulo) {
 function pintarTileModuloQD(modulo, quizEntry, ultimos, activo, onClick) {
   const tile = document.createElement('button');
   tile.type = 'button';
-  tile.className = 'card';
-  tile.style.cssText = 'flex:1;min-width:150px;padding:14px 10px;text-align:center;'
-    + 'border-radius:14px;border:1px solid ' + (activo ? '#39A900' : '#ddd') + ';'
-    + 'background:' + (activo ? '#eef8e8' : '#fff') + ';cursor:' + (quizEntry ? 'pointer' : 'not-allowed') + ';';
+  tile.className = 'card content-card';
+  tile.style.cssText = 'cursor:' + (quizEntry ? 'pointer' : 'not-allowed') + ';'
+    + (activo ? 'border-color:#39A900;background:#eef8e8;' : '');
 
   if (!quizEntry) {
     tile.disabled = true;
     tile.style.opacity = '0.55';
-    tile.innerHTML = `<div style="font-weight:700;">Módulo ${modulo}</div><div class="small text-muted">Sin crear</div>`;
+    tile.innerHTML = `
+      <div class="cc-icon">🔒</div>
+      <span class="badge badge-type badge-code">VAA${modulo}</span>
+      <h4>Sin crear</h4>`;
     return tile;
   }
 
@@ -38,9 +40,10 @@ function pintarTileModuloQD(modulo, quizEntry, ultimos, activo, onClick) {
   const { texto, aprobado } = estadoMCard(ultimos, cId);
   const colorEstado = aprobado ? '#278238' : (texto === 'Sin presentar' ? '#777' : '#c9640a');
   tile.innerHTML = `
-    <div style="font-weight:700;">Módulo ${modulo}</div>
-    <div class="small text-muted">${ETIQUETA_TIPO_QD[quizEntry.tipo]}</div>
-    <div class="small" style="color:${colorEstado};font-weight:600;margin-top:4px;">${texto}</div>`;
+    <div class="cc-icon">${quizEntry.tipo === 'evaluacion' ? '✅' : '📝'}</div>
+    <span class="badge badge-type badge-code">VAA${modulo}</span>
+    <h4 style="margin:6px 0 2px;">${ETIQUETA_TIPO_QD[quizEntry.tipo]}</h4>
+    <p style="color:${colorEstado};font-weight:600;margin:0;">${texto}</p>`;
   tile.addEventListener('click', () => onClick(quizEntry));
   return tile;
 }
@@ -81,8 +84,8 @@ function pintarCardRAAQD(raId, aa, quizzesRAA, ultimos, params) {
   const pie = document.createElement('p');
   pie.className = 'small text-muted mb-0 mt-2';
   pie.textContent = conContenido.length
-    ? `${aprobados} de ${conContenido.length} módulo(s) creado(s) aprobado(s)`
-    : 'El instructor todavía no ha creado módulos para este RAA.';
+    ? `${aprobados} de ${conContenido.length} VAA creada(s) aprobada(s)`
+    : 'El instructor todavía no ha creado VAA para este RAA.';
   card.appendChild(pie);
 
   return card;
@@ -125,13 +128,13 @@ async function abrirFormularioQD(quizEntry, params) {
       intentosUsados = (historial.historial || []).filter(r => r.cuestionario === cId).length;
     } catch (e) { /* si no se puede consultar, se deja presentar (best-effort) */ }
     if (intentosUsados >= quiz.intentosPermitidos) {
-      alert(`Ya usaste tus ${quiz.intentosPermitidos} intento(s) permitido(s) para este módulo.`);
+      alert(`Ya usaste tus ${quiz.intentosPermitidos} intento(s) permitido(s) para esta VAA.`);
       return;
     }
   }
 
   const puntajeMaximo = quiz.preguntas.reduce((suma, p) => suma + p.puntos, 0);
-  const tituloModulo = `RA-${String(quizEntry.raId).padStart(2, '0')} · AA${quizEntry.aa} · Módulo ${quizEntry.modulo}`;
+  const tituloModulo = `RA-${String(quizEntry.raId).padStart(2, '0')} · AA${quizEntry.aa} · VAA${quizEntry.modulo}`;
   // El título va solo en la barra titulo-vista (patrón del resto del
   // sitio) — esta sección no lleva su propio <h1> para no duplicarlo.
   const barraTitulo = document.getElementById('titulo-vista');

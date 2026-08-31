@@ -52,7 +52,7 @@ function mostrarDetalleREI(cedula) {
   }
   detalle.innerHTML = '<ul class="mb-0">' + d.porRAA.map(r => `
     <li>RA-${String(r.raId).padStart(2, '0')} · AA${r.aa} (${r.ficha}): ${r.puntosGanados.toFixed(2)} / ${r.pesoMaximo.toFixed(2)} pts
-      — ${r.modulos.map(m => `M${m.modulo} ${m.aciertos}/${m.maxPuntaje}`).join(', ')}</li>`).join('') + '</ul>';
+      — ${r.modulos.map(m => `VAA${m.modulo} ${m.aciertos}/${m.maxPuntaje}`).join(', ')}</li>`).join('') + '</ul>';
 }
 
 document.addEventListener('DOMContentLoaded', () => {

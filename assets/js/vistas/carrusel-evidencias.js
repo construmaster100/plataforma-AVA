@@ -54,9 +54,9 @@ function setEntregaEvidencia(itemId, entrega) {
 }
 
 function etiquetaEstadoEvidencia(estado) {
-  if (estado === 'aprobado') return '<span class="badge status-badge status-active">✅ Aprobada</span>';
-  if (estado === 'rechazado') return '<span class="badge status-badge status-inactive">❌ Rechazada</span>';
-  return '<span class="badge status-badge status-closed">⏳ Pendiente de revisión</span>';
+  if (estado === 'aprobado') return '<span class="badge status-badge status-active">🟢 Aprobada</span>';
+  if (estado === 'rechazado') return '<span class="badge status-badge status-inactive">🔴 Rechazada</span>';
+  return '<span class="badge status-badge status-closed">🟡 Pendiente de revisión</span>';
 }
 
 function limpiarFormularioCE() {

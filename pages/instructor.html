@@ -106,11 +106,11 @@
             <li><a href="#" data-view="sec-carrusel-evidencias">3.1 Entrega de evidencias</a></li>
             <li><a href="#" data-view="sec-resultados-eval-inst">3.2 Resultados</a></li>
             <li><a href="#" data-view="sec-resultados-embebidos">3.3 Dashboard</a></li>
-            <li><a href="#" data-view="sec-aprobar-resultados">3.4 Aprobar resultados</a></li>
             <li><a href="#" data-view="sec-repositorio">3.4 Gestión de repositorios de evidencias</a></li>
-            <li><a href="#" data-view="sec-semaforo">3.5 Seguimiento de entregas</a></li>
+            <li><a href="#" data-view="sec-semaforo">3.5 Aprobar resultados / Seguimiento de entregas</a></li>
             <li><a href="#" data-view="sec-historial">3.6 Historial de versiones de evidencias</a></li>
             <li><a href="#" data-view="sec-practica-ins">3.7 Evaluación de ejercicios prácticos</a></li>
+            <li><a href="#" data-view="sec-ejercicios">3.8 Gestión de ejercicios de programación</a></li>
           </ul>
         </li>
 
@@ -1111,14 +1111,28 @@ for i in range(1, 11):
       </section>
 
       <!-- ══ SEMÁFORO DE EVIDENCIAS ══ -->
+      <!-- ══ 3.5 SEGUIMIENTO DE ENTREGAS / APROBAR RESULTADOS ══
+           Selecciona un RA (y su GA vinculada) y aprueba o rechaza la
+           evidencia que cada aprendiz entregó para esa guía puntual —
+           mismo catálogo que 3.1 · Entrega de evidencias (ver
+           assets/js/vistas/carrusel-evidencias.js + aprobar-resultados.js). -->
       <section class="view-section" id="sec-semaforo">
         <div class="sec-header">
-                    <p>Evidencia que el aprendiz adjunta durante la sesión — amarillo en revisión, verde aprobada, rojo rechazada.</p>
+                    <p>Evidencia que el aprendiz entregó en 3.1 — amarillo pendiente de revisión, verde aprobada, rojo rechazada.</p>
         </div>
+
+        <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
+          <select class="form-select" id="ar-ra" style="max-width:220px;"><option value="">Selecciona un RA…</option></select>
+          <select class="form-select" id="ar-ga" style="max-width:220px;" disabled><option value="">Todas las GA</option></select>
+          <button type="button" class="btn btn-action btn-secondary" id="ar-refrescar">Actualizar</button>
+          <span class="repo-conteo" id="ar-conteo">—</span>
+        </div>
+
         <table class="table table-hover align-middle data-table">
-          <thead><tr><th>Aprendiz</th><th>Descripción</th><th>Fecha</th><th>Semáforo</th><th>Motivo</th><th>Acción</th></tr></thead>
-          <tbody id="semaforo-tbody"></tbody>
+          <thead><tr><th>Aprendiz</th><th>GA</th><th>Evidencia</th><th>Archivo</th><th>Fecha</th><th>Semáforo</th><th>Acción</th></tr></thead>
+          <tbody id="ar-tbody"></tbody>
         </table>
+        <p class="bloque-nota" id="ar-vacio">Selecciona un RA para ver las entregas de sus aprendices.</p>
       </section>
 
       <!-- ══ RANKING DE PUNTOS (SOLO LECTURA) ══ -->
@@ -1150,10 +1164,10 @@ for i in range(1, 11):
            deshabilitados como "sin contenido aún". -->
       <section class="view-section" id="sec-aa-1">
         <div class="sec-header">
-                    <p>RA-01 · AA1. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA1. Vista previa de las cuatro VAA (Ventanas de Actividad de Aprendizaje) de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="1">
-          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <p class="aa-tabs-estado small text-muted">Cargando VAA…</p>
           <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
           <iframe class="aa-tabs-frame" title="AA1" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
         </div>
@@ -1161,10 +1175,10 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-aa-2">
         <div class="sec-header">
-                    <p>RA-01 · AA2. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA2. Vista previa de las cuatro VAA (Ventanas de Actividad de Aprendizaje) de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="2">
-          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <p class="aa-tabs-estado small text-muted">Cargando VAA…</p>
           <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
           <iframe class="aa-tabs-frame" title="AA2" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
         </div>
@@ -1172,10 +1186,10 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-aa-3">
         <div class="sec-header">
-                    <p>RA-01 · AA3. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA3. Vista previa de las cuatro VAA (Ventanas de Actividad de Aprendizaje) de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="3">
-          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <p class="aa-tabs-estado small text-muted">Cargando VAA…</p>
           <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
           <iframe class="aa-tabs-frame" title="AA3" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
         </div>
@@ -1183,10 +1197,10 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-aa-4">
         <div class="sec-header">
-                    <p>RA-01 · AA4. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA4. Vista previa de las cuatro VAA (Ventanas de Actividad de Aprendizaje) de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="4">
-          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <p class="aa-tabs-estado small text-muted">Cargando VAA…</p>
           <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
           <iframe class="aa-tabs-frame" title="AA4" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
         </div>
@@ -1194,10 +1208,10 @@ for i in range(1, 11):
 
       <section class="view-section" id="sec-aa-5">
         <div class="sec-header">
-                    <p>RA-01 · AA5. Vista previa de los cuatro módulos de evaluación de esta actividad.</p>
+                    <p>RA-01 · AA5. Vista previa de las cuatro VAA (Ventanas de Actividad de Aprendizaje) de evaluación de esta actividad.</p>
         </div>
         <div class="aa-tabs" data-aa="5">
-          <p class="aa-tabs-estado small text-muted">Cargando módulos…</p>
+          <p class="aa-tabs-estado small text-muted">Cargando VAA…</p>
           <div class="aa-tabs-botones btn-group flex-wrap mb-3" role="group"></div>
           <iframe class="aa-tabs-frame" title="AA5" style="width:100%;height:78vh;border:0;border-radius:12px;"></iframe>
         </div>
@@ -3279,28 +3293,28 @@ for i in range(1, 11):
 
           <div class="d-flex flex-wrap gap-2">
             <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
-              <div class="text-center fw-bold mb-2">Módulo 1</div>
+              <div class="text-center fw-bold mb-2">VAA1</div>
               <label class="small text-muted mb-1">Preguntas</label>
               <input class="form-control form-control-sm mb-2" type="number" id="qcr-m1-n" min="1" value="10">
               <label class="small text-muted mb-1">Puntos totales</label>
               <input class="form-control form-control-sm" type="number" id="qcr-m1-pts" min="1" value="20">
             </div>
             <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
-              <div class="text-center fw-bold mb-2">Módulo 2</div>
+              <div class="text-center fw-bold mb-2">VAA2</div>
               <label class="small text-muted mb-1">Preguntas</label>
               <input class="form-control form-control-sm mb-2" type="number" id="qcr-m2-n" min="1" value="10">
               <label class="small text-muted mb-1">Puntos totales</label>
               <input class="form-control form-control-sm" type="number" id="qcr-m2-pts" min="1" value="10">
             </div>
             <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
-              <div class="text-center fw-bold mb-2">Módulo 3</div>
+              <div class="text-center fw-bold mb-2">VAA3</div>
               <label class="small text-muted mb-1">Preguntas</label>
               <input class="form-control form-control-sm mb-2" type="number" id="qcr-m3-n" min="1" value="10">
               <label class="small text-muted mb-1">Puntos totales</label>
               <input class="form-control form-control-sm" type="number" id="qcr-m3-pts" min="1" value="30">
             </div>
             <div class="card" style="flex:1;min-width:170px;padding:14px 12px;border-radius:14px;border:1px solid #ddd;background:#fff;">
-              <div class="text-center fw-bold mb-2">Módulo 4</div>
+              <div class="text-center fw-bold mb-2">VAA4</div>
               <label class="small text-muted mb-1">Preguntas</label>
               <input class="form-control form-control-sm mb-2" type="number" id="qcr-m4-n" min="1" value="10">
               <label class="small text-muted mb-1">Puntos totales</label>
@@ -3325,12 +3339,12 @@ for i in range(1, 11):
             <div class="form-group"><label>AA (1-5)</label>
               <input class="form-control" type="number" id="qc-aa" min="1" max="5" value="1">
             </div>
-            <div class="form-group"><label>Módulo (1-4)</label>
+            <div class="form-group"><label>VAA (1-4)</label>
               <select class="form-select" id="qc-modulo">
-                <option value="1">Módulo 1</option>
-                <option value="2">Módulo 2</option>
-                <option value="3">Módulo 3</option>
-                <option value="4">Módulo 4</option>
+                <option value="1">VAA1</option>
+                <option value="2">VAA2</option>
+                <option value="3">VAA3</option>
+                <option value="4">VAA4</option>
               </select>
             </div>
             <div class="form-group"><label>Tipo</label>
@@ -3348,7 +3362,7 @@ for i in range(1, 11):
           </div>
           <div class="d-flex flex-wrap gap-2 align-items-center form-footer">
             <button type="button" class="btn btn-action btn-secondary" id="qc-btn-cargar">Cargar existente</button>
-            <button type="button" class="btn btn-action btn-outline-danger" id="qc-btn-eliminar">Eliminar este módulo</button>
+            <button type="button" class="btn btn-action btn-outline-danger" id="qc-btn-eliminar">Eliminar esta VAA</button>
             <span class="bloque-nota" id="qc-aviso" hidden></span>
           </div>
         </form>
@@ -3364,10 +3378,10 @@ for i in range(1, 11):
         </div>
 
         <hr>
-        <h3>Módulos ya creados</h3>
+        <h3>VAA ya creadas</h3>
         <p class="small text-muted" id="qc-lista-estado">Cargando…</p>
         <table class="table table-hover align-middle data-table">
-          <thead><tr><th>Ficha</th><th>RAA</th><th>Módulo</th><th>Tipo</th><th>Preguntas</th><th>Puntaje máx.</th><th>Tiempo</th><th>Intentos</th><th>Actualizado</th><th></th></tr></thead>
+          <thead><tr><th>Ficha</th><th>RAA</th><th>VAA</th><th>Tipo</th><th>Preguntas</th><th>Puntaje máx.</th><th>Tiempo</th><th>Intentos</th><th>Actualizado</th><th></th></tr></thead>
           <tbody id="qc-lista-tbody"></tbody>
         </table>
       </section>
@@ -3736,7 +3750,7 @@ for i in range(1, 11):
       <!-- ══ MÓDULO 3 · 3.1 ENTREGA DE EVIDENCIAS (carrusel) ══
            Una evidencia solicitada por RA/GA (ver assets/js/vistas/carrusel-evidencias.js);
            el aprendiz la entrega como archivo y la instructora la aprueba o
-           rechaza desde 3.4 · Aprobar resultados (ver sec-aprobar-resultados). -->
+           rechaza desde 3.5 · sec-semaforo (ver assets/js/vistas/aprobar-resultados.js). -->
       <section class="view-section" id="sec-carrusel-evidencias">
         <div class="sec-header">
           <p>Solicita evidencias por RA/GA y consulta lo que los aprendices han entregado.</p>
@@ -3767,35 +3781,6 @@ for i in range(1, 11):
           </div>
           <div id="ce-visor" class="mb-2"></div>
           <div class="d-flex flex-wrap gap-2 align-items-start" id="ce-acciones"></div>
-        </div>
-      </section>
-
-      <!-- ══ MÓDULO 3 · 3.4 APROBAR RESULTADOS ══
-           La instructora elige un RA (y su GA vinculada) y aprueba o rechaza
-           la evidencia que cada aprendiz entregó para esa guía puntual (ver
-           assets/js/vistas/aprobar-resultados.js). Usa el mismo catálogo de
-           3.1 · Entrega de evidencias. -->
-      <section class="view-section" id="sec-aprobar-resultados">
-        <div class="sec-header">
-          <p>Selecciona un RA — y opcionalmente su GA — para revisar y aprobar las evidencias que los aprendices entregaron.</p>
-        </div>
-
-        <div class="d-flex flex-wrap gap-2 align-items-center sec-actions">
-          <select class="form-select" id="ar-ra" style="max-width:220px;"><option value="">Selecciona un RA…</option></select>
-          <select class="form-select" id="ar-ga" style="max-width:220px;" disabled><option value="">Todas las GA</option></select>
-          <button type="button" class="btn btn-action btn-secondary" id="ar-refrescar">Actualizar</button>
-        </div>
-
-        <div class="section-table">
-          <div class="tabla-header">
-            <h2>Entregas para revisar</h2>
-            <span class="repo-conteo" id="ar-conteo">—</span>
-          </div>
-          <table class="table table-hover align-middle data-table">
-            <thead><tr><th>Aprendiz</th><th>GA</th><th>Evidencia</th><th>Archivo</th><th>Fecha</th><th>Estado</th><th>Acción</th></tr></thead>
-            <tbody id="ar-tbody"></tbody>
-          </table>
-          <p class="bloque-nota" id="ar-vacio">Selecciona un RA para ver las entregas de sus aprendices.</p>
         </div>
       </section>
 
