@@ -2,10 +2,8 @@
    Moneda de score generalizado — navbar del aprendiz (pages/aprendiz.html)
 
    Reemplaza el antiguo "Cambiar Clave" del navbar. Muestra, con una
-   moneda pixel-art que gira, la suma de puntosGanados de los RA de uso
-   general (VAA de práctica, ver assets/js/evaluacion/quiz-crear-general.js)
-   — no el puntaje ponderado contra el objetivo de la ficha, que ya se ve
-   en 3.2 Resultados.
+   moneda pixel-art que gira, el mismo scoreSimple ("🏆 Score") que ya
+   se ve en 3.2 Resultados — debe coincidir siempre con ese número.
 ══════════════════════════════════════════ */
 
 .nav-coin {

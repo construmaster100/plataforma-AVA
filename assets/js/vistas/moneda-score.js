@@ -1,11 +1,12 @@
 /* ══════════════════════════════════════════
    Moneda de score generalizado — navbar del aprendiz (pages/aprendiz.html)
 
-   Suma los aciertos de los RA de uso general (ficha "general", ver
-   assets/js/evaluacion/quiz-crear-general.js) desde el mismo
-   GET /api/quizzes/puntaje/:cedula que ya usan 3.2 Resultados y el
-   listado del instructor — no es un puntaje nuevo, es un recorte de
-   ese mismo dato para mostrarlo de forma vistosa en el navbar.
+   Muestra scoreSimple: el mismo "🏆 Score" (acumulado directo, suma cada
+   reporte sin ponderar) que ya se ve en 3.2 Resultados, tanto en el
+   propio panel del aprendiz (resultados-eval-aprendiz.js) como en el
+   listado del instructor (resultados-eval-instructor.js) — mismo
+   GET /api/quizzes/puntaje/:cedula, sin recorte por ficha: debe
+   coincidir siempre con lo que 3.2 muestra para ese aprendiz.
 ══════════════════════════════════════════ */
 
 async function actualizarMonedaScoreGeneral() {
@@ -17,10 +18,7 @@ async function actualizarMonedaScoreGeneral() {
 
   try {
     const datos = await (await fetch('/api/quizzes/puntaje/' + encodeURIComponent(cedula))).json();
-    const scoreGeneral = (datos.porRAA || [])
-      .filter(raa => raa.ficha === 'general')
-      .reduce((suma, raa) => suma + raa.modulos.reduce((s, m) => s + m.aciertos, 0), 0);
-    valorEl.textContent = Math.round(scoreGeneral);
+    valorEl.textContent = Math.round(datos.scoreSimple || 0);
   } catch (e) { /* deja el valor previo en pantalla */ }
 }
 
