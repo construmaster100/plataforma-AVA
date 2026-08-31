@@ -131,8 +131,11 @@ async function abrirFormularioQD(quizEntry, params) {
   }
 
   const puntajeMaximo = quiz.preguntas.reduce((suma, p) => suma + p.puntos, 0);
-  document.getElementById('qdr-titulo').textContent =
-    `RA-${String(quizEntry.raId).padStart(2, '0')} · AA${quizEntry.aa} · Módulo ${quizEntry.modulo}`;
+  const tituloModulo = `RA-${String(quizEntry.raId).padStart(2, '0')} · AA${quizEntry.aa} · Módulo ${quizEntry.modulo}`;
+  // El título va solo en la barra titulo-vista (patrón del resto del
+  // sitio) — esta sección no lleva su propio <h1> para no duplicarlo.
+  const barraTitulo = document.getElementById('titulo-vista');
+  if (barraTitulo) barraTitulo.textContent = tituloModulo;
   document.getElementById('qdr-subtitulo').textContent =
     `${quiz.preguntas.length} preguntas · máximo ${puntajeMaximo} puntos`;
   document.getElementById('qdr-msg').textContent = '';
