@@ -88,17 +88,12 @@
 
         <li>
           <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/SENA/panel.JPG" alt="">2. Modulo 2</span>
+            <span><img class="icon-left icon-img" src="../assets/img/SENA/chulo.JPG" alt="">2. Módulo 2</span>
             <span class="arrow">❯</span>
           </button>
           <ul class="submenu">
-            <li><a href="#" data-view="sec-presentar">2.1 Presentación de evaluaciones / Consulta de retroalimentación</a></li>
-            <li class="menu-grupo">2.2 Seguimiento del avance académico</li>
-            <li><a href="#" class="sub-item" data-view="sec-progreso-ra">2.21 Barra de progreso — 5 de 72 (100%)</a></li>
-            <li><a href="#" class="sub-item" data-view="sec-progreso-ra">2.22 Tabla de RA: nombre y estado (verde = aprobado, amarillo = no aprobado, rojo = sin presentar)</a></li>
-            <li><a href="#" data-view="sec-puntajes">2.3 Dashboard académico</a></li>
-            <li><a href="#" data-view="sec-ficha-aprendizaje">2.4 Seguimiento por resultados de aprendizaje</a></li>
-            <li><a href="#" data-view="sec-historial-acad">2.5 Historial académico del aprendiz</a></li>
+            <li><a href="#" data-view="sec-quiz-dinamico">2.1 Presentar Quiz/Evaluación</a></li>
+            <li><a href="#" data-view="sec-resultados-eval">2.2 Resultados de evaluación</a></li>
           </ul>
         </li>
 
@@ -114,17 +109,6 @@
             <li><a href="#" data-view="sec-repositorio">3.4 Gestión de repositorios de evidencias</a></li>
             <li><a href="#" data-view="sec-cronograma">3.5 Seguimiento de entregas</a></li>
             <li><a href="#" data-view="sec-historial-ver">3.6 Historial de versiones de evidencias</a></li>
-          </ul>
-        </li>
-
-        <li>
-          <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/SENA/chulo.JPG" alt="">4. Módulo 4</span>
-            <span class="arrow">❯</span>
-          </button>
-          <ul class="submenu">
-            <li><a href="#" data-view="sec-quiz-dinamico">4.1 Presentar Quiz/Evaluación</a></li>
-            <li><a href="#" data-view="sec-resultados-eval">4.2 Resultados de evaluación</a></li>
           </ul>
         </li>
 
@@ -2986,22 +2970,6 @@
 
       <!-- ══ DASHBOARD ACADÉMICO ══ -->
 
-      <!-- ══ HISTORIAL ACADÉMICO ══ -->
-      <section class="view-section" id="sec-historial-acad">
-        <div class="sec-header">
-                    <p>Consulta tus calificaciones y retroalimentaciones por módulo y actividad</p>
-        </div>
-        <table class="table table-hover align-middle data-table">
-          <thead><tr><th>Módulo</th><th>Actividad</th><th>Fecha entrega</th><th>Calificación</th><th>Estado</th></tr></thead>
-          <tbody>
-            <tr><td>Módulo 2</td><td>Cuestionario — Bases de datos</td><td>2026-06-10</td><td>Aprobado</td><td><span class="badge status-badge status-active">Aprobado</span></td></tr>
-            <tr><td>Módulo 3</td><td>Ejercicio Python 1</td><td>2026-06-18</td><td>Aprobado</td><td><span class="badge status-badge status-active">Aprobado</span></td></tr>
-            <tr><td>Módulo 2</td><td>Evaluación Módulo 1</td><td>2026-06-20</td><td>No aprobado</td><td><span class="badge status-badge status-inactive">No aprobado</span></td></tr>
-            <tr><td>Módulo 3</td><td>Ejercicio Python 2</td><td>2026-06-22</td><td>Pendiente</td><td><span class="badge status-badge status-closed">En revisión</span></td></tr>
-          </tbody>
-        </table>
-      </section>
-
       <!-- ══ EJERCICIOS ══ -->
       <section class="view-section" id="sec-ejercicios-ap">
         <div class="sec-header">
@@ -3419,33 +3387,6 @@
             });
           })();
         </script>
-      </section>
-
-      <!-- ══ MI PROGRESO (72 RA) ══
-           Sistema global de clasificación: 72 Resultados de Aprendizaje,
-           4 actividades fijas cada uno (288 casillas totales). Se llena
-           consultando el catálogo (server/routes/actividades.js) y el
-           historial de resultados del aprendiz, y cruzando por
-           cuestionarioId. Ver assets/js/evaluacion/progreso-ra.js. -->
-      <section class="view-section" id="sec-progreso-ra">
-        <div class="sec-header">
-                    <p>Cada resultado de aprendizaje tiene 4 actividades. El progreso general se completa cuando
-             las 4 quedan en Aprobado.</p>
-        </div>
-
-        <div class="puntajes-bloque">
-          <p class="puntajes-bajada" id="progreso-ra-resumen">Cargando…</p>
-          <div class="progress-bar"><div class="progress-fill" id="progreso-ra-barra" style="width:0%"></div></div>
-        </div>
-
-        <div class="table-responsive">
-          <table class="table table-hover align-middle data-table">
-            <thead>
-              <tr><th>RA</th><th>Actividad 1</th><th>Actividad 2</th><th>Actividad 3</th><th>Actividad 4</th></tr>
-            </thead>
-            <tbody id="progreso-ra-tbody"></tbody>
-          </table>
-        </div>
       </section>
 
       <!-- ══ TABLERO DE PUNTAJES ══ -->
@@ -4765,19 +4706,6 @@
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- ══ FICHA DE APRENDIZAJE ══ -->
-      <section class="view-section" id="sec-ficha-aprendizaje">
-        <div class="sec-header">
-                    <p>Mi avance personal. Consulte el estado de sus resultados de aprendizaje. La calificación la registra su instructor, por lo que esta vista es de solo lectura.</p>
-        </div>
-        <div class="sec-actions">
-          <a class="btn btn-action btn-secondary" target="_blank" rel="noopener"
-             href="resultadosdeaprendizajeADSO.html?rol=aprendiz">↗ Abrir en pestaña aparte</a>
-        </div>
-        <iframe class="marco-ra" title="Resultados de aprendizaje ADSO" loading="lazy"
-                src="resultadosdeaprendizajeADSO.html?rol=aprendiz&amp;embed=1"></iframe>
       </section>
 
       <!-- ══ REPOSITORIO DE LA FICHA ══ -->

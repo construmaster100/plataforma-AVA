@@ -88,22 +88,12 @@
 
         <li>
           <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/SENA/buscar.JPG" alt="">2. Modulo 2</span>
+            <span><img class="icon-left icon-img" src="../assets/img/SENA/pizarra.JPG" alt="">2. Módulo 2</span>
             <span class="arrow">❯</span>
           </button>
           <ul class="submenu">
-            <li><a href="#" data-view="sec-crear-eval">2.1 Creación de evaluaciones</a></li>
-            <li><a href="#" data-view="sec-admin-eval">2.2 Administración de evaluaciones</a></li>
-            <li><a href="#" data-view="sec-revisar">2.3 Revisión de código</a></li>
-            <li><a href="#" data-view="sec-retro-cod">2.4 Retroalimentación sobre código</a></li>
-            <li><a href="#" data-view="sec-dashboard-inst">2.5 Indicadores de desempeño</a></li>
-            <li class="menu-grupo">2.6 Seguimiento por resultados de aprendizaje</li>
-            <li><a href="#" class="sub-item" data-view="sec-tabla-score-ra">Avance y score por RA (asignar/editar)</a></li>
-            <li><a href="#" class="sub-item" data-view="sec-reportes-quiz">Score acumulado por aprendiz</a></li>
-            <li><a href="#" class="sub-item" data-view="sec-ra-cards-instructor">Progreso por RA (cards)</a></li>
-            <li><a href="#" data-view="sec-alertas">2.7 Alertas tempranas</a></li>
-            <li><a href="#" data-view="sec-reportes">2.8 Generación de reportes académicos</a></li>
-            <li><a href="#" data-view="sec-grafica-avance">2.9 Comparativo de desempeño</a></li>
+            <li><a href="#" data-view="sec-crear-quiz">2.1 Crear Quiz/Evaluación</a></li>
+            <li><a href="#" data-view="sec-resultados-eval-inst">2.2 Resultados de evaluación</a></li>
           </ul>
         </li>
 
@@ -120,17 +110,6 @@
             <li><a href="#" data-view="sec-semaforo">3.5 Seguimiento de entregas</a></li>
             <li><a href="#" data-view="sec-historial">3.6 Historial de versiones de evidencias</a></li>
             <li><a href="#" data-view="sec-practica-ins">3.7 Evaluación de ejercicios prácticos</a></li>
-          </ul>
-        </li>
-
-        <li>
-          <button class="menu-btn" aria-expanded="false">
-            <span><img class="icon-left icon-img" src="../assets/img/SENA/pizarra.JPG" alt="">4. Módulo 4</span>
-            <span class="arrow">❯</span>
-          </button>
-          <ul class="submenu">
-            <li><a href="#" data-view="sec-crear-quiz">4.1 Crear Quiz/Evaluación</a></li>
-            <li><a href="#" data-view="sec-resultados-eval-inst">4.2 Resultados de evaluación</a></li>
           </ul>
         </li>
 
@@ -659,17 +638,6 @@
         </section>
       </section>
 
-      <!-- ══ ALERTAS ══ -->
-      <section class="view-section" id="sec-alertas">
-        <div class="sec-header">
-                    <p>RF09 — Generadas solas: baja asistencia ponderada, bajo avance o módulo «No aprobado» en el plan de mejora</p>
-        </div>
-        <table class="table table-hover align-middle data-table">
-          <thead><tr><th>Aprendiz</th><th>Causa de alerta</th><th>Detalle</th><th>Nivel</th></tr></thead>
-          <tbody id="alertas-tbody"></tbody>
-        </table>
-      </section>
-
       <!-- ══ GESTIONAR EJERCICIOS ══ -->
       <!-- ══ COMPONENTE 3 · panel de entrada: práctica, entregas y evaluación ══ -->
       <section class="view-section" id="sec-modulo3">
@@ -1169,82 +1137,6 @@ for i in range(1, 11):
                     <p>Vista previa del material que el aprendiz desbloquea para acumular puntos y aportar al plan de mejora.</p>
         </div>
         <div class="grid-tarjetas grid-4" id="practica-ins-tarjetas"></div>
-      </section>
-
-      <!-- ══ REPORTES DE CUESTIONARIOS (API de server/) ══
-           Puntaje acumulado por aprendiz, agrupado por cédula sobre
-           cualquier "cuestionario" reportado a /api/resultados — hoy
-           SENAEnglish (pages/quiz.html), y cualquier otra prueba que
-           postee ahí a futuro, sin cambios adicionales. -->
-      <section class="view-section" id="sec-reportes-quiz">
-        <div class="sec-header">
-                    <p>Puntaje acumulado por aprendiz en todos los cuestionarios reportados al servidor
-             (SENAEnglish y cualquier otra prueba conectada), en vivo desde la API.</p>
-        </div>
-        <p class="notif-card" id="reportes-quiz-estado">Cargando…</p>
-        <table class="table table-hover align-middle data-table">
-          <thead>
-            <tr><th>Aprendiz</th><th>Cédula</th><th>Cuestionarios</th><th>Puntaje acum.</th><th>%</th><th>Última fecha</th><th></th></tr>
-          </thead>
-          <tbody id="reportes-quiz-tbody"></tbody>
-        </table>
-        <div id="reportes-quiz-detalle" class="notif-card" hidden></div>
-      </section>
-
-      <!-- ══ PROGRESO POR RA (CARDS) ══
-           Mismo sistema de cards que ve el aprendiz en "Presentar
-           Evaluación" (assets/js/evaluacion/ra-cards-render.js), aquí
-           con selector de ficha/aprendiz para que el instructor (y el
-           administrador, mismo panel con ?admin=1) vea el progreso de
-           cualquiera, no el suyo. -->
-      <section class="view-section" id="sec-ra-cards-instructor">
-        <div class="sec-header">
-                    <p>Elige un aprendiz para ver sus resultados de aprendizaje con el mismo formato de cards que él ve al presentar.</p>
-        </div>
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          <div class="input-group input-group-sm" style="max-width:220px;" id="rac-ficha-grupo" hidden>
-            <span class="input-group-text">Ficha</span>
-            <select class="form-select" id="rac-ficha-selector"></select>
-          </div>
-          <div class="input-group input-group-sm" style="max-width:280px;">
-            <span class="input-group-text">Aprendiz</span>
-            <select class="form-select" id="rac-aprendiz-selector"></select>
-          </div>
-        </div>
-        <p class="notif-card" id="rac-estado">Selecciona un aprendiz.</p>
-        <div class="btn-group flex-wrap mb-3" role="group" id="rac-selector"></div>
-        <div id="rac-contenedor"></div>
-      </section>
-
-      <!-- ══ ASIGNAR SCORE POR RA ══
-           Sistema global de 72 Resultados de Aprendizaje × 4 actividades
-           (server/routes/actividades.js). El instructor asigna/corrige
-           el puntaje de cualquier aprendiz en cualquier casilla, sin
-           tope — reusa POST /api/resultados (server/routes/resultados.js),
-           el mismo endpoint que ya usan los quices. -->
-      <section class="view-section" id="sec-tabla-score-ra">
-        <div class="sec-header">
-                    <p>Elige un resultado de aprendizaje para ver sus 4 actividades y asignar o corregir el
-             puntaje de cada aprendiz de la ficha.</p>
-        </div>
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          <div class="input-group input-group-sm" style="max-width:220px;" id="score-ficha-grupo" hidden>
-            <span class="input-group-text">Ficha</span>
-            <select class="form-select" id="score-ficha-selector"></select>
-          </div>
-        </div>
-        <!-- Las 72 RA como cards (5 para English): con contenido cargado
-             resaltadas, sin contenido igual seleccionables (la tabla de
-             abajo avisa que falta cargar material) — así el instructor ve
-             de un vistazo el alcance completo del programa. -->
-        <div class="btn-group flex-wrap mb-3" role="group" id="score-ra-cards"></div>
-        <p class="notif-card" id="score-ra-estado">Selecciona un RA.</p>
-        <div class="table-responsive">
-          <table class="table table-hover align-middle data-table">
-            <thead><tr id="score-ra-encabezado"><th>Actividad</th></tr></thead>
-            <tbody id="score-ra-tbody"></tbody>
-          </table>
-        </div>
       </section>
 
       <!-- ══ 2.6 ACTIVIDAD DE APRENDIZAJE (AA1..AA5 de RA-01) ══
