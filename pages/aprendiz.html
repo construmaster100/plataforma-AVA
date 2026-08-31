@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../assets/css/arbol.css">
   <link rel="stylesheet" href="../assets/css/franja-media.css">
   <link rel="stylesheet" href="../assets/css/analitica.css">
+  <link rel="stylesheet" href="../assets/css/moneda-score.css">
 </head>
 <body data-rol="Aprendiz">
 
@@ -29,7 +30,24 @@
     <a href="#" class="navbar-user" id="btn-tablero-inicio" data-view="sec-home">Inicio</a>
     <div class="navbar-right">
       <button class="nav-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#bandejaCorreo" aria-controls="bandejaCorreo">📬 Bandeja de correo</button>
-      <div class="nav-item">Cambiar Clave</div>
+      <!-- Antes "Cambiar Clave" (sin función real). Ahora: moneda pixel-art
+           que gira con el score de los RA de uso general (3.7 · RA general
+           nuevo) — ver assets/css/moneda-score.css + assets/js/vistas/moneda-score.js. -->
+      <div class="nav-item nav-coin" title="Score de RA de uso general (VAA de práctica)">
+        <span class="pixel-coin-caja"><span class="pixel-coin"><svg viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="0" width="6" height="1" fill="#8a5a00"/>
+          <rect x="1" y="7" width="6" height="1" fill="#8a5a00"/>
+          <rect x="0" y="1" width="1" height="6" fill="#8a5a00"/>
+          <rect x="7" y="1" width="1" height="6" fill="#8a5a00"/>
+          <rect x="1" y="1" width="6" height="2" fill="#ffd700"/>
+          <rect x="1" y="5" width="6" height="2" fill="#ffd700"/>
+          <rect x="1" y="3" width="2" height="2" fill="#ffd700"/>
+          <rect x="5" y="3" width="2" height="2" fill="#ffd700"/>
+          <rect x="3" y="3" width="2" height="2" fill="#fff4b8"/>
+        </svg></span></span>
+        <span class="nav-coin-etiqueta">Score</span>
+        <span class="nav-coin-valor" id="nav-coin-valor">0</span>
+      </div>
       <div class="nav-item notif-item">🔔</div>
       <a class="nav-item" href="../index.html">Salir ➜</a>
     </div>
@@ -4962,6 +4980,7 @@
   <script src="../assets/js/vistas/carrusel-guias.js"></script>
   <script src="../assets/js/vistas/carrusel-chequeo.js"></script>
   <script src="../assets/js/vistas/carrusel-material.js"></script>
+  <script src="../assets/js/vistas/moneda-score.js"></script>
   <script src="../assets/js/vistas/carrusel-evidencias.js"></script>
 
   <script>
